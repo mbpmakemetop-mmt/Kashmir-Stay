@@ -50,7 +50,7 @@
 <meta name="ICBM" content="34.0837, 74.7973"/>
 
 <!-- ═══ PWA ═══ -->
-<link rel="manifest" href="./kashmirstay-manifest.json"/>
+<link rel="manifest" href="./manifest.json"/>
 <link rel="apple-touch-icon" href="icon-192.png"/>
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"/>
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png"/>
@@ -3221,7 +3221,7 @@ function showInstallInstructions() {
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   deferredInstallPrompt = e;
-  const dismissed = localStorage.getItem('mbp_install_dismissed');
+  const dismissed = localStorage.getItem('ks_install_dismissed');
   const recentlyDismissed = dismissed && Date.now() - parseInt(dismissed) < 3 * 24 * 60 * 60 * 1000;
   if (!recentlyDismissed) {
     setTimeout(() => document.getElementById('install-prompt').classList.add('show'), 4000);
@@ -3232,7 +3232,7 @@ window.addEventListener('beforeinstallprompt', e => {
 document.getElementById('install-btn').onclick = () => triggerInstall();
 document.getElementById('install-dismiss').onclick = () => {
   document.getElementById('install-prompt').classList.remove('show');
-  localStorage.setItem('mbp_install_dismissed', Date.now());
+  localStorage.setItem('ks_install_dismissed', Date.now());
 };
 
 window.addEventListener('appinstalled', () => {
@@ -3249,7 +3249,7 @@ window.addEventListener('load', () => {
   updateInstallButtonVisibility();
   const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
   const isInstalled = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-  const dismissed = localStorage.getItem('mbp_install_dismissed');
+  const dismissed = localStorage.getItem('ks_install_dismissed');
   if (isIOS && !isInstalled && !dismissed) {
     setTimeout(() => {
       const p = document.getElementById('install-prompt');
