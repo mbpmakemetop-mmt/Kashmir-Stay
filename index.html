@@ -50,7 +50,7 @@
 <meta name="ICBM" content="34.0837, 74.7973"/>
 
 <!-- ═══ PWA ═══ -->
-<link rel="manifest" href="./manifest.json"/>
+<link rel="manifest" href="./kashmirstay-manifest.json"/>
 <link rel="apple-touch-icon" href="icon-192.png"/>
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"/>
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png"/>
@@ -2511,7 +2511,13 @@ function injectBizSchema(b) {
   });
 }
 
-function openWebsite() { let url=currentBizData?.website; if(!url)return; if(!url.startsWith('http'))url='https://'+url; window.open(url,'_blank','noopener'); }
+function openWebsite() { 
+  if(currentBizData?.id) trackEvent(currentBizData.id,'website'); 
+  let url=currentBizData?.website; 
+  if(!url)return; 
+  if(!url.startsWith('http'))url='https://'+url; 
+  window.open(url,'_blank','noopener'); 
+}
 
 // ══════════════════════════════════════
 //  REVIEWS (with 1-per-user check)
@@ -2939,7 +2945,11 @@ async function adminResolveClaim(claimId, action, bizId, newOwnerUid, newOwnerEm
     loadAdmin();
   } catch(e) { showToast('❌ Error: ' + e.message); }
 }
-function callBusiness() { if (!currentBizData?.phone) return; window.location.href='tel:'+currentBizData.phone.replace(/\s/g,''); }
+function callBusiness() { 
+  if (!currentBizData?.phone) return; 
+  if(currentBizData?.id) trackEvent(currentBizData.id,'phone'); 
+  window.location.href='tel:'+currentBizData.phone.replace(/\s/g,''); 
+}
 function whatsappBusiness() { if(currentBizData?.id) trackEvent(currentBizData.id,'whatsapp'); const num=(currentBizData?.whatsapp||currentBizData?.phone||'').replace(/\D/g,''); if(!num){showToast('⚠️ WhatsApp not available');return;} window.open('https://wa.me/'+(num.startsWith('91')?num:'91'+num),'_blank'); }
 function shareBusiness() {
   if (!currentBizData) return;
@@ -3221,7 +3231,7 @@ function showInstallInstructions() {
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   deferredInstallPrompt = e;
-  const dismissed = localStorage.getItem('ks_install_dismissed');
+  const dismissed = localStorage.getItem('mbp_install_dismissed');
   const recentlyDismissed = dismissed && Date.now() - parseInt(dismissed) < 3 * 24 * 60 * 60 * 1000;
   if (!recentlyDismissed) {
     setTimeout(() => document.getElementById('install-prompt').classList.add('show'), 4000);
@@ -3232,7 +3242,7 @@ window.addEventListener('beforeinstallprompt', e => {
 document.getElementById('install-btn').onclick = () => triggerInstall();
 document.getElementById('install-dismiss').onclick = () => {
   document.getElementById('install-prompt').classList.remove('show');
-  localStorage.setItem('ks_install_dismissed', Date.now());
+  localStorage.setItem('mbp_install_dismissed', Date.now());
 };
 
 window.addEventListener('appinstalled', () => {
@@ -3249,7 +3259,7 @@ window.addEventListener('load', () => {
   updateInstallButtonVisibility();
   const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
   const isInstalled = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-  const dismissed = localStorage.getItem('ks_install_dismissed');
+  const dismissed = localStorage.getItem('mbp_install_dismissed');
   if (isIOS && !isInstalled && !dismissed) {
     setTimeout(() => {
       const p = document.getElementById('install-prompt');
