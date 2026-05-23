@@ -3,50 +3,104 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <!-- MakeMe Top | makemetop.in -->
-  <!-- Generated: 2026-05-23T12:11:51.859Z -->
+  <!-- Generated: 2026-05-23T16:03:23.469Z -->
   <!-- Total profiles: 12 | With images: 12 -->
 
   <url>
-    <loc>https://makemetop.in/</loc>
+    <loc>https://kashmirstay.in/</loc>
     <lastmod>2026-05-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://makemetop.in/help-ai.html</loc>
+    <loc>https://kashmirstay.in/about.html</loc>
     <lastmod>2026-05-23</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://makemetop.in/about.html</loc>
+    <loc>https://kashmirstay.in/contact.html</loc>
     <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://makemetop.in/privacy.html</loc>
+    <loc>https://kashmirstay.in/faq.html</loc>
     <lastmod>2026-05-23</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://makemetop.in/terms.html</loc>
+    <loc>https://kashmirstay.in/terms.html</loc>
     <lastmod>2026-05-23</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://makemetop.in/refund.html</loc>
+    <loc>https://kashmirstay.in/privacy.html</loc>
     <lastmod>2026-05-23</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/disclaimer.html</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/blog/beautiful-places-in-kashmir.html</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/blog/kashmir-travel-guide.html</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/blog/dal-lake-guide.html</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/blog/gulmarg-guide.html</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/blog/pahalgam-guide.html</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/blog/gurez-valley-guide.html</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/blog/sinthan-top-guide.html</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/blog/kashmir-skiing-guide.html</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
 
   <!-- Hunt Kashmir 365 | Travel Agency | Premium -->
   <url>
-    <loc>https://makemetop.in/biz.html?id=5N1wXoTwPaCgsPtXDjDm</loc>
+    <loc>https://kashmirstay.in/biz/hunt-kashmir-365.html</loc>
     <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -59,7 +113,7 @@
 
   <!-- Vellfire Holidays | Travel Agency | Premium -->
   <url>
-    <loc>https://makemetop.in/biz.html?id=BJMATHvIiwQNulUpSkfS</loc>
+    <loc>https://kashmirstay.in/biz/vellfire-holidays.html</loc>
     <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -72,7 +126,7 @@
 
   <!-- Sunway Kashmir | Travel Agency | Premium -->
   <url>
-    <loc>https://makemetop.in/biz.html?id=N7ynVtdHfajwtALMjelf</loc>
+    <loc>https://kashmirstay.in/biz/sunway-kashmir.html</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -85,7 +139,7 @@
 
   <!-- Lake House Palace | Resort | Premium -->
   <url>
-    <loc>https://makemetop.in/biz.html?id=RWMGlXwAGI7K3MHXql3K</loc>
+    <loc>https://kashmirstay.in/biz/lake-house-palace.html</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -98,7 +152,7 @@
 
   <!-- Kashmir Glide tour and travel | Travel Agency | Premium -->
   <url>
-    <loc>https://makemetop.in/biz.html?id=V2pBWCupeg0TA1KG1at0</loc>
+    <loc>https://kashmirstay.in/biz/kashmir-glide-tour-and-travel.html</loc>
     <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -111,7 +165,7 @@
 
   <!-- Olympias Athena | Houseboat | Premium -->
   <url>
-    <loc>https://makemetop.in/biz.html?id=VoZuuLlmC8HfsqS0dOSo</loc>
+    <loc>https://kashmirstay.in/biz/olympias-athena.html</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -124,7 +178,7 @@
 
   <!-- Havenly Horizon Tours | Travel Agency | Premium -->
   <url>
-    <loc>https://makemetop.in/biz.html?id=VpFkFtCExrcGMC0X459J</loc>
+    <loc>https://kashmirstay.in/biz/havenly-horizon-tours.html</loc>
     <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -137,7 +191,7 @@
 
   <!-- Aadi Tour &amp; Travel | Travel Agency | Premium -->
   <url>
-    <loc>https://makemetop.in/biz.html?id=ZlLPimn6T0YstEPX3IMz</loc>
+    <loc>https://kashmirstay.in/biz/aadi-tour-travel.html</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -150,7 +204,7 @@
 
   <!-- Hotel Dal Nights | Hotel | Premium -->
   <url>
-    <loc>https://makemetop.in/biz.html?id=bn7xSpIuXsTlKESHeSWj</loc>
+    <loc>https://kashmirstay.in/biz/hotel-dal-nights.html</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -163,7 +217,7 @@
 
   <!-- Kashmir SinthantopTour &amp; Travel | Travel Agency | Premium -->
   <url>
-    <loc>https://makemetop.in/biz.html?id=ctTfsSHJeV5NqoLMDkkZ</loc>
+    <loc>https://kashmirstay.in/biz/kashmir-sinthantoptour-travel.html</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -176,7 +230,7 @@
 
   <!-- Sun Seekers | Travel Agency | Premium -->
   <url>
-    <loc>https://makemetop.in/biz.html?id=dEu2OCPa7REwbXVvCHKU</loc>
+    <loc>https://kashmirstay.in/biz/sun-seekers.html</loc>
     <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -199,7 +253,7 @@ J...</image:caption>
 
   <!-- 356 Holiday Travels | Travel Agency | Premium -->
   <url>
-    <loc>https://makemetop.in/biz.html?id=qvoUWvWaw3rzoDLFPEiU</loc>
+    <loc>https://kashmirstay.in/biz/356-holiday-travels.html</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
