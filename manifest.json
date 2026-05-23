@@ -1,14 +1,14 @@
 {
   "name": "Kashmir Stay – Hotels, Resorts & Travel",
   "short_name": "Kashmir Stay",
-  "description": "Find verified hotels, resorts, travel agencies, and houseboats in Kashmir. Browse tours in Srinagar, Gulmarg, Pahalgam, Sonamarg, and Dal Lake. Book your Kashmir trip today!",
+  "description": "Find verified hotels, resorts, travel agencies, and houseboats in Kashmir. Browse tours in Srinagar, Gulmarg, Pahalgam, Sonamarg, and Dal Lake.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#FFFFFF",
   "theme_color": "#1F1F1F",
-  "categories": ["travel", "tourism", "lifestyle", "business"],
+  "categories": ["travel", "tourism", "lifestyle"],
   "icons": [
     {
       "src": "/icon-192.png",
@@ -23,61 +23,27 @@
       "purpose": "any maskable"
     }
   ],
-  "screenshots": [
-    {
-      "src": "/screenshot-mobile.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Kashmir Stay Home"
-    },
-    {
-      "src": "/screenshot-desktop.png",
-      "sizes": "1920x1080",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Browse Kashmir Hotels"
-    }
-  ],
   "shortcuts": [
     {
       "name": "Search Hotels",
       "short_name": "Search",
       "description": "Search Kashmir hotels and travel agencies",
       "url": "/?action=search",
-      "icons": [
-        {
-          "src": "/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
+      "icons": [{"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"}]
     },
     {
-      "name": "Browse Resorts",
-      "short_name": "Resorts",
-      "description": "Find resorts in Kashmir",
-      "url": "/?category=Resort",
-      "icons": [
-        {
-          "src": "/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
+      "name": "Travel Guides",
+      "short_name": "Guides",
+      "description": "Read Kashmir travel guides",
+      "url": "/blog/kashmir-travel-guide.html",
+      "icons": [{"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"}]
     },
     {
       "name": "List Your Business",
-      "short_name": "List",
+      "short_name": "List Business",
       "description": "Add your business to Kashmir Stay",
       "url": "https://makemetop.in",
-      "icons": [
-        {
-          "src": "/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
+      "icons": [{"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"}]
     }
   ]
 }
