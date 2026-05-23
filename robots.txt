@@ -1,0 +1,158 @@
+# ════════════════════════════════════════════════════════════════════
+# Kashmir Stay - robots.txt
+# Website: https://kashmirstay.in
+# Business Profile Directory for Kashmir
+# Last Updated: 2026-05-16
+# ════════════════════════════════════════════════════════════════════
+
+# ─── DEFAULT RULES (All Bots) ───────────────────────────────────────
+
+User-agent: *
+Allow: /
+
+# Public pages - explicitly allow
+Allow: /index.html
+Allow: /about.html
+Allow: /privacy.html
+Allow: /terms.html
+Allow: /disclaimer.html
+Allow: /beautiful-places-in-kashmir.html
+Allow: /dal-lake-guide.html
+Allow: /kashmir-travel-guide.html
+Allow: /gulmarg-guide.html
+Allow: /pahalgam-guide.html
+
+# Static assets
+Allow: /css/
+Allow: /js/
+Allow: /assets/
+Allow: /icon-*.png
+Allow: /manifest.json
+
+# Crawl delay (be nice to server)
+Crawl-delay: 1
+
+# ─── SITEMAP LOCATION ───────────────────────────────────────────────
+
+Sitemap: https://kashmirstay.in/sitemap.xml
+
+# ─── GOOGLE BOT ─────────────────────────────────────────────────────
+
+User-agent: Googlebot
+Allow: /
+
+# Google Images - allow all images
+User-agent: Googlebot-Image
+Allow: /
+
+# Google Mobile - optimize for mobile
+User-agent: Googlebot-Mobile
+Allow: /
+
+# ─── BING BOT ───────────────────────────────────────────────────────
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# ─── OTHER SEARCH ENGINES ───────────────────────────────────────────
+
+# Yandex (Russian search engine)
+User-agent: Yandex
+Allow: /
+
+# Baidu (Chinese search engine)
+User-agent: Baiduspider
+Allow: /
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+
+# ─── SOCIAL MEDIA CRAWLERS ──────────────────────────────────────────
+
+# Facebook (for Open Graph previews)
+User-agent: facebookexternalhit
+Allow: /
+
+# Twitter (for Twitter Card previews)
+User-agent: Twitterbot
+Allow: /
+
+# WhatsApp (for link previews)
+User-agent: WhatsApp
+Allow: /
+
+# LinkedIn (for link previews)
+User-agent: LinkedInBot
+Allow: /
+
+# Telegram (for link previews)
+User-agent: TelegramBot
+Allow: /
+
+# Pinterest
+User-agent: Pinterest
+Allow: /
+
+# ─── BLOCK BAD BOTS ─────────────────────────────────────────────────
+
+# SEO analysis bots (aggressive crawlers)
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: DotBot
+Disallow: /
+
+# Email harvesters
+User-agent: EmailCollector
+Disallow: /
+
+User-agent: EmailSiphon
+Disallow: /
+
+# Content scrapers
+User-agent: WebReaper
+Disallow: /
+
+User-agent: WebCopier
+Disallow: /
+
+User-agent: Offline Explorer
+Disallow: /
+
+User-agent: HTTrack
+Disallow: /
+
+User-agent: wget
+Disallow: /
+
+User-agent: curl
+Disallow: /
+
+# Generic bad bots
+User-agent: *BadBot*
+Disallow: /
+
+User-agent: *Scraper*
+Disallow: /
+
+# ════════════════════════════════════════════════════════════════════
+# NOTES
+# ════════════════════════════════════════════════════════════════════
+#
+# 1. This robots.txt allows all legitimate search engines
+# 2. Admin pages are blocked from indexing
+# 3. Social media crawlers can access for link previews
+# 4. Aggressive SEO bots and scrapers are blocked
+# 5. Sitemap is at: https://kashmirstay.in/sitemap.xml
+#
+# To test: https://www.google.com/webmasters/tools/robots-testing-tool
+#
+# ════════════════════════════════════════════════════════════════════
