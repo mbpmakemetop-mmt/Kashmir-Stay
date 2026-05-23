@@ -1,78 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
+
   <!-- Main Homepage -->
-  <url>
-    <loc>https://kashmirstay.in/</loc>
-    <priority>1.0</priority>
-    <changefreq>daily</changefreq>
-  </url>
-  
+  <url><loc>https://kashmirstay.in/</loc><priority>1.0</priority><changefreq>daily</changefreq></url>
+
   <!-- Legal Pages -->
-  <url>
-    <loc>https://kashmirstay.in/about.html</loc>
-    <priority>0.9</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/terms.html</loc>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/privacy.html</loc>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/disclaimer.html</loc>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  
+  <url><loc>https://kashmirstay.in/about.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://kashmirstay.in/terms.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://kashmirstay.in/privacy.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://kashmirstay.in/disclaimer.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://kashmirstay.in/contact.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://kashmirstay.in/faq.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+
   <!-- Kashmir Travel Guides -->
-  <url>
-    <loc>https://kashmirstay.in/blog/beautiful-places-in-kashmir.html</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/blog/kashmir-travel-guide.html</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/blog/dal-lake-guide.html</loc>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/blog/gulmarg-guide.html</loc>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/blog/pahalgam-guide.html</loc>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/blog/gurez-valley-guide.html</loc>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/blog/sinthan-top-guide.html</loc>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/blog/kashmir-skiing-guide.html</loc>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  
-  <!-- Business Listings (from Firebase - will be auto-generated) -->
-  <!-- Add individual business pages here when generated -->
-  
+  <url><loc>https://kashmirstay.in/blog/beautiful-places-in-kashmir.html</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/blog/kashmir-travel-guide.html</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/blog/dal-lake-guide.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/blog/gulmarg-guide.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/blog/pahalgam-guide.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/blog/gurez-valley-guide.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/blog/sinthan-top-guide.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/blog/kashmir-skiing-guide.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+
+  <!-- Business Listings -->
+  <url><loc>https://kashmirstay.in/biz/hunt-kashmir-365.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/biz/vellfire-holidays.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/biz/sunway-kashmir.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/biz/lake-house-palace.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/biz/kashmir-glide-tour-and-travel.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/biz/olympias-athena.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/biz/havenly-horizon-tours.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/biz/aadi-tour-travel.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/biz/hotel-dal-nights.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/biz/kashmir-sinthantoptour-travel.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/biz/sun-seekers.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://kashmirstay.in/biz/356-holiday-travels.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
 </urlset>
