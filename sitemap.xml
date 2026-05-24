@@ -1,38 +1,293 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
-  <!-- Main Homepage -->
-  <url><loc>https://kashmirstay.in/</loc><priority>1.0</priority><changefreq>daily</changefreq></url>
+  <!-- MakeMe Top | makemetop.in -->
+  <!-- Generated: 2026-05-24T10:09:09.506Z -->
+  <!-- Total profiles: 14 | With images: 14 -->
 
-  <!-- Legal Pages -->
-  <url><loc>https://kashmirstay.in/about.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://kashmirstay.in/terms.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://kashmirstay.in/privacy.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://kashmirstay.in/disclaimer.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://kashmirstay.in/contact.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://kashmirstay.in/faq.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url>
+    <loc>https://kashmirstay.in/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/about.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/contact.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/faq.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/terms.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/privacy.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/disclaimer.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/blog/beautiful-places-in-kashmir.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/blog/kashmir-travel-guide.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/blog/dal-lake-guide.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/blog/gulmarg-guide.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/blog/pahalgam-guide.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/blog/gurez-valley-guide.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/blog/sinthan-top-guide.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/blog/kashmir-skiing-guide.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
-  <!-- Kashmir Travel Guides -->
-  <url><loc>https://kashmirstay.in/blog/beautiful-places-in-kashmir.html</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/blog/kashmir-travel-guide.html</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/blog/dal-lake-guide.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/blog/gulmarg-guide.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/blog/pahalgam-guide.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/blog/gurez-valley-guide.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/blog/sinthan-top-guide.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/blog/kashmir-skiing-guide.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
 
-  <!-- Business Listings -->
-  <url><loc>https://kashmirstay.in/biz/hunt-kashmir-365.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/biz/vellfire-holidays.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/biz/sunway-kashmir.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/biz/lake-house-palace.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/biz/kashmir-glide-tour-and-travel.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/biz/olympias-athena.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/biz/havenly-horizon-tours.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/biz/aadi-tour-travel.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/biz/hotel-dal-nights.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/biz/kashmir-sinthantoptour-travel.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/biz/sun-seekers.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://kashmirstay.in/biz/356-holiday-travels.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <!-- Hunt Kashmir 365 | Travel Agency | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/hunt-kashmir-365.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2F5N1wXoTwPaCgsPtXDjDm%2Flogo%2F1779463712008_2023-08-18.webp?alt=media&amp;token=12048925-d075-4a9b-b330-53068643825c</image:loc>
+      <image:title>Hunt Kashmir 365</image:title>
+      <image:caption>Experience the breathtaking beauty of Kashmir with Hunt Kashmir 365. Our travel agency in Srinagar offers personalized tours to iconic destinations li...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Vellfire Holidays | Travel Agency | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/vellfire-holidays.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FBJMATHvIiwQNulUpSkfS%2Flogo%2F1778928226412_download.webp?alt=media&amp;token=42f75ad4-b98c-4241-8fbc-b47598b14574</image:loc>
+      <image:title>Vellfire Holidays</image:title>
+      <image:caption>Vellfire Holidays is a trusted travel and transport agency based in Nawakadel, Srinagar, Jammu &amp; Kashmir. We specialize in creating memorable Kashmir ...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Sunway Kashmir | Travel Agency | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/sunway-kashmir.html</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FN7ynVtdHfajwtALMjelf%2Flogo%2F1778915900172_mbp_biz_IWp1C8m2_1778566904372_1778566936080.jpg?alt=media&amp;token=602095ac-9a71-4d1c-92df-33d2d5d8cf8c</image:loc>
+      <image:title>Sunway Kashmir</image:title>
+      <image:caption>Sunway Kashmir Tour &amp; Travel is a trusted Srinagar-based travel agency offering customized Kashmir tour packages, hotel bookings, houseboat stays, and...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- United Royal Tours And Travels | Travel Agency | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/united-royal-tours-and-travels.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>data:image/webp;base64,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</image:loc>
+      <image:title>United Royal Tours And Travels</image:title>
+      <image:caption>Experience the natural beauty of Kashmir with United Royal Tours And Travels, based in Srinagar. We offer customized tours to stunning destinations li...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Lake House Palace | Resort | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/lake-house-palace.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FRWMGlXwAGI7K3MHXql3K%2Flogo%2F1778928509769_2026-04-12%20(3).webp?alt=media&amp;token=20b30760-6125-44fc-a1b1-ccc0497a644a</image:loc>
+      <image:title>Lake House Palace</image:title>
+      <image:caption>Lake House Palace is a serene lakeside retreat located at Nigeen Ghat No.2, Srinagar. Built with a passion for Kashmiri hospitality, we offer guests a...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- RAAJ N RAAJ TOUR AND TRAVELS | Travel Agency | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/raaj-n-raaj-tour-and-travels.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FRlog0bwLTSbdlhugX6Mk%2Flogo%2F1779614683106_unnamed.jpg?alt=media&amp;token=a53a99cd-bd98-4c31-8c46-2e3e3c53a005</image:loc>
+      <image:title>RAAJ N RAAJ TOUR AND TRAVELS</image:title>
+      <image:caption>Experience the natural beauty of Kashmir with RAAJ N RAAJ TOUR AND TRAVELS, your trusted guide to exploring Srinagar, Gulmarg, and Pahalgam. We offer ...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Kashmir Glide tour and travel | Travel Agency | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/kashmir-glide-tour-and-travel.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FV2pBWCupeg0TA1KG1at0%2Flogo%2F1778926693021_mbp_biz_1776441624924_1776441625198.jpg?alt=media&amp;token=25cefb60-3571-4e87-b140-88ebe9c2ae6a</image:loc>
+      <image:title>Kashmir Glide tour and travel</image:title>
+      <image:caption>Experience the serene beauty of Kashmir with Kashmir Glide tour and travel, situated in the heart of Srinagar. Our hotel offers stunning views of Dal ...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Olympias Athena | Houseboat | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/olympias-athena.html</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FVoZuuLlmC8HfsqS0dOSo%2Flogo%2F1778949925177_DSC_0044-toolvera.webp?alt=media&amp;token=eea5082b-71a4-4a61-99d6-c83ea936fe1a</image:loc>
+      <image:title>Olympias Athena</image:title>
+      <image:caption>**Olympias Athena Group of Houseboats** is a luxury family-owned houseboat stay at Dal Lake, Srinagar, offering authentic Kashmiri hospitality, beauti...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Havenly Horizon Tours | Travel Agency | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/havenly-horizon-tours.html</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FVpFkFtCExrcGMC0X459J%2Flogo%2F1778925776096_mbp_biz_1776921334379_1776921334651.jpg?alt=media&amp;token=6bf40417-6079-41fa-ae09-629e29fd6313</image:loc>
+      <image:title>Havenly Horizon Tours</image:title>
+      <image:caption>At Heavenly Horizon Tours, we believe travel is more than just visiting destinations — it’s about creating unforgettable experiences that stay with yo...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Aadi Tour &amp; Travel | Travel Agency | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/aadi-tour-travel.html</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FZlLPimn6T0YstEPX3IMz%2Flogo%2F1778927926943_download.webp?alt=media&amp;token=eb337d98-fbef-471b-91fe-7ae3c74f31d5</image:loc>
+      <image:title>Aadi Tour &amp; Travel</image:title>
+      <image:caption>Aadi Tour &amp; Travel offers reliable cab services, hotel bookings, and complete tour packages across Kashmir, Ladakh, Delhi, and Pune. We provide airpor...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Hotel Dal Nights | Hotel | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/hotel-dal-nights.html</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2Fbn7xSpIuXsTlKESHeSWj%2Flogo%2F1778915535164_mbp_biz_1778649054434_1778649054793.jpg?alt=media&amp;token=02d74919-612b-4695-a9c8-3ba8ed4bbe22</image:loc>
+      <image:title>Hotel Dal Nights</image:title>
+      <image:caption>Experience the serene beauty of Kashmir at Hotel Dal Nights, nestled in the heart of Srinagar. Our hotel offers stunning views of Dal Lake and easy ac...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Kashmir SinthantopTour &amp; Travel | Travel Agency | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/kashmir-sinthantoptour-travel.html</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FctTfsSHJeV5NqoLMDkkZ%2Flogo%2F1778915082551_download.webp?alt=media&amp;token=cf3188e5-e0ef-4455-ae7d-639fae2110be</image:loc>
+      <image:title>Kashmir SinthantopTour &amp; Travel</image:title>
+      <image:caption>Kashmir Sinthan Top is a travel and tourism service provider offering authentic Himalayan experiences, guided tours, luxury hotel arrangements, and sa...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Sun Seekers | Travel Agency | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/sun-seekers.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FdEu2OCPa7REwbXVvCHKU%2Flogo%2F1778927566681_download.webp?alt=media&amp;token=5a515ca8-6f64-4e9e-9fc4-a4bf8f96f204</image:loc>
+      <image:title>Sun Seekers</image:title>
+      <image:caption>Travel Company
+
+Group Tours | Honeymoon Packages | Corporate Tours |
+
+Family Trips
+
+Govt. Registered (JKEA00005731)
+
+Trusted Kashmir Travel Experts
+
+J...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 356 Holiday Travels | Travel Agency | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/356-holiday-travels.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FqvoUWvWaw3rzoDLFPEiU%2Flogo%2F1779464185171_logo.png?alt=media&amp;token=c6689d6b-70bd-4348-a231-8bf3efb7ad05</image:loc>
+      <image:title>356 Holiday Travels</image:title>
+      <image:caption>Experience the beauty of Kashmir with 365 Holiday Travel, your trusted partner for seamless journeys. From Srinagar's picturesque Dal Lake to the stun...</image:caption>
+    </image:image>
+  </url>
+
 </urlset>
