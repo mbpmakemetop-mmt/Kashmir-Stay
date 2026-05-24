@@ -1,49 +1,125 @@
 {
-  "name": "Kashmir Stay – Hotels, Resorts & Travel",
+  "name": "Kashmir Stay – Hotels, Resorts & Travel Directory",
   "short_name": "Kashmir Stay",
-  "description": "Find verified hotels, resorts, travel agencies, and houseboats in Kashmir. Browse tours in Srinagar, Gulmarg, Pahalgam, Sonamarg, and Dal Lake.",
+  "description": "Discover verified hotels, resorts, travel agencies, and houseboats across Kashmir. Browse Srinagar, Gulmarg, Pahalgam, Sonamarg, Dal Lake tours.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "background_color": "#FFFFFF",
   "theme_color": "#1F1F1F",
-  "categories": ["travel", "tourism", "lifestyle"],
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": [
+    "travel",
+    "lifestyle"
+  ],
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icon-512.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/home.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Browse Kashmir hotels, resorts and travel agencies"
+    },
+    {
+      "src": "screenshots/business.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Verified business profiles with reviews and photos"
+    },
+    {
+      "src": "screenshots/search.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Search hotels and travel agencies in Kashmir"
+    },
+    {
+      "src": "screenshots/guides.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Kashmir travel guides and destination info"
     }
   ],
   "shortcuts": [
     {
       "name": "Search Hotels",
       "short_name": "Search",
-      "description": "Search Kashmir hotels and travel agencies",
+      "description": "Find Kashmir hotels and travel agencies",
       "url": "/?action=search",
-      "icons": [{"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"}]
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "List Business",
+      "short_name": "Add",
+      "description": "Add your business to Kashmir Stay",
+      "url": "/?action=add",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     },
     {
       "name": "Travel Guides",
       "short_name": "Guides",
       "description": "Read Kashmir travel guides",
       "url": "/blog/kashmir-travel-guide.html",
-      "icons": [{"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"}]
-    },
-    {
-      "name": "List Your Business",
-      "short_name": "List Business",
-      "description": "Add your business to Kashmir Stay",
-      "url": "https://makemetop.in",
-      "icons": [{"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"}]
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
-  ]
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.kashmirstay.app",
+      "id": "com.kashmirstay.app"
+    }
+  ],
+  "prefer_related_applications": false,
+  "share_target": {
+    "action": "/share",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
 }
