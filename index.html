@@ -64,6 +64,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" sizes="128x128" href="favicon.png">
 
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3499114279910810"
      crossorigin="anonymous"></script>
 
@@ -398,6 +399,10 @@
         <div class="cat-chip" data-cat="Shikara" onclick="filterCat(this,'Shikara')" role="listitem"><div class="cat-icon">🚤</div><div class="cat-label">Shikara</div></div>
         <div class="cat-chip" data-cat="Skiing" onclick="filterCat(this,'Skiing')" role="listitem"><div class="cat-icon">⛷️</div><div class="cat-label">Skiing</div></div>
         <div class="cat-chip" data-cat="Guest House" onclick="filterCat(this,'Guest House')" role="listitem"><div class="cat-icon">🏡</div><div class="cat-label">Guest House</div></div>
+        <div class="cat-chip" data-cat="Tour Operator" onclick="filterCat(this,'Tour Operator')" role="listitem"><div class="cat-icon">🗺️</div><div class="cat-label">Tours</div></div>
+        <div class="cat-chip" data-cat="Adventure" onclick="filterCat(this,'Adventure')" role="listitem"><div class="cat-icon">🧗</div><div class="cat-label">Adventure</div></div>             
+        <div class="cat-chip" data-cat="Camping" onclick="filterCat(this,'Camping')" role="listitem"><div class="cat-icon">⛺</div><div class="cat-label">Camping</div></div>    
+        <div class="cat-chip" data-cat="Trekking" onclick="filterCat(this,'Trekking')" role="listitem"><div class="cat-icon">🥾</div><div class="cat-label">Trekking</div></div>
       </div>
     </div>
 
@@ -1140,6 +1145,16 @@ let selectedRating = 0, currentAdminStatus = 'pending', draftSaveTimeout = null;
 let galleryFiles = [null,null,null], deferredInstallPrompt = null;
 let editingReviewId = null, currentChatConversationId = null;
 let chatUnsubscribe = null, adminChatConvId = null, adminChatUnsubscribe = null;
+
+// ══════════════════════════════════════
+//  SLUG HELPER — matches biz page generator
+// ══════════════════════════════════════
+function bizSlug(name) {
+  return (name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').substring(0, 60);
+}
+function bizStaticUrl(b) {
+  return 'https://kashmirstay.in/biz/' + bizSlug(b.name) + '.html';
+}
 
 // ══════════════════════════════════════
 //  ROUTING
@@ -2357,7 +2372,7 @@ async function openBizDetail(bizId) {
     document.getElementById('detail-gallery').innerHTML = imgs.map(u=>`<img src="${u}" loading="lazy" onclick="openLightbox('${u}')" alt="${escapeHtml(b.name)} photo"/>`).join('');
     document.getElementById('detail-gallery-section').style.display = imgs.length?'block':'none';
     const qrDiv = document.getElementById('detail-qr'); qrDiv.innerHTML = '';
-    try { new QRCode(qrDiv, {text:'https://kashmirstay.in/?biz='+bizId, width:128, height:128, colorDark:'#1F1F1F', colorLight:'#fff', correctLevel:QRCode.CorrectLevel.M}); } catch(e){}
+    try { new QRCode(qrDiv, {text:bizStaticUrl(b), width:128, height:128, colorDark:'#1F1F1F', colorLight:'#fff', correctLevel:QRCode.CorrectLevel.M}); } catch(e){}
     loadReviews(bizId);
     navTo('biz-detail');
   } catch(e) { console.error(e); showToast('❌ Failed to load business'); }
@@ -2394,7 +2409,7 @@ function injectBizSchema(b) {
     },
     "thumbnail": b.cover_url || b.logo_url || 'https://kashmirstay.in/icon-512.png',
     "telephone": b.phone || '',
-    "url": `https://kashmirstay.in/?biz=${b.id}`,
+    "url": bizStaticUrl(b),
     "identifier": `mbp-${b.id}`,
     "address": {
       "@type": "PostalAddress",
@@ -2417,7 +2432,7 @@ function injectBizSchema(b) {
     "paymentAccepted": "Cash, UPI, Card",
     "inLanguage": "en-IN",
     "sameAs": [
-      `https://kashmirstay.in/?biz=${b.id}`,
+      bizStaticUrl(b),
       ...(b.website ? [b.website] : [])
     ],
     "isPartOf": {
@@ -2472,7 +2487,7 @@ function injectBizSchema(b) {
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Kashmir Stay – Kashmir Stay", "item": "https://kashmirstay.in" },
       { "@type": "ListItem", "position": 2, "name": b.type || "Business", "item": `https://kashmirstay.in/?category=${encodeURIComponent(b.type||'')}` },
-      { "@type": "ListItem", "position": 3, "name": b.name + " – Kashmir Stay", "item": `https://kashmirstay.in/?biz=${b.id}` }
+      { "@type": "ListItem", "position": 3, "name": b.name + " – Kashmir Stay", "item": bizStaticUrl(b) }
     ]
   };
   const bScript = document.createElement('script');
@@ -2489,8 +2504,8 @@ function injectBizSchema(b) {
   if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.name='description'; document.head.appendChild(metaDesc); }
   metaDesc.content = `${b.name} Kashmir Stay – ${b.type||'Business'} in Srinagar, J&K. ${b.description ? b.description.slice(0,100)+'...' : 'View address, phone, reviews & contact.'} Listed on Kashmir Stay – J&K's #1 business directory.`;
 
-  // ── Canonical → biz.html (Google-indexable static URL) ──
-  const bizPageUrl = `https://kashmirstay.in/biz.html?id=${b.id}`;
+  // ── Canonical → static slug URL (matches generated biz pages) ──
+  const bizPageUrl = bizStaticUrl(b);
   let canonical = document.querySelector('link[rel="canonical"]');
   if (!canonical) { canonical = document.createElement('link'); canonical.rel='canonical'; document.head.appendChild(canonical); }
   canonical.href = bizPageUrl;
@@ -2594,11 +2609,11 @@ async function submitReview() {
   const { addDoc, collection, serverTimestamp, doc, updateDoc, getDoc, getDocs, query: fsQ, where } = window._collections;
 
   // Check 1 review per user per business
-  // Check 1 review per user per business (admins bypass this limit)
-  if (!editingReviewId && !isAdmin()) {
+  if (!editingReviewId) {
     const existing = await getDocs(fsQ(collection(window._db,'reviews'), where('business_id','==',currentBizData.id), where('user_id','==',window._currentUser.uid)));
     if (!existing.empty) { showToast('⚠️ You already reviewed this business'); closeModal('modal-review'); return; }
   }
+
   const submitBtn = document.getElementById('review-submit-btn');
   if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Posting…'; }
 
@@ -2951,7 +2966,7 @@ function callBusiness() {
 function whatsappBusiness() { if(currentBizData?.id) trackEvent(currentBizData.id,'whatsapp'); const num=(currentBizData?.whatsapp||currentBizData?.phone||'').replace(/\D/g,''); if(!num){showToast('⚠️ WhatsApp not available');return;} window.open('https://wa.me/'+(num.startsWith('91')?num:'91'+num),'_blank'); }
 function shareBusiness() {
   if (!currentBizData) return;
-  const url = `https://kashmirstay.in/biz.html?id=${currentBizData.id}`;
+  const url = bizStaticUrl(currentBizData);
   if (navigator.share) {
     navigator.share({ title: currentBizData.name + ' – Kashmir Stay', text: 'Check out ' + currentBizData.name + ' on Kashmir Stay – Kashmir Stay, Srinagar J&K!', url });
   } else {
