@@ -3,105 +3,131 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <!-- MakeMe Top | makemetop.in -->
-  <!-- Generated: 2026-05-24T10:09:09.506Z -->
-  <!-- Total profiles: 14 | With images: 14 -->
+  <!-- Generated: 2026-05-30T09:39:10.349Z -->
+  <!-- Total profiles: 20 | With images: 20 -->
 
   <url>
     <loc>https://kashmirstay.in/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/about.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/contact.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/faq.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/terms.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/privacy.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/disclaimer.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/beautiful-places-in-kashmir.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/kashmir-travel-guide.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/dal-lake-guide.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/gulmarg-guide.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/pahalgam-guide.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/gurez-valley-guide.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/sinthan-top-guide.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/kashmir-skiing-guide.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
 
+  <!-- Srinagar Destination Tour And Travels | Travel Agency | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/srinagar-destination-tour-and-travels.html</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2F4uA12PugOKeSbHMKivSx%2Flogo%2F1780131369998_1648966757176.jpg?alt=media&amp;token=45fbec26-602e-4fc0-a814-e0bad789874d</image:loc>
+      <image:title>Srinagar Destination Tour And Travels</image:title>
+      <image:caption>There are many variations of passages of available, but the majority have of suffered alteration in There are many variations of passages.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- The Eco Village Resort Srinagar | Resort | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/the-eco-village-resort-srinagar.html</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2F5FXkpc27LGnUgJE1Nnib%2Flogo%2F1780132289339_unnamed.jpg?alt=media&amp;token=1f86ee00-5b55-4dcc-b839-07c1820ad57d</image:loc>
+      <image:title>The Eco Village Resort Srinagar</image:title>
+      <image:caption>Experience the serene beauty of Kashmir at The Eco Village Resort Srinagar, nestled near iconic destinations like Dal Lake and Mughal Gardens. Our res...</image:caption>
+    </image:image>
+  </url>
+
   <!-- Hunt Kashmir 365 | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/hunt-kashmir-365.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -114,7 +140,7 @@
   <!-- Vellfire Holidays | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/vellfire-holidays.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -140,7 +166,7 @@
   <!-- United Royal Tours And Travels | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/united-royal-tours-and-travels.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -166,7 +192,7 @@
   <!-- RAAJ N RAAJ TOUR AND TRAVELS | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/raaj-n-raaj-tour-and-travels.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -176,10 +202,23 @@
     </image:image>
   </url>
 
+  <!-- Kashmir Holiday Resort | Resort | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/kashmir-holiday-resort.html</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FSfhQ01MrsTo9oSGyK8VN%2Flogo%2F1780131843881_unnamed.jpg?alt=media&amp;token=62e18f75-fce8-4d65-a12f-1b8896c98ed7</image:loc>
+      <image:title>Kashmir Holiday Resort</image:title>
+      <image:caption>Immerse yourself in the serene beauty of Kashmir at Kashmir Holiday Resort in Srinagar. Our resort is the perfect base to explore iconic destinations ...</image:caption>
+    </image:image>
+  </url>
+
   <!-- Kashmir Glide tour and travel | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/kashmir-glide-tour-and-travel.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -257,7 +296,7 @@
   <!-- Sun Seekers | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/sun-seekers.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -277,16 +316,55 @@ J...</image:caption>
     </image:image>
   </url>
 
-  <!-- 356 Holiday Travels | Travel Agency | Premium -->
+  <!-- 365 Holiday Travels | Travel Agency | Premium -->
   <url>
-    <loc>https://kashmirstay.in/biz/356-holiday-travels.html</loc>
-    <lastmod>2026-05-22</lastmod>
+    <loc>https://kashmirstay.in/biz/365-holiday-travels.html</loc>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FqvoUWvWaw3rzoDLFPEiU%2Flogo%2F1779464185171_logo.png?alt=media&amp;token=c6689d6b-70bd-4348-a231-8bf3efb7ad05</image:loc>
-      <image:title>356 Holiday Travels</image:title>
+      <image:title>365 Holiday Travels</image:title>
       <image:caption>Experience the beauty of Kashmir with 365 Holiday Travel, your trusted partner for seamless journeys. From Srinagar's picturesque Dal Lake to the stun...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- UT Kashmir Tour and Travels | Travel Agency | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/ut-kashmir-tour-and-travels.html</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2Fsqp4rfcFIoHJoBYqfyAH%2Flogo%2F1780131329250_unnamed%20(1).jpg?alt=media&amp;token=170e2726-52ef-494e-bc4d-d74fa2853f2d</image:loc>
+      <image:title>UT Kashmir Tour and Travels</image:title>
+      <image:caption>Experience the breathtaking beauty of Kashmir with UT Kashmir Tour and Travels, your trusted partner for unforgettable journeys. We offer seamless tra...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Lassa Bhat Guest House | Guest House | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/lassa-bhat-guest-house.html</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FuGxX0dHxAXttGTtXJwKr%2Flogo%2F1780133423771_unnamed.jpg?alt=media&amp;token=a724ff62-0db6-402f-8e29-5fe0ffbe2242</image:loc>
+      <image:title>Lassa Bhat Guest House</image:title>
+      <image:caption>Experience the warmth of Kashmiri hospitality at Lassa Bhat Guest House in Srinagar, perfectly located for exploring the city's iconic Dal Lake and Mu...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Char Chinar Dal lake | Shikara | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/char-chinar-dal-lake.html</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FzC5qbtlIiIYTDPID27xO%2Flogo%2F1780132716237_unnamed.jpg?alt=media&amp;token=d3389532-2495-4081-9de0-4e2fd2c2b1cd</image:loc>
+      <image:title>Char Chinar Dal lake</image:title>
+      <image:caption>Experience the serene beauty of Kashmir with Char Chinar Dal lake, offering houseboat stays and shikara rides on the tranquil Dal Lake in Srinagar. Ex...</image:caption>
     </image:image>
   </url>
 
