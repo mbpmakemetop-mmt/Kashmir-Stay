@@ -1173,7 +1173,7 @@ function showAuth(view) {
   document.getElementById('main-app').style.display = 'none';
   ['login','signup','forgot'].forEach(v => document.getElementById('view-'+v).style.display = v === view ? 'flex' : 'none');
 }
-function navTo(page) {
+function navTo(page, fromPopState) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const target = document.getElementById('page-' + page);
   if (!target) { showToast('Page coming soon!'); return; }
@@ -1181,6 +1181,8 @@ function navTo(page) {
   document.querySelectorAll('.nav-item[data-page]').forEach(b => b.classList.toggle('active', b.dataset.page === page));
   if (page !== currentPage) pageHistory.push(currentPage);
   currentPage = page;
+  // Push browser history entry so device back button works in PWA
+  if (!fromPopState) history.pushState({ page: page }, '', '');
   if (page === 'settings') { updateSettingsUI(window._currentUser||null); updateInstallButtonVisibility(); }
   if (page === 'dashboard') loadDashboard();
   if (page === 'admin') loadAdmin();
@@ -1191,6 +1193,17 @@ function navTo(page) {
   if (page === 'biz-detail' && currentBizData) injectBizSchema(currentBizData);
 }
 function navBack() { if (pageHistory.length > 0) { navTo(pageHistory.pop()); } else { navTo('home'); } }
+// Device back button — go back within app instead of exiting
+window.addEventListener('popstate', function(e) {
+  if (pageHistory.length > 0) {
+    navTo(pageHistory.pop(), true);
+  } else {
+    navTo('home', true);
+  }
+});
+// Seed one history entry so the very first back press is caught
+history.pushState({ page: 'home' }, '', '');
+  
 document.querySelectorAll('.cat-scroll').forEach(scroller => {
   scroller.addEventListener('wheel', function(e){
     if(e.deltaY !== 0){
