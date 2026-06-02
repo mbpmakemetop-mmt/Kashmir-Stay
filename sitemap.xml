@@ -3,124 +3,105 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <!-- MakeMe Top | makemetop.in -->
-  <!-- Generated: 2026-05-31T07:16:33.593Z -->
-  <!-- Total profiles: 20 | With images: 20 -->
+  <!-- Generated: 2026-06-02T11:24:46.631Z -->
+  <!-- Total profiles: 22 | With images: 22 -->
 
   <url>
     <loc>https://kashmirstay.in/</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/about.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/contact.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/faq.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/terms.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/privacy.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/disclaimer.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/beautiful-places-in-kashmir.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/kashmir-travel-guide.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/dal-lake-guide.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/gulmarg-guide.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/pahalgam-guide.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/gurez-valley-guide.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/sinthan-top-guide.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/kashmir-skiing-guide.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
- <url>
-    <loc>https://kashmirstay.in/blog/where-to-stay-in-srinagar.html</loc>
-    <lastmod>2026-05-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
 
-         <url>
-    <loc>https://kashmirstay.in/blog/jktdc-huts-srinagar.html</loc>
-    <lastmod>2026-05-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-         <url>
-    <loc>https://kashmirstay.in/blog/top-10-tourist-places-in-kashmir.html</loc>
-    <lastmod>2026-05-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-        
   <!-- Srinagar Destination Tour And Travels | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/srinagar-destination-tour-and-travels.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -146,7 +127,7 @@
   <!-- Hunt Kashmir 365 | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/hunt-kashmir-365.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -156,16 +137,42 @@
     </image:image>
   </url>
 
+  <!-- Zostel Srinagar | Hotel | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/zostel-srinagar.html</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2F8inuSK8CiJ42wQD6ZNAa%2Flogo%2F1780329676325_unnamed%20(2).webp?alt=media&amp;token=92b3b714-9d9b-4036-bc9c-1db51cf26149</image:loc>
+      <image:title>Zostel Srinagar</image:title>
+      <image:caption>Today, we're more than just hostels. We're a movement that's making travel accessible to everyone, fostering cultural exchange, and building lifelong ...</image:caption>
+    </image:image>
+  </url>
+
   <!-- Vellfire Holidays | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/vellfire-holidays.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FBJMATHvIiwQNulUpSkfS%2Flogo%2F1778928226412_download.webp?alt=media&amp;token=42f75ad4-b98c-4241-8fbc-b47598b14574</image:loc>
       <image:title>Vellfire Holidays</image:title>
       <image:caption>Vellfire Holidays is a trusted travel and transport agency based in Nawakadel, Srinagar, Jammu &amp; Kashmir. We specialize in creating memorable Kashmir ...</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Radisson Hotel Srinagar | Hotel | Premium -->
+  <url>
+    <loc>https://kashmirstay.in/biz/radisson-hotel-srinagar.html</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/makeme-top.firebasestorage.app/o/businesses%2FDtNi0bkJjy33VvIyZyEA%2Flogo%2F1780330101428_unnamed%20(5).webp?alt=media&amp;token=ef78b404-cfd9-42cd-9096-0df900188250</image:loc>
+      <image:title>Radisson Hotel Srinagar</image:title>
+      <image:caption>Experience the warm hospitality of Kashmir at Radisson Hotel Srinagar, perfectly located to explore the city's iconic destinations like Dal Lake and M...</image:caption>
     </image:image>
   </url>
 
@@ -185,7 +192,7 @@
   <!-- United Royal Tours And Travels | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/united-royal-tours-and-travels.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -211,7 +218,7 @@
   <!-- RAAJ N RAAJ TOUR AND TRAVELS | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/raaj-n-raaj-tour-and-travels.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -237,7 +244,7 @@
   <!-- Kashmir Glide tour and travel | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/kashmir-glide-tour-and-travel.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -315,7 +322,7 @@
   <!-- Sun Seekers | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/sun-seekers.html</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
