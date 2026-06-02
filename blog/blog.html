@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- SEO Meta Tags -->
+    <title>Kashmir Travel Blog | Tourist Guides, Hotels & Adventures | Explore Kashmir</title>
+    <meta name="description" content="Explore Kashmir with our comprehensive travel guides, hotel reviews, and tourist destination guides. Discover Dal Lake, Gulmarg, Pahalgam, and more beautiful places in Kashmir.">
+    <meta name="keywords" content="Kashmir travel, tourist places Kashmir, Dal Lake guide, Gulmarg skiing, Srinagar hotels, Kashmir travel guide, tourist attractions, adventure Kashmir">
+    <meta name="author" content="Kashmir Travel Guide">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    
+    <!-- Geo-Targeting Meta Tags -->
+    <meta name="geo.position" content="34.0836;75.5724">
+    <meta name="geo.placename" content="Jammu and Kashmir, India">
+    <meta name="geo.region" content="IN-JK">
+    <meta name="ICBM" content="34.0836, 75.5724">
+    
+    <!-- Open Graph Tags for Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Kashmir Travel Blog | Complete Tourist Guides & Destination Reviews">
+    <meta property="og:description" content="Your ultimate guide to Kashmir tourism. Explore guides on Dal Lake, Gulmarg, Pahalgam, Srinagar hotels and more tourist destinations.">
+    <meta property="og:site_name" content="Kashmir Travel Blog">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kashmir Travel Blog">
+    <meta name="twitter:description" content="Complete travel guides for Kashmir tourism and attractions">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yourdomain.com/blog.html">
+    
+    <!-- Structured Data - Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "mainEntity": {
+            "@type": "Blog",
+            "name": "Kashmir Travel Blog",
+            "description": "Comprehensive travel guides for Kashmir tourism, attractions, hotels and adventure destinations",
+            "url": "https://yourdomain.com/blog.html",
+            "image": "https://yourdomain.com/images/kashmir-banner.jpg"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Kashmir Travel Guide",
+            "url": "https://yourdomain.com"
+        }
+    }
+    </script>
+    
+    <!-- Additional SEO Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Kashmir Travel Blog",
+        "address": {
+            "@type": "PostalAddress",
+            "addressRegion": "Jammu and Kashmir",
+            "addressCountry": "IN"
+        },
+        "areaServed": "Kashmir, Ladakh, Northern India",
+        "url": "https://yourdomain.com"
+    }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-light: #ecf0f1;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #f8f9fa;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb {
+            background-color: white;
+            padding: 12px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9em;
+            color: var(--text-light);
+        }
+
+        .breadcrumb a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Filters & Search */
+        .blog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .filter-category {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background-color: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        /* Blog Posts Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .blog-card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3em;
+        }
+
+        .blog-card-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 12px;
+            font-size: 0.85em;
+            color: var(--text-light);
+            flex-wrap: wrap;
+        }
+
+        .blog-card-category {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-weight: 600;
+            font-size: 0.75em;
+        }
+
+        .blog-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        .blog-card-description {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 0.95em;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .blog-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .read-more-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            display: inline-block;
+        }
+
+        .read-more-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        .read-time {
+            font-size: 0.85em;
+            color: var(--text-light);
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+        }
+
+        .no-results h3 {
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            border: 4px solid var(--bg-light);
+            border-top: 4px solid var(--secondary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .blog-header {
+                flex-direction: column;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-category {
+                justify-content: center;
+            }
+        }
+
+        /* Accessibility */
+        a:focus,
+        button:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header role="banner">
+        <h1>Kashmir Travel Blog</h1>
+        <p>Comprehensive Guides to Kashmir's Most Beautiful Tourist Destinations</p>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a> / <span>Blog</span>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container" role="main">
+        <!-- Blog Header with Search -->
+        <div class="blog-header">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search blog posts..." aria-label="Search blog posts">
+            </div>
+            <div class="filter-category">
+                <button class="filter-btn active" data-filter="all">All Posts</button>
+                <button class="filter-btn" data-filter="guides">Guides</button>
+                <button class="filter-btn" data-filter="hotels">Hotels</button>
+                <button class="filter-btn" data-filter="adventure">Adventure</button>
+            </div>
+        </div>
+
+        <!-- Blog Grid -->
+        <div id="blogContainer" class="blog-grid">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Loading blog posts...</p>
+            </div>
+        </div>
+
+        <!-- No Results Message -->
+        <div id="noResults" class="no-results" style="display: none;">
+            <h3>No posts found</h3>
+            <p>Try adjusting your search or filter criteria</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <p>&copy; 2024 Kashmir Travel Blog. All rights reserved. | <a href="index.html">Home</a> | <a href="blog.html">Blog</a></p>
+    </footer>
+
+    <script>
+        // Blog Posts Data - UPDATE THIS JSON OBJECT WITH YOUR BLOG POSTS
+        const blogPosts = [
+            {
+                id: 1,
+                title: "Beautiful Places in Kashmir",
+                url: "beautiful-places-in-kashmir.html",
+                category: "guides",
+                description: "Discover the most breathtaking and beautiful places in Kashmir. From snow-capped mountains to serene lakes, explore the natural wonders.",
+                emoji: "🏔️",
+                readTime: "8 min read",
+                date: "2026-01-15"
+            },
+            {
+                id: 2,
+                title: "Dal Lake Complete Guide",
+                url: "dal-lake-guide.html",
+                category: "guides",
+                description: "Everything you need to know about Dal Lake - the jewel of Srinagar. Houseboats, shikaras, and breathtaking views await.",
+                emoji: "🏞️",
+                readTime: "7 min read",
+                date: "2026-01-14"
+            },
+            {
+                id: 3,
+                title: "Famous Places to Visit in Kashmir",
+                url: "famous-places-visit-kashmir.html",
+                category: "guides",
+                description: "Top tourist attractions and famous destinations in Kashmir. Complete guide to must-visit places for every traveler.",
+                emoji: "🎯",
+                readTime: "10 min read",
+                date: "2026-01-13"
+            },
+            {
+                id: 4,
+                title: "Gulmarg Travel Guide",
+                url: "gulmarg-guide.html",
+                category: "adventure",
+                description: "Your ultimate guide to Gulmarg - skiing, gondola rides, and alpine meadows. Perfect for adventure seekers.",
+                emoji: "⛷️",
+                readTime: "9 min read",
+                date: "2026-01-12"
+            },
+            {
+                id: 5,
+                title: "Gurez Valley Hidden Gem Guide",
+                url: "gurez-valley-guide.html",
+                category: "guides",
+                description: "Explore the offbeat beauty of Gurez Valley. Trek through pristine forests and experience authentic Kashmiri culture.",
+                emoji: "🌲",
+                readTime: "8 min read",
+                date: "2026-01-11"
+            },
+            {
+                id: 6,
+                title: "Hotels Near Shankaracharya Hill",
+                url: "hotels-near-shankaracharya-hill.html",
+                category: "hotels",
+                description: "Best accommodation options near Shankaracharya Hill temple. Budget to luxury hotels with stunning views.",
+                emoji: "🏨",
+                readTime: "6 min read",
+                date: "2026-01-10"
+            },
+            {
+                id: 7,
+                title: "JKTDC Huts Srinagar",
+                url: "jktdc-huts-srinagar.html",
+                category: "hotels",
+                description: "Affordable and comfortable JKTDC huts in Srinagar. Perfect for budget travelers exploring the city.",
+                emoji: "🏠",
+                readTime: "5 min read",
+                date: "2026-01-09"
+            },
+            {
+                id: 8,
+                title: "Kashmir Skiing Guide",
+                url: "kashmir-skiing-guide.html",
+                category: "adventure",
+                description: "Complete guide to skiing in Kashmir. Best seasons, resorts, and tips for winter sports enthusiasts.",
+                emoji: "🎿",
+                readTime: "7 min read",
+                date: "2026-01-08"
+            },
+            {
+                id: 9,
+                title: "Kashmir Travel Guide",
+                url: "kashmir-travel-guide.html",
+                category: "guides",
+                description: "Comprehensive travel guide to Kashmir. Tips, itineraries, and everything you need to plan your perfect trip.",
+                emoji: "✈️",
+                readTime: "12 min read",
+                date: "2024-01-07"
+            },
+            {
+                id: 10,
+                title: "Pahalgam Guide",
+                url: "pahalgam-guide.html",
+                category: "guides",
+                description: "Pahalgam - the land of shepherds. Trek, fish, and experience nature at its best.",
+                emoji: "🥾",
+                readTime: "8 min read",
+                date: "2026-01-06"
+            },
+            {
+                id: 11,
+                title: "Sinthan Top Guide",
+                url: "sinthan-top-guide.html",
+                category: "adventure",
+                description: "Trek to Sinthan Top - the highest point in Kashmir's south. Experience breathtaking mountain views.",
+                emoji: "⛰️",
+                readTime: "9 min read",
+                date: "2026-01-05"
+            },
+            {
+                id: 12,
+                title: "Top 10 Tourist Places in Kashmir",
+                url: "top-10-tourist-places-in-kashmir.html",
+                category: "guides",
+                description: "Ranked list of the 10 best tourist destinations in Kashmir. Must-visit places for first-time travelers.",
+                emoji: "🌟",
+                readTime: "11 min read",
+                date: "2026-01-04"
+            },
+            {
+                id: 13,
+                title: "Where to Stay in Srinagar",
+                url: "where-to-stay-in-srinagar.html",
+                category: "hotels",
+                description: "Complete guide to accommodation in Srinagar. Hotels, houseboats, and homestays for every budget.",
+                emoji: "🛏️",
+                readTime: "7 min read",
+                date: "2026-01-03"
+            }
+        ];
+
+        // DOM Elements
+        const blogContainer = document.getElementById('blogContainer');
+        const searchInput = document.getElementById('searchInput');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const noResults = document.getElementById('noResults');
+
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderBlogPosts();
+            setupEventListeners();
+        });
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            searchInput.addEventListener('input', (e) => {
+                currentSearch = e.target.value.toLowerCase();
+                renderBlogPosts();
+            });
+
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.dataset.filter;
+                    renderBlogPosts();
+                });
+            });
+        }
+
+        // Filter and render blog posts
+        function renderBlogPosts() {
+            let filteredPosts = blogPosts;
+
+            // Apply category filter
+            if (currentFilter !== 'all') {
+                filteredPosts = filteredPosts.filter(post => post.category === currentFilter);
+            }
+
+            // Apply search filter
+            if (currentSearch) {
+                filteredPosts = filteredPosts.filter(post =>
+                    post.title.toLowerCase().includes(currentSearch) ||
+                    post.description.toLowerCase().includes(currentSearch)
+                );
+            }
+
+            // Render results
+            if (filteredPosts.length === 0) {
+                blogContainer.style.display = 'none';
+                noResults.style.display = 'block';
+            } else {
+                blogContainer.style.display = 'grid';
+                noResults.style.display = 'none';
+                blogContainer.innerHTML = filteredPosts.map(post => createBlogCard(post)).join('');
+            }
+        }
+
+        // Create blog card HTML
+        function createBlogCard(post) {
+            return `
+                <article class="blog-card" itemscope itemtype="https://schema.org/BlogPosting">
+                    <div class="blog-card-image">${post.emoji}</div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-category">${post.category.toUpperCase()}</span>
+                            <time datetime="${post.date}" itemprop="datePublished">${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</time>
+                        </div>
+                        <h3 itemprop="headline">${post.title}</h3>
+                        <p class="blog-card-description" itemprop="description">${post.description}</p>
+                        <div class="blog-card-footer">
+                            <a href="${post.url}" class="read-more-btn" itemprop="url">Read More</a>
+                            <span class="read-time">${post.readTime}</span>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+    </script>
+
+</body>
+</html>
