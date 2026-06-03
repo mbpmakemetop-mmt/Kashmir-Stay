@@ -3,8 +3,8 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <!-- MakeMe Top | makemetop.in -->
-  <!-- Generated: 2026-06-03T15:13:39.327Z -->
-  <!-- Static pages: 46 | Business profiles: 22 | With images: 22 -->
+  <!-- Generated: 2026-06-03T15:40:07.805Z -->
+  <!-- Static pages: 37 | Business profiles: 22 | With images: 22 -->
 
   <url>
     <loc>https://kashmirstay.in/</loc>
@@ -88,24 +88,6 @@
     <loc>https://kashmirstay.in/terms.html</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/anantnag-to-gurez-valley-distance-kashmir-stay.html</loc>
-    <lastmod>2026-06-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/best-season-to-visit-kashmir-stay.html</loc>
-    <lastmod>2026-06-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/best-time-to-visit-kashmir-stay.html</loc>
-    <lastmod>2026-06-03</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
@@ -223,25 +205,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://kashmirstay.in/golden-crown-of-kashmir-tourist-destination-kashmir-stay.html</loc>
-    <lastmod>2026-06-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://kashmirstay.in/guides/dal-lake-houseboats.html</loc>
-    <lastmod>2026-06-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/gulmarg-gondola-guide-kashmir-stay.html</loc>
-    <lastmod>2026-06-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/gulmarg-gondola-phase-1-vs-phase-2-kashmir-stay.html</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -253,12 +217,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kashmirstay.in/honeymoon-in-kashmir-kashmir-stay.html</loc>
-    <lastmod>2026-06-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://kashmirstay.in/packages.html</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -268,18 +226,6 @@
     <loc>https://kashmirstay.in/privacy-policy.html</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/srinagar-to-sinthan-top-distance-kashmir-stay.html</loc>
-    <lastmod>2026-06-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kashmirstay.in/which-part-of-kashmir-is-most-beautiful-kashmir-stay.html</loc>
-    <lastmod>2026-06-03</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
