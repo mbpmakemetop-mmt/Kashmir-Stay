@@ -1291,8 +1291,9 @@ body { display: flex; flex-direction: column; }
       
       <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); text-align: center;">
         <p style="color: var(--text2); font-size: 12px; margin-bottom: 12px;">Or continue with:</p>
-        <button id="google-signin-btn" style="width: 100%; padding: 10px; background: white; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; font-weight: 600; color: var(--text); transition: all 0.3s ease;" onmouseover="this.style.background='#f5f1ed'" onmouseout="this.style.background='white'">
-          🔵 Google Sign-In
+        <button id="google-signin-btn" onclick="firebaseGoogleLogin()" style="width: 100%; padding: 10px; background: white; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; font-weight: 600; color: var(--text); transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Poppins', sans-serif;" onmouseover="this.style.background='#f5f1ed'" onmouseout="this.style.background='white'">
+          <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
+          Continue with Google
         </button>
       </div>
     </div>
@@ -1486,6 +1487,21 @@ function firebaseAnonLogin() {
     });
 }
 
+function firebaseGoogleLogin() {
+  showAuthLoading(true);
+  auth.signInWithPopup(provider)
+    .then(result => {
+      showAuthLoading(false);
+      showToast('✅ Signed in with Google!');
+    })
+    .catch(error => {
+      showAuthLoading(false);
+      if (error.code !== 'auth/popup-closed-by-user') {
+        showToast('❌ ' + error.message);
+      }
+    });
+}
+
 function showAuthLoading(show) {
   document.getElementById('auth-form').style.display = show ? 'none' : 'block';
   document.getElementById('auth-loading').style.display = show ? 'block' : 'none';
@@ -1577,7 +1593,7 @@ function switchTab(tab, el) {
   if (tab === 'chat') {
     showWelcome();
   } else if (tab === 'itinerary') {
-    chat.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text2);">📋 Use the chat to generate your perfect itinerary</div>';
+    showTripPlanner();
   } else if (tab === 'favorites') {
     showFavorites();
   } else if (tab === 'tips') {
@@ -1609,6 +1625,70 @@ function showFavorites() {
       </div>
     \`).join('');
   }
+}
+
+function showTripPlanner() {
+  const chat = document.getElementById('chat-area');
+  chat.innerHTML = `
+    <div class="msg-row">
+      <div class="msg-avatar" style="background: linear-gradient(135deg, var(--primary), var(--accent));">🏔️</div>
+      <div style="flex:1;">
+        <div class="msg-bubble ai">
+          <h3 style="margin-bottom: 12px; font-family: 'Playfair Display', serif;">Plan Your Kashmir Trip ✈️</h3>
+          <p style="margin-bottom: 14px; color: var(--text2); font-size: 13px;">Fill in your details and I'll create a personalised itinerary for you.</p>
+          <div style="display:grid; gap:10px;">
+            <div>
+              <label style="font-size:12px; font-weight:600; color:var(--text2); display:block; margin-bottom:4px;">Duration</label>
+              <select id="tp-days" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:6px; font-family:'Poppins',sans-serif; font-size:13px; color:var(--text); background:var(--light);">
+                <option>3 days</option><option>5 days</option><option selected>7 days</option><option>10 days</option><option>14 days</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:12px; font-weight:600; color:var(--text2); display:block; margin-bottom:4px;">Trip type</label>
+              <select id="tp-type" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:6px; font-family:'Poppins',sans-serif; font-size:13px; color:var(--text); background:var(--light);">
+                <option>Family trip</option><option>Honeymoon</option><option>Solo adventure</option><option>Friends group</option><option>Adventure & trekking</option><option>Photography tour</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:12px; font-weight:600; color:var(--text2); display:block; margin-bottom:4px;">Budget per person</label>
+              <select id="tp-budget" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:6px; font-family:'Poppins',sans-serif; font-size:13px; color:var(--text); background:var(--light);">
+                <option>Budget (₹2,000–3,000/day)</option><option selected>Mid-range (₹5,000–7,000/day)</option><option>Luxury (₹15,000+/day)</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:12px; font-weight:600; color:var(--text2); display:block; margin-bottom:4px;">Season / Month of visit</label>
+              <select id="tp-season" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:6px; font-family:'Poppins',sans-serif; font-size:13px; color:var(--text); background:var(--light);">
+                <option>Spring – April/May (tulips, mild)</option><option>Summer – June/July (adventure)</option><option>Autumn – Sept/Oct (colours)</option><option>Winter – Dec/Jan (snow & skiing)</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:12px; font-weight:600; color:var(--text2); display:block; margin-bottom:4px;">Special interests (optional)</label>
+              <input type="text" id="tp-interests" placeholder="e.g. skiing, local food, photography…" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:6px; font-family:'Poppins',sans-serif; font-size:13px; color:var(--text); background:var(--light);"/>
+            </div>
+            <button onclick="buildItinerary()" style="background:var(--primary); color:white; border:none; border-radius:8px; padding:12px; font-family:'Poppins',sans-serif; font-weight:700; font-size:14px; cursor:pointer; margin-top:4px; transition:all 0.3s ease;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+              🗺️ Generate My Itinerary
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function buildItinerary() {
+  const days = document.getElementById('tp-days').value;
+  const type = document.getElementById('tp-type').value;
+  const budget = document.getElementById('tp-budget').value;
+  const season = document.getElementById('tp-season').value;
+  const interests = document.getElementById('tp-interests').value.trim();
+
+  const prompt = `Please create a detailed ${days} Kashmir itinerary for a ${type.toLowerCase()}. Budget: ${budget}. Visiting in: ${season}.${interests ? ' Special interests: ' + interests + '.' : ''} Include specific destinations, activities, accommodation recommendations, food spots and travel tips for each day.`;
+
+  // Switch to chat tab and send
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelector('.tab-btn').classList.add('active');
+  showWelcome();
+  setTimeout(() => sendMessage(prompt), 100);
 }
 
 function showLocalTips() {
@@ -1648,7 +1728,7 @@ function handleKeyPress(e) {
   }
 }
 
-function sendMessage(msg) {
+async function sendMessage(msg) {
   const input = document.getElementById('msg-input');
   const text = (msg || input.value).trim();
   
@@ -1656,16 +1736,26 @@ function sendMessage(msg) {
   
   addMessage('user', text);
   input.value = '';
+  input.disabled = true;
+  document.getElementById('send-btn').disabled = true;
   conversationHistory.push({ role: 'user', content: text });
   
   addTypingIndicator();
   
-  setTimeout(() => {
+  try {
+    const response = await generateAIResponse(text);
     removeTypingIndicator();
-    const response = generateAIResponse(text);
     addMessage('ai', response);
     conversationHistory.push({ role: 'assistant', content: response });
-  }, 800 + Math.random() * 500);
+  } catch (err) {
+    removeTypingIndicator();
+    addMessage('ai', '⚠️ Sorry, I had trouble connecting. Please check your connection and try again.');
+    console.error('AI error:', err);
+  } finally {
+    input.disabled = false;
+    document.getElementById('send-btn').disabled = false;
+    input.focus();
+  }
 }
 
 function quickAction(action) {
@@ -1749,36 +1839,54 @@ function formatText(text) {
 }
 
 // ═════════════════════════════════════════════════════════════
-// AI RESPONSE GENERATION (Mock)
+// AI RESPONSE GENERATION (Claude API)
 // ═════════════════════════════════════════════════════════════
 
-function generateAIResponse(query) {
-  const q = query.toLowerCase();
-  
-  const responses = {
-    'destinations': \`**Top Kashmir Destinations:**\n\n- **Dal Lake, Srinagar** - Take a morning shikara ride, visit floating gardens\n- **Gulmarg** - Skiing (winter), gondola ride, meadow picnics\n- **Pahalgam** - Betab Valley, Baisaran meadows, river activities\n- **Sonamarg** - Thajiwas Glacier, camping, high-altitude views\n- **Shalimar & Nishat Gardens** - Historic Mughal gardens, perfect for photos\n- **Tulip Garden** - Blooms April-May, stunning flower displays\`,
-    
-    'hotels': \`**Hotel Recommendations:**\n\n**Luxury:** Taj Vivanta, Wildflower Hall, Khimsar\n**Budget-Friendly:** Rent houseboats (₹1000-2000/night), homestays\n**Best Value:** Heevan Retreat (Pahalgam), Paradise Houseboat (Srinagar)\n\nBook directly or use MakeMyTrip, Booking.com\`,
-    
-    'restaurants': \`**Must-Try Kashmiri Cuisine:**\n\n- **Wazwan** - Multi-course traditional feast\n- **Rista & Gushtaba** - Tender meat dishes\n- **Dum Aloo** - Spiced potato curry\n- **Yakhni Soup** - Fragrant meat broth\n- **Phirni** - Traditional rice pudding\n\n**Top Restaurants:** Ahdoos (since 1918!), Mughal Garden, Traditional Wazwan at local homes\`,
-    
-    'activities': \`**Adventure Activities:**\n\n- Shikara rides on Dal Lake\n- Skiing at Gulmarg (Dec-Feb)\n- Trekking: Aru Valley, Yusmarg trails\n- Horseback riding in meadows\n- Camping at Sonamarg\n- Rafting on Lidder River\n- Paragliding over Gulmarg\n- Photography tours of gardens\`,
-    
-    'transport': \`**Getting Around Kashmir:**\n\n- **Taxi:** ₹12-15/km (negotiate)\n- **Local Buses:** Cheap, crowded, adventurous\n- **Rental Car + Driver:** ₹1500-2000/day\n- **Flights:** Srinagar Airport connects to Delhi, Mumbai\n- **Train:** Jammu has connections (far from Kashmir)\n\nMyself recommends hiring a driver for safety & comfort!\`,
-    
-    'weather': \`**Current Kashmir Weather:**\n\n**April-June:** Warm (20-30°C), perfect for travel\n**July-Sept:** Cool (15-25°C), occasional rain\n**Oct-Nov:** Crisp (5-15°C), beautiful fall colors\n**Dec-Feb:** Cold (-5 to 5°C), snow in mountains\n\n**Packing:** Light layers, waterproof jacket, sunscreen year-round!\`,
-    
-    'budget': \`**Daily Budget Breakdown:**\n\n**Budget Travel:** ₹2000-3000/day\n- Houseboat/homestay: ₹1000\n- Meals: ₹600-800\n- Transport: ₹400-500\n\n**Mid-Range:** ₹5000-7000/day\n**Luxury:** ₹15000+/day\n\nNote: Food & transport are very affordable!\`,
-    
-    'safety': \`**Kashmir Safety Info:**\n\n✅ **Generally safe for tourists in main areas**\n- Avoid remote border areas\n- Register with your embassy\n- Don't photograph military installations\n- Respect local customs\n- Travel with guides for treks\n- Use registered taxis\n\n**Best for Peace:** Visit during April-June when security is most relaxed\`
-  };
-  
-  for (const [key, value] of Object.entries(responses)) {
-    if (q.includes(key.split(' ')[0])) return value;
+const SYSTEM_PROMPT = `You are K.S AI Premium — an expert Kashmir travel guide and trip planner by Kashmir Stay (kashmirstay.com). You are a warm, knowledgeable local expert based in Srinagar, Jammu & Kashmir, India.
+
+Your expertise covers:
+- All Kashmir destinations: Dal Lake, Gulmarg, Pahalgam, Sonamarg, Shalimar Bagh, Tulip Garden, Aru Valley, Yusmarg, Doodhpathri, Betab Valley, Sinthan Top, and more
+- Hotels & houseboats: budget to luxury across all major areas
+- Authentic Kashmiri cuisine: Wazwan, Rista, Gushtaba, Dum Aloo, Kahwa tea, Phirni
+- Activities: shikara rides, skiing, trekking, camping, river rafting, paragliding, horse riding
+- Transportation: Srinagar airport, local taxis, rental cars, buses
+- Seasonal guidance: best times to visit each region
+- Budget planning in INR with realistic price ranges
+- Safety, permits, local customs and etiquette
+- Packing tips by season
+- Detailed itinerary building for 3–14 day trips
+
+Response style:
+- Be helpful, specific and practical. Use **bold** for key info and - for bullet lists.
+- Include INR price estimates where helpful.
+- Structure itineraries clearly by Day 1, Day 2, etc.
+- Keep responses concise and actionable — no filler.
+- Mention kashmirstay.com for bookings when naturally relevant.
+- Only handle Kashmir tourism/travel queries; politely redirect anything unrelated.`;
+
+async function generateAIResponse(query) {
+  const messages = conversationHistory.map(m => ({ role: m.role, content: m.content }));
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1000,
+      system: SYSTEM_PROMPT,
+      messages: messages
+    })
+  });
+
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.error?.message || `API error ${response.status}`);
   }
-  
-  return \`That's a great question about Kashmir travel! 🏔️\n\nTo give you the best advice, could you be more specific about:\n\n- Which destination interests you?\n- When are you planning to visit?\n- What's your budget?\n- What activities excite you?\n\nI'm here to help craft your perfect Kashmir experience!\`;
+
+  const data = await response.json();
+  return data.content?.[0]?.text || 'Sorry, I could not generate a response. Please try again.';
 }
+
 
 // ═════════════════════════════════════════════════════════════
 // UTILITIES
