@@ -1,35 +1,24 @@
 // ═══════════════════════════════════════════════════════════════════════════
-//  KASHMIR STAY CHAT WIDGET
+//  KASHMIR STAY CHAT WIDGET - FIXED VERSION
 //  Floating AI Chat Interface + Owner Contact
+//  Fixed: Positioning (no overlap with nav), Data format, Error handling
 // ═══════════════════════════════════════════════════════════════════════════
 
 // ═══ CONFIGURATION ═══
 const CHAT_CONFIG = {
-  DEPLOYMENT_URL: 'Yhttps://script.google.com/macros/s/AKfycbwa8XFecHqXe7_pPkmbeXqX5wUMUQHeNUb2ZntAbUdiHGPPM9n0G13TdmX4rzPz9A1bDw/exec', // Replace with your deployment URL
-  WIDGET_POSITION: 'bottom-right', // or 'bottom-left'
+  DEPLOYMENT_URL: 'https://script.google.com/macros/s/AKfycbwa8XFecHqXe7_pPkmbeXqX5wUMUQHeNUb2ZntAbUdiHGPPM9n0G13TdmX4rzPz9A1bDw/exec',
+  WIDGET_POSITION: 'bottom-right',
   INITIAL_MESSAGE: 'Hello! 👋 I\'m Kashmir Stay\'s AI Assistant. How can I help you with your Kashmir trip today?',
   PLACEHOLDER: 'Ask about hotels, tours, travel tips...',
-  THEME_COLOR: '#1F1F1F' // Match your site color
+  THEME_COLOR: '#1F1F1F'
 };
 
-// ═══════════════════════════════════════════════════════════════════════════
-//  INITIALIZE CHAT WIDGET
-// ═══════════════════════════════════════════════════════════════════════════
-
-(function initChatWidget() {
-  // Only initialize if deployment URL is set
-  if (CHAT_CONFIG.DEPLOYMENT_URL === 'https://script.google.com/macros/s/AKfycbwa8XFecHqXe7_pPkmbeXqX5wUMUQHeNUb2ZntAbUdiHGPPM9n0G13TdmX4rzPz9A1bDw/exec') {
-    console.warn('Chat Widget: Deployment URL not configured');
-    return;
-  }
-
-  // Wait for DOM to be ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', createChatWidget);
-  } else {
-    createChatWidget();
-  }
-})();
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', createChatWidget);
+} else {
+  createChatWidget();
+}
 
 // ═══════════════════════════════════════════════════════════════════════════
 //  CREATE CHAT WIDGET DOM & STYLES
@@ -147,14 +136,11 @@ function toggleChatWidget() {
   const chatToggle = document.getElementById('ks-chat-toggle');
   
   if (chatWindow.classList.contains('hidden')) {
-    // Open chat
     chatWindow.classList.remove('hidden');
     chatToggle.classList.add('active');
     document.getElementById('ks-chat-input').focus();
-    // Hide contact modal if open
     closeContactForm();
   } else {
-    // Close chat
     chatWindow.classList.add('hidden');
     chatToggle.classList.remove('active');
   }
@@ -181,11 +167,14 @@ function sendChatMessage(event) {
   // Show loading indicator
   showLoadingIndicator();
 
-  // Send to API
-  sendToAPI({
+  // Send to API with proper format
+  const payload = {
     type: 'chat',
     message: message
-  });
+  };
+
+  console.log('Sending chat payload:', payload);
+  sendToAPI(payload);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -217,10 +206,12 @@ function submitContactForm(event) {
     type: 'contact',
     name: formData.get('name'),
     email: formData.get('email'),
-    phone: formData.get('phone'),
+    phone: formData.get('phone') || '',
     message: formData.get('message'),
     userAgent: navigator.userAgent
   };
+
+  console.log('Sending contact payload:', contactData);
 
   // Show loading state
   const submitBtn = form.querySelector('[type="submit"]');
@@ -233,13 +224,11 @@ function submitContactForm(event) {
     submitBtn.disabled = false;
     
     if (response.success) {
-      // Success
       addMessageToChat('✅ ' + response.message, 'ai');
       closeContactForm();
       submitBtn.textContent = originalText;
       form.reset();
     } else {
-      // Error
       submitBtn.textContent = originalText;
       alert('Error: ' + response.message);
     }
@@ -253,29 +242,36 @@ function submitContactForm(event) {
 function sendToAPI(data, callback) {
   callback = callback || function() {};
 
+  const payload = JSON.stringify(data);
+  console.log('Sending to API:', payload);
+
   fetch(CHAT_CONFIG.DEPLOYMENT_URL, {
     method: 'POST',
-    mode: 'no-cors',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data)
+    body: payload
   })
-  .then(response => response.text())
+  .then(response => {
+    console.log('Response status:', response.status);
+    return response.text();
+  })
   .then(text => {
+    console.log('Response text:', text);
     try {
       const result = JSON.parse(text);
+      console.log('Parsed response:', result);
       handleAPIResponse(result, data.type);
       callback(result);
     } catch (e) {
       console.error('Parse error:', e);
-      addMessageToChat('⚠️ Connection error. Please try again.', 'ai');
+      addMessageToChat('⚠️ Server error. Please try again.', 'ai');
       callback({ success: false, message: 'Parse error' });
     }
   })
   .catch(error => {
-    console.error('API Error:', error);
-    addMessageToChat('⚠️ Unable to connect to the server. Please try again later.', 'ai');
+    console.error('Fetch Error:', error);
+    addMessageToChat('⚠️ Unable to connect. Check console for details.', 'ai');
     callback({ success: false, message: error.toString() });
   });
 }
@@ -285,7 +281,6 @@ function sendToAPI(data, callback) {
 // ═══════════════════════════════════════════════════════════════════════════
 
 function handleAPIResponse(response, type) {
-  // Remove loading indicator
   removeLoadingIndicator();
 
   if (!response.success) {
@@ -294,7 +289,7 @@ function handleAPIResponse(response, type) {
   }
 
   if (type === 'chat') {
-    addMessageToChat(response.data.aiResponse ? response.message : response.data.message, 'ai');
+    addMessageToChat(response.message, 'ai');
   }
 }
 
@@ -361,7 +356,7 @@ function showBadgeAnimation() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-//  INJECT CSS STYLES
+//  INJECT CSS STYLES (FIXED POSITIONING)
 // ═══════════════════════════════════════════════════════════════════════════
 
 function injectChatStyles() {
@@ -378,10 +373,10 @@ function injectChatStyles() {
       --user-text: #fff;
     }
 
-    /* ═══ TOGGLE BUTTON ═══ */
+    /* ═══ TOGGLE BUTTON - FIXED POSITIONING ═══ */
     .ks-chat-toggle {
       position: fixed;
-      bottom: 20px;
+      bottom: calc(64px + 20px + env(safe-area-inset-bottom));
       right: 20px;
       width: 60px;
       height: 60px;
@@ -395,7 +390,7 @@ function injectChatStyles() {
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
-      z-index: 999;
+      z-index: 199;
     }
 
     .ks-chat-toggle:hover {
@@ -404,7 +399,7 @@ function injectChatStyles() {
     }
 
     .ks-chat-toggle.active {
-      bottom: 420px;
+      bottom: calc(64px + 430px + 20px + env(safe-area-inset-bottom));
     }
 
     .ks-chat-badge {
@@ -426,7 +421,7 @@ function injectChatStyles() {
     /* ═══ CHAT WINDOW ═══ */
     .ks-chat-window {
       position: fixed;
-      bottom: 90px;
+      bottom: calc(64px + 90px + env(safe-area-inset-bottom));
       right: 20px;
       width: 380px;
       height: 500px;
@@ -435,7 +430,7 @@ function injectChatStyles() {
       box-shadow: 0 5px 40px rgba(0, 0, 0, 0.16);
       display: flex;
       flex-direction: column;
-      z-index: 998;
+      z-index: 198;
       transition: all 0.3s ease;
     }
 
@@ -746,7 +741,7 @@ function injectChatStyles() {
       .ks-chat-window {
         width: calc(100% - 40px);
         height: 70vh;
-        bottom: 80px;
+        bottom: calc(64px + 80px + env(safe-area-inset-bottom));
         right: 20px;
       }
 
@@ -768,9 +763,5 @@ function injectChatStyles() {
 
   document.head.appendChild(style);
 }
-
-// ═══════════════════════════════════════════════════════════════════════════
-//  INITIALIZATION COMPLETE
-// ═══════════════════════════════════════════════════════════════════════════
 
 console.log('Kashmir Stay Chat Widget loaded successfully');
