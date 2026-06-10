@@ -546,12 +546,12 @@
     <div style="margin:12px 0 4px;padding:0 16px"><span style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--gray400)">Information</span></div>
     <div style="background:var(--bg);border-radius:var(--radius);margin:0 16px;border:1px solid var(--gray100);overflow:hidden">
       <a href="/about.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon">🔥</div><div style="flex:1"><div class="settings-label">About Kashmir Stay</div><div class="text-muted text-sm">Kashmir Stay</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
-      <div class="settings-item" onclick="window.open('https://makemetop.in/help-ai.html','_blank')"><div class="settings-icon">💬</div><div style="flex:1"><div class="settings-label">Kashmir AI Assistant</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+      <div class="settings-item" onclick="window.open('https://makemetop.in/','_blank')"><div class="settings-icon">🔎</div><div style="flex:1"><div class="settings-label">Get Listed On K.S</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
       <a href="/privacy-policy.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon">🔒</div><div style="flex:1"><div class="settings-label">Privacy Policy</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
       <a href="/terms.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon">📄</div><div style="flex:1"><div class="settings-label">Terms &amp; Conditions</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
       <a href="/desclaimer.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon">🎇</div><div style="flex:1"><div class="settings-label">Desclaimer</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
       <a href="/contact.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon">💬</div><div style="flex:1"><div class="settings-label">Contact</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
-      <a href="/faq.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon">❔</div><div style="flex:1"><div class="settings-label">Faq</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
+      <a href="/help-ai.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon">👾</div><div style="flex:1"><div class="settings-label">Faq</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
  </div>
     <div style="margin:12px 0 4px;padding:0 16px"><span style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--gray400)">App</span></div>
     <div style="background:var(--bg);border-radius:var(--radius);margin:0 16px;border:1px solid var(--gray100);overflow:hidden">
@@ -4097,18 +4097,6 @@ window.addEventListener('load', async () => {
   ]
 }
 </script>
-<!-- ══ FLOATING AI ASSISTANT BUTTON ══ -->
-<style>
-#ai-fab{position:fixed;bottom:calc(var(--nav-h) + 14px + env(safe-area-inset-bottom));right:16px;z-index:400;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#6366F1,#8B5CF6);box-shadow:0 4px 18px rgba(99,102,241,.45);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s}
-#ai-fab:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(99,102,241,.6)}
-#ai-fab svg{width:22px;height:22px;stroke:#fff}
-#ai-fab .ai-pulse{position:absolute;inset:-3px;border-radius:50%;border:2px solid rgba(99,102,241,.4);animation:ai-ring 2s ease-out infinite}
-@keyframes ai-ring{0%{transform:scale(1);opacity:1}100%{transform:scale(1.5);opacity:0}}
-</style>
-<button id="ai-fab" onclick="window.open('help-ai.html','_blank')" title="Ask Kashmir Stay AI Assistant" aria-label="Open AI Assistant">
-  <div class="ai-pulse"></div>
-  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 1 8 8c0 5-8 12-8 12S4 15 4 10a8 8 0 0 1 8-8z"/><circle cx="12" cy="10" r="3"/></svg>
-</button>
 
 <!-- Kashmir Stay Chat Widget -->
 <script src="chat-widget.js"></script>
