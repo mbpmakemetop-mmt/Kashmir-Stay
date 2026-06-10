@@ -1,767 +1,461 @@
 // ═══════════════════════════════════════════════════════════════════════════
-//  KASHMIR STAY CHAT WIDGET - FIXED VERSION
-//  Floating AI Chat Interface + Owner Contact
-//  Fixed: Positioning (no overlap with nav), Data format, Error handling
+//  KASHMIR STAY CHAT WIDGET  — chat-widget.js
+//  Drop this file anywhere and add:  <script src="chat-widget.js"></script>
 // ═══════════════════════════════════════════════════════════════════════════
 
-// ═══ CONFIGURATION ═══
 const CHAT_CONFIG = {
+  // ↓ Paste your Apps Script Web App URL here (no trailing slash)
   DEPLOYMENT_URL: 'https://script.google.com/macros/s/AKfycbwa8XFecHqXe7_pPkmbeXqX5wUMUQHeNUb2ZntAbUdiHGPPM9n0G13TdmX4rzPz9A1bDw/exec',
-  WIDGET_POSITION: 'bottom-right',
-  INITIAL_MESSAGE: 'Hello! 👋 I\'m Kashmir Stay\'s AI Assistant. How can I help you with your Kashmir trip today?',
-  PLACEHOLDER: 'Ask about hotels, tours, travel tips...',
+  INITIAL_MESSAGE: "Hello! 👋 I'm Kashmir Stay's AI Assistant. Ask me anything about Kashmir travel, hotels, or resorts!",
+  PLACEHOLDER: 'Ask about hotels, tours, travel tips…',
   THEME_COLOR: '#1F1F1F'
 };
 
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', createChatWidget);
-} else {
-  createChatWidget();
-}
+// ─── Boot ────────────────────────────────────────────────────────────────────
+(function () {
+  if (!CHAT_CONFIG.DEPLOYMENT_URL || CHAT_CONFIG.DEPLOYMENT_URL.includes('https://script.google.com/macros/s/AKfycbwa8XFecHqXe7_pPkmbeXqX5wUMUQHeNUb2ZntAbUdiHGPPM9n0G13TdmX4rzPz9A1bDw/exec')) {
+    console.warn('[KS Chat] Set DEPLOYMENT_URL in chat-widget.js');
+    return;
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', buildWidget);
+  } else {
+    buildWidget();
+  }
+})();
 
-// ═══════════════════════════════════════════════════════════════════════════
-//  CREATE CHAT WIDGET DOM & STYLES
-// ═══════════════════════════════════════════════════════════════════════════
+// ─── Build DOM ───────────────────────────────────────────────────────────────
+function buildWidget() {
+  injectStyles();
 
-function createChatWidget() {
-  // Inject CSS
-  injectChatStyles();
+  document.body.insertAdjacentHTML('beforeend', `
+    <div id="ks-root">
 
-  // Create HTML structure
-  const widgetHTML = `
-    <!-- Chat Widget Container -->
-    <div id="ks-chat-widget" class="ks-chat-widget">
-      <!-- Chat Window -->
-      <div id="ks-chat-window" class="ks-chat-window hidden">
-        <!-- Header -->
-        <div class="ks-chat-header">
-          <div class="ks-chat-header-content">
-            <h3>Kashmir Stay AI</h3>
-            <p>Professional Travel Assistance</p>
-          </div>
-          <button id="ks-chat-close" class="ks-chat-close" onclick="toggleChatWidget()">
-            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          </button>
-        </div>
-
-        <!-- Messages Container -->
-        <div id="ks-chat-messages" class="ks-chat-messages">
-          <div class="ks-chat-message ai-message">
-            <div class="ks-message-content">${CHAT_CONFIG.INITIAL_MESSAGE}</div>
-            <div class="ks-message-time">Just now</div>
-          </div>
-        </div>
-
-        <!-- Input Area -->
-        <div class="ks-chat-input-area">
-          <form id="ks-chat-form" onsubmit="sendChatMessage(event)">
-            <input 
-              type="text" 
-              id="ks-chat-input" 
-              class="ks-chat-input" 
-              placeholder="${CHAT_CONFIG.PLACEHOLDER}"
-              autocomplete="off"
-            />
-            <button type="submit" class="ks-chat-send" title="Send message">
-              <svg viewBox="0 0 24 24" width="18" height="18"><path d="M16.6915026,12.4744748 L3.50612381,13.2599618 C3.19218622,13.2599618 3.03521743,13.4170592 3.03521743,13.5741566 L1.15159189,20.0151496 C0.8376543,20.8006365 0.99,21.89 1.77946707,22.52 C2.41,22.99 3.50612381,23.1 4.13399899,22.8429026 L21.714504,14.0454487 C22.6563168,13.5741566 23.1272231,12.6315722 22.9702544,11.6889879 L4.13399899,1.16151496 C3.34915502,0.9 2.40734225,0.9 1.77946707,1.4429026 C0.994623095,2.0842451 0.837654301,3.0274462 1.15159189,3.81294309 L3.03521743,10.2539362 C3.03521743,10.4110336 3.19218622,10.5681311 3.50612381,10.5681311 L16.6915026,11.3536179 C16.6915026,11.3536179 17.1624089,11.3536179 17.1624089,10.9686265 L17.1624089,11.3536179 C17.1624089,11.5107153 17.1624089,12.4744748 16.6915026,12.4744748 Z" fill="currentColor"/></svg>
-            </button>
-          </form>
-
-          <!-- "Talk to Owner" Button -->
-          <button id="ks-talk-owner-btn" class="ks-talk-owner-btn" onclick="showContactForm()">
-            📞 Talk to Owner
-          </button>
-        </div>
-      </div>
-
-      <!-- Chat Toggle Button (Floating) -->
-      <button id="ks-chat-toggle" class="ks-chat-toggle" onclick="toggleChatWidget()" title="Open Chat">
-        <svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" fill="currentColor"/></svg>
-        <span class="ks-chat-badge">1</span>
+      <!-- Floating button -->
+      <button id="ks-toggle" onclick="ksChatToggle()" title="Chat with us">
+        <svg id="ks-icon-chat" viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
+          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+        </svg>
+        <svg id="ks-icon-close" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
+             stroke-width="2.5" stroke-linecap="round" style="display:none">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+        <span id="ks-badge">1</span>
       </button>
 
-      <!-- Contact Form Modal (Hidden by default) -->
-      <div id="ks-contact-modal" class="ks-contact-modal hidden">
-        <div class="ks-contact-form-wrapper">
-          <div class="ks-contact-header">
-            <h3>Contact Kashmir Stay Team</h3>
-            <button class="ks-contact-close" onclick="closeContactForm()">×</button>
+      <!-- Chat window -->
+      <div id="ks-window" class="ks-hidden">
+
+        <!-- Header -->
+        <div id="ks-header">
+          <div>
+            <div id="ks-header-title">Kashmir Stay AI</div>
+            <div id="ks-header-sub">Professional Travel Assistance</div>
           </div>
+          <button id="ks-header-close" onclick="ksChatToggle()">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
 
-          <form id="ks-contact-form" onsubmit="submitContactForm(event)">
-            <div class="ks-form-group">
+        <!-- Messages -->
+        <div id="ks-messages">
+          <div class="ks-msg ks-ai">
+            <div class="ks-bubble">${CHAT_CONFIG.INITIAL_MESSAGE}</div>
+            <div class="ks-time">${ksTime()}</div>
+          </div>
+        </div>
+
+        <!-- Input row -->
+        <div id="ks-input-row">
+          <input id="ks-input" type="text"
+                 placeholder="${CHAT_CONFIG.PLACEHOLDER}"
+                 autocomplete="off"
+                 onkeydown="if(event.key==='Enter')ksSend()" />
+          <button id="ks-send" onclick="ksSend()" title="Send">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M2 21l21-9L2 3v7l15 2-15 2z"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Talk to owner -->
+        <div id="ks-footer">
+          <button id="ks-owner-btn" onclick="ksShowContact()">📞 Talk to Owner</button>
+        </div>
+
+      </div>
+
+      <!-- Contact modal -->
+      <div id="ks-modal" class="ks-hidden">
+        <div id="ks-modal-box">
+          <div id="ks-modal-header">
+            <span>Contact Kashmir Stay</span>
+            <button onclick="ksCloseContact()">×</button>
+          </div>
+          <div id="ks-modal-body">
+            <div class="ks-field">
               <label>Name *</label>
-              <input type="text" name="name" required placeholder="Your full name" />
+              <input id="ks-f-name" type="text" placeholder="Your full name" />
             </div>
-
-            <div class="ks-form-group">
+            <div class="ks-field">
               <label>Email *</label>
-              <input type="email" name="email" required placeholder="your@email.com" />
+              <input id="ks-f-email" type="email" placeholder="your@email.com" />
             </div>
-
-            <div class="ks-form-group">
-              <label>Phone (Optional)</label>
-              <input type="tel" name="phone" placeholder="+91 XXXXXXXXXX" />
+            <div class="ks-field">
+              <label>Phone (optional)</label>
+              <input id="ks-f-phone" type="tel" placeholder="+91 XXXXXXXXXX" />
             </div>
-
-            <div class="ks-form-group">
+            <div class="ks-field">
+              <label>Subject</label>
+              <input id="ks-f-subject" type="text" placeholder="Hotel booking, tour inquiry…" />
+            </div>
+            <div class="ks-field">
               <label>Message *</label>
-              <textarea name="message" required placeholder="Tell us what you need..." rows="4"></textarea>
+              <textarea id="ks-f-message" rows="4" placeholder="Tell us what you need…"></textarea>
             </div>
-
-            <button type="submit" class="ks-submit-btn">Send Message</button>
-            <button type="button" class="ks-cancel-btn" onclick="closeContactForm()">Cancel</button>
-          </form>
+            <button id="ks-f-submit" onclick="ksSubmitContact()">Send Message</button>
+            <button id="ks-f-cancel" onclick="ksCloseContact()">Cancel</button>
+          </div>
         </div>
       </div>
+
     </div>
-  `;
-
-  // Append to body
-  const div = document.createElement('div');
-  div.innerHTML = widgetHTML;
-  document.body.appendChild(div);
-
-  // Show welcome badge animation
-  showBadgeAnimation();
+  `);
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-//  TOGGLE CHAT WINDOW
-// ═══════════════════════════════════════════════════════════════════════════
+// ─── Toggle chat window ───────────────────────────────────────────────────────
+function ksChatToggle() {
+  const win   = document.getElementById('ks-window');
+  const chat  = document.getElementById('ks-icon-chat');
+  const close = document.getElementById('ks-icon-close');
+  const badge = document.getElementById('ks-badge');
+  const open  = win.classList.contains('ks-hidden');
 
-function toggleChatWidget() {
-  const chatWindow = document.getElementById('ks-chat-window');
-  const chatToggle = document.getElementById('ks-chat-toggle');
-  
-  if (chatWindow.classList.contains('hidden')) {
-    chatWindow.classList.remove('hidden');
-    chatToggle.classList.add('active');
-    document.getElementById('ks-chat-input').focus();
-    closeContactForm();
-  } else {
-    chatWindow.classList.add('hidden');
-    chatToggle.classList.remove('active');
+  win.classList.toggle('ks-hidden', !open);
+  chat.style.display  = open ? 'none'  : '';
+  close.style.display = open ? ''      : 'none';
+  if (badge) badge.style.display = 'none';   // hide badge once opened
+
+  if (open) {
+    ksCloseContact();
+    setTimeout(() => document.getElementById('ks-input').focus(), 100);
   }
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-//  SEND CHAT MESSAGE
-// ═══════════════════════════════════════════════════════════════════════════
+// ─── Send chat message ────────────────────────────────────────────────────────
+function ksSend() {
+  const input = document.getElementById('ks-input');
+  const text  = input.value.trim();
+  if (!text) return;
 
-function sendChatMessage(event) {
-  event.preventDefault();
-
-  const input = document.getElementById('ks-chat-input');
-  const message = input.value.trim();
-
-  if (!message) return;
-
-  // Add user message to chat
-  addMessageToChat(message, 'user');
-
-  // Clear input
+  ksAddMsg(text, 'user');
   input.value = '';
+  input.disabled = true;
+  document.getElementById('ks-send').disabled = true;
 
-  // Show loading indicator
-  showLoadingIndicator();
+  ksShowTyping();
 
-  // Send to API with proper format
-  const payload = {
-    type: 'chat',
-    message: message
-  };
+  ksPost({ type: 'chat', message: text })
+    .then(res => {
+      ksHideTyping();
+      input.disabled = false;
+      document.getElementById('ks-send').disabled = false;
+      input.focus();
 
-  console.log('Sending chat payload:', payload);
-  sendToAPI(payload);
+      if (res.success) {
+        ksAddMsg(res.message, 'ai');
+      } else {
+        ksAddMsg('❌ ' + (res.message || 'Something went wrong. Please try again.'), 'ai');
+      }
+    })
+    .catch(err => {
+      ksHideTyping();
+      input.disabled = false;
+      document.getElementById('ks-send').disabled = false;
+      ksAddMsg('⚠️ Could not connect. Check your internet and try again.', 'ai');
+      console.error('[KS Chat] fetch error:', err);
+    });
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-//  SHOW CONTACT FORM
-// ═══════════════════════════════════════════════════════════════════════════
-
-function showContactForm() {
-  const modal = document.getElementById('ks-contact-modal');
-  modal.classList.remove('hidden');
-  document.getElementById('ks-contact-form').reset();
+// ─── Contact form ─────────────────────────────────────────────────────────────
+function ksShowContact() {
+  document.getElementById('ks-modal').classList.remove('ks-hidden');
+}
+function ksCloseContact() {
+  document.getElementById('ks-modal').classList.add('ks-hidden');
 }
 
-function closeContactForm() {
-  const modal = document.getElementById('ks-contact-modal');
-  modal.classList.add('hidden');
-}
+function ksSubmitContact() {
+  const name    = document.getElementById('ks-f-name').value.trim();
+  const email   = document.getElementById('ks-f-email').value.trim();
+  const phone   = document.getElementById('ks-f-phone').value.trim();
+  const subject = document.getElementById('ks-f-subject').value.trim() || 'General Inquiry';
+  const message = document.getElementById('ks-f-message').value.trim();
 
-// ═══════════════════════════════════════════════════════════════════════════
-//  SUBMIT CONTACT FORM
-// ═══════════════════════════════════════════════════════════════════════════
-
-function submitContactForm(event) {
-  event.preventDefault();
-
-  const form = document.getElementById('ks-contact-form');
-  const formData = new FormData(form);
-
-  const contactData = {
-    type: 'contact',
-    name: formData.get('name'),
-    email: formData.get('email'),
-    phone: formData.get('phone') || '',
-    message: formData.get('message'),
-    userAgent: navigator.userAgent
-  };
-
-  console.log('Sending contact payload:', contactData);
-
-  // Show loading state
-  const submitBtn = form.querySelector('[type="submit"]');
-  const originalText = submitBtn.textContent;
-  submitBtn.textContent = 'Sending...';
-  submitBtn.disabled = true;
-
-  // Send to API
-  sendToAPI(contactData, function(response) {
-    submitBtn.disabled = false;
-    
-    if (response.success) {
-      addMessageToChat('✅ ' + response.message, 'ai');
-      closeContactForm();
-      submitBtn.textContent = originalText;
-      form.reset();
-    } else {
-      submitBtn.textContent = originalText;
-      alert('Error: ' + response.message);
-    }
-  });
-}
-
-// ═══════════════════════════════════════════════════════════════════════════
-//  API COMMUNICATION
-// ═══════════════════════════════════════════════════════════════════════════
-
-function sendToAPI(data, callback) {
-  callback = callback || function() {};
-
-  const payload = JSON.stringify(data);
-  console.log('Sending to API:', payload);
-
-  fetch(CHAT_CONFIG.DEPLOYMENT_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: payload
-  })
-  .then(response => {
-    console.log('Response status:', response.status);
-    return response.text();
-  })
-  .then(text => {
-    console.log('Response text:', text);
-    try {
-      const result = JSON.parse(text);
-      console.log('Parsed response:', result);
-      handleAPIResponse(result, data.type);
-      callback(result);
-    } catch (e) {
-      console.error('Parse error:', e);
-      addMessageToChat('⚠️ Server error. Please try again.', 'ai');
-      callback({ success: false, message: 'Parse error' });
-    }
-  })
-  .catch(error => {
-    console.error('Fetch Error:', error);
-    addMessageToChat('⚠️ Unable to connect. Check console for details.', 'ai');
-    callback({ success: false, message: error.toString() });
-  });
-}
-
-// ═══════════════════════════════════════════════════════════════════════════
-//  HANDLE API RESPONSE
-// ═══════════════════════════════════════════════════════════════════════════
-
-function handleAPIResponse(response, type) {
-  removeLoadingIndicator();
-
-  if (!response.success) {
-    addMessageToChat('❌ ' + response.message, 'ai');
+  if (!name || !email || !message) {
+    alert('Please fill in Name, Email, and Message.');
+    return;
+  }
+  if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    alert('Please enter a valid email address.');
     return;
   }
 
-  if (type === 'chat') {
-    addMessageToChat(response.message, 'ai');
-  }
-}
+  const btn = document.getElementById('ks-f-submit');
+  btn.textContent = 'Sending…';
+  btn.disabled    = true;
 
-// ═══════════════════════════════════════════════════════════════════════════
-//  MESSAGE MANAGEMENT
-// ═══════════════════════════════════════════════════════════════════════════
+  ksPost({ type: 'contact', name, email, phone, subject, message })
+    .then(res => {
+      btn.textContent = 'Send Message';
+      btn.disabled    = false;
 
-function addMessageToChat(message, sender) {
-  const messagesContainer = document.getElementById('ks-chat-messages');
-  
-  const messageDiv = document.createElement('div');
-  messageDiv.className = 'ks-chat-message ' + (sender === 'user' ? 'user-message' : 'ai-message');
-  
-  const contentDiv = document.createElement('div');
-  contentDiv.className = 'ks-message-content';
-  contentDiv.textContent = message;
-  
-  const timeDiv = document.createElement('div');
-  timeDiv.className = 'ks-message-time';
-  timeDiv.textContent = getCurrentTime();
-  
-  messageDiv.appendChild(contentDiv);
-  messageDiv.appendChild(timeDiv);
-  messagesContainer.appendChild(messageDiv);
-  
-  // Scroll to bottom
-  messagesContainer.scrollTop = messagesContainer.scrollHeight;
-}
-
-function showLoadingIndicator() {
-  const messagesContainer = document.getElementById('ks-chat-messages');
-  
-  const loadingDiv = document.createElement('div');
-  loadingDiv.className = 'ks-chat-message ai-message ks-loading';
-  loadingDiv.id = 'ks-loading-indicator';
-  loadingDiv.innerHTML = '<div class="ks-typing-dots"><span></span><span></span><span></span></div>';
-  
-  messagesContainer.appendChild(loadingDiv);
-  messagesContainer.scrollTop = messagesContainer.scrollHeight;
-}
-
-function removeLoadingIndicator() {
-  const loading = document.getElementById('ks-loading-indicator');
-  if (loading) {
-    loading.remove();
-  }
-}
-
-// ═══════════════════════════════════════════════════════════════════════════
-//  UI HELPERS
-// ═══════════════════════════════════════════════════════════════════════════
-
-function getCurrentTime() {
-  const now = new Date();
-  return now.getHours().toString().padStart(2, '0') + ':' + 
-         now.getMinutes().toString().padStart(2, '0');
-}
-
-function showBadgeAnimation() {
-  const badge = document.querySelector('.ks-chat-badge');
-  if (badge) {
-    badge.style.animation = 'ks-badge-bounce 2s ease-in-out infinite';
-  }
-}
-
-// ═══════════════════════════════════════════════════════════════════════════
-//  INJECT CSS STYLES (FIXED POSITIONING)
-// ═══════════════════════════════════════════════════════════════════════════
-
-function injectChatStyles() {
-  const style = document.createElement('style');
-  style.textContent = `
-    /* ═══ CHAT WIDGET STYLES ═══ */
-    #ks-chat-widget {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      --primary-color: #1F1F1F;
-      --text-color: #333;
-      --bg-light: #f5f5f5;
-      --ai-bg: #e8e8e8;
-      --user-bg: #1F1F1F;
-      --user-text: #fff;
-    }
-
-    /* ═══ TOGGLE BUTTON - FIXED POSITIONING ═══ */
-    .ks-chat-toggle {
-      position: fixed;
-      bottom: calc(64px + 20px + env(safe-area-inset-bottom));
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #1F1F1F, #333);
-      color: white;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(31, 31, 31, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      z-index: 199;
-    }
-
-    .ks-chat-toggle:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 16px rgba(31, 31, 31, 0.4);
-    }
-
-    .ks-chat-toggle.active {
-      bottom: calc(64px + 430px + 20px + env(safe-area-inset-bottom));
-    }
-
-    .ks-chat-badge {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background: #ff4444;
-      color: white;
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    /* ═══ CHAT WINDOW ═══ */
-    .ks-chat-window {
-      position: fixed;
-      bottom: calc(64px + 90px + env(safe-area-inset-bottom));
-      right: 20px;
-      width: 380px;
-      height: 500px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 5px 40px rgba(0, 0, 0, 0.16);
-      display: flex;
-      flex-direction: column;
-      z-index: 198;
-      transition: all 0.3s ease;
-    }
-
-    .ks-chat-window.hidden {
-      display: none;
-      opacity: 0;
-      transform: scale(0.95);
-    }
-
-    /* ═══ CHAT HEADER ═══ */
-    .ks-chat-header {
-      background: linear-gradient(135deg, #1F1F1F, #333);
-      color: white;
-      padding: 16px;
-      border-radius: 12px 12px 0 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .ks-chat-header-content h3 {
-      margin: 0;
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .ks-chat-header-content p {
-      margin: 4px 0 0 0;
-      font-size: 12px;
-      opacity: 0.9;
-    }
-
-    .ks-chat-close {
-      background: rgba(255, 255, 255, 0.2);
-      border: none;
-      color: white;
-      cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
-    }
-
-    .ks-chat-close:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-    /* ═══ MESSAGES CONTAINER ═══ */
-    .ks-chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      background: #fafafa;
-    }
-
-    /* ═══ MESSAGE STYLES ═══ */
-    .ks-chat-message {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .ks-chat-message.user-message {
-      align-items: flex-end;
-    }
-
-    .ks-chat-message.ai-message {
-      align-items: flex-start;
-    }
-
-    .ks-message-content {
-      max-width: 80%;
-      padding: 10px 14px;
-      border-radius: 12px;
-      line-height: 1.4;
-      word-wrap: break-word;
-    }
-
-    .user-message .ks-message-content {
-      background: var(--user-bg);
-      color: var(--user-text);
-      border-radius: 12px 2px 12px 12px;
-    }
-
-    .ai-message .ks-message-content {
-      background: var(--ai-bg);
-      color: var(--text-color);
-      border-radius: 2px 12px 12px 12px;
-    }
-
-    .ks-message-time {
-      font-size: 11px;
-      color: #999;
-      padding: 0 4px;
-    }
-
-    /* ═══ LOADING STATE ═══ */
-    .ks-loading .ks-message-content {
-      padding: 10px 14px;
-    }
-
-    .ks-typing-dots {
-      display: flex;
-      gap: 4px;
-    }
-
-    .ks-typing-dots span {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--text-color);
-      animation: ks-typing 1.4s infinite;
-    }
-
-    .ks-typing-dots span:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .ks-typing-dots span:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    @keyframes ks-typing {
-      0%, 60%, 100% { opacity: 0.5; transform: translateY(0); }
-      30% { opacity: 1; transform: translateY(-8px); }
-    }
-
-    /* ═══ INPUT AREA ═══ */
-    .ks-chat-input-area {
-      padding: 12px;
-      border-top: 1px solid #e0e0e0;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    #ks-chat-form {
-      display: flex;
-      gap: 8px;
-    }
-
-    .ks-chat-input {
-      flex: 1;
-      border: 1px solid #ddd;
-      border-radius: 20px;
-      padding: 10px 16px;
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .ks-chat-input:focus {
-      border-color: var(--primary-color);
-    }
-
-    .ks-chat-send {
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .ks-chat-send:hover {
-      background: #333;
-    }
-
-    /* ═══ TALK TO OWNER BUTTON ═══ */
-    .ks-talk-owner-btn {
-      background: #f0f0f0;
-      border: 1px solid #ddd;
-      padding: 8px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
-
-    .ks-talk-owner-btn:hover {
-      background: #e0e0e0;
-      border-color: var(--primary-color);
-    }
-
-    /* ═══ CONTACT MODAL ═══ */
-    .ks-contact-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
-    .ks-contact-modal.hidden {
-      display: none;
-    }
-
-    .ks-contact-form-wrapper {
-      background: white;
-      border-radius: 12px;
-      padding: 24px;
-      width: 90%;
-      max-width: 420px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    }
-
-    .ks-contact-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .ks-contact-header h3 {
-      margin: 0;
-      font-size: 18px;
-    }
-
-    .ks-contact-close {
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      color: #999;
-    }
-
-    /* ═══ FORM ELEMENTS ═══ */
-    .ks-form-group {
-      margin-bottom: 16px;
-    }
-
-    .ks-form-group label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 500;
-      font-size: 14px;
-    }
-
-    .ks-form-group input,
-    .ks-form-group textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      font-size: 14px;
-      font-family: inherit;
-      box-sizing: border-box;
-    }
-
-    .ks-form-group input:focus,
-    .ks-form-group textarea:focus {
-      outline: none;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(31, 31, 31, 0.1);
-    }
-
-    .ks-submit-btn {
-      background: var(--primary-color);
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 500;
-      width: 100%;
-      margin-bottom: 8px;
-      transition: background 0.2s;
-    }
-
-    .ks-submit-btn:hover {
-      background: #333;
-    }
-
-    .ks-cancel-btn {
-      background: #f0f0f0;
-      color: #333;
-      padding: 10px 20px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 500;
-      width: 100%;
-      transition: all 0.2s;
-    }
-
-    .ks-cancel-btn:hover {
-      background: #e0e0e0;
-    }
-
-    /* ═══ RESPONSIVE ═══ */
-    @media (max-width: 480px) {
-      .ks-chat-window {
-        width: calc(100% - 40px);
-        height: 70vh;
-        bottom: calc(64px + 80px + env(safe-area-inset-bottom));
-        right: 20px;
+      if (res.success) {
+        ksCloseContact();
+        ksAddMsg('✅ ' + res.message, 'ai');
+        // Clear form
+        ['ks-f-name','ks-f-email','ks-f-phone','ks-f-subject','ks-f-message']
+          .forEach(id => { document.getElementById(id).value = ''; });
+      } else {
+        alert('Error: ' + (res.message || 'Could not send. Please try again.'));
       }
+    })
+    .catch(err => {
+      btn.textContent = 'Send Message';
+      btn.disabled    = false;
+      alert('Connection error. Please try again.');
+      console.error('[KS Chat] contact error:', err);
+    });
+}
 
-      .ks-contact-form-wrapper {
-        width: 95%;
-      }
-
-      .ks-message-content {
-        max-width: 90% !important;
-      }
+// ─── API call — NO mode:'no-cors' so we can actually read the response ────────
+function ksPost(data) {
+  return fetch(CHAT_CONFIG.DEPLOYMENT_URL, {
+    method:  'POST',
+    headers: { 'Content-Type': 'text/plain' },   // text/plain bypasses CORS preflight for GAS
+    body:    JSON.stringify(data)
+  })
+  .then(r => {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.text();
+  })
+  .then(text => {
+    try {
+      return JSON.parse(text);
+    } catch (_) {
+      console.error('[KS Chat] non-JSON response:', text.substring(0, 300));
+      return { success: false, message: 'Unexpected server response' };
     }
+  });
+}
 
-    /* ═══ ANIMATIONS ═══ */
-    @keyframes ks-badge-bounce {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-    }
+// ─── DOM helpers ─────────────────────────────────────────────────────────────
+function ksAddMsg(text, who) {
+  const box = document.getElementById('ks-messages');
+  const div = document.createElement('div');
+  div.className = 'ks-msg ' + (who === 'user' ? 'ks-user' : 'ks-ai');
+  div.innerHTML =
+    '<div class="ks-bubble">' + ksEscape(text) + '</div>' +
+    '<div class="ks-time">'   + ksTime()        + '</div>';
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+function ksShowTyping() {
+  const box = document.getElementById('ks-messages');
+  const div = document.createElement('div');
+  div.className = 'ks-msg ks-ai';
+  div.id = 'ks-typing';
+  div.innerHTML = '<div class="ks-bubble ks-dots"><span></span><span></span><span></span></div>';
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+function ksHideTyping() {
+  const el = document.getElementById('ks-typing');
+  if (el) el.remove();
+}
+
+function ksTime() {
+  const d = new Date();
+  return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+}
+
+function ksEscape(str) {
+  return str
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/\n/g,'<br>');
+}
+
+// ─── Styles ───────────────────────────────────────────────────────────────────
+function injectStyles() {
+  const s = document.createElement('style');
+  s.textContent = `
+  /* ── root vars ── */
+  #ks-root { --c:#1F1F1F; --cr:#333; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; }
+
+  /* ── floating button ── */
+  #ks-toggle {
+    position:fixed; bottom:24px; right:24px; z-index:9999;
+    width:58px; height:58px; border-radius:50%;
+    background:linear-gradient(135deg,var(--c),var(--cr));
+    color:#fff; border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 16px rgba(0,0,0,.3);
+    transition:transform .2s,box-shadow .2s;
+  }
+  #ks-toggle:hover { transform:scale(1.08); box-shadow:0 6px 20px rgba(0,0,0,.4); }
+  #ks-badge {
+    position:absolute; top:-4px; right:-4px;
+    background:#e53935; color:#fff; border-radius:50%;
+    width:20px; height:20px; font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  /* ── chat window ── */
+  #ks-window {
+    position:fixed; bottom:96px; right:24px; z-index:9998;
+    width:360px; height:480px; max-height:calc(100vh - 120px);
+    background:#fff; border-radius:14px;
+    box-shadow:0 8px 40px rgba(0,0,0,.18);
+    display:flex; flex-direction:column;
+    transition:opacity .2s,transform .2s;
+  }
+  #ks-window.ks-hidden { display:none; }
+
+  /* ── header ── */
+  #ks-header {
+    background:linear-gradient(135deg,var(--c),var(--cr));
+    color:#fff; padding:14px 16px;
+    border-radius:14px 14px 0 0;
+    display:flex; justify-content:space-between; align-items:center;
+    flex-shrink:0;
+  }
+  #ks-header-title  { font-size:15px; font-weight:600; }
+  #ks-header-sub    { font-size:11px; opacity:.85; margin-top:2px; }
+  #ks-header-close  {
+    background:rgba(255,255,255,.15); border:none; color:#fff;
+    border-radius:6px; width:28px; height:28px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  #ks-header-close:hover { background:rgba(255,255,255,.3); }
+
+  /* ── messages ── */
+  #ks-messages {
+    flex:1; overflow-y:auto; padding:14px;
+    display:flex; flex-direction:column; gap:10px;
+    background:#f7f7f7;
+  }
+  .ks-msg { display:flex; flex-direction:column; gap:3px; }
+  .ks-msg.ks-user { align-items:flex-end; }
+  .ks-msg.ks-ai   { align-items:flex-start; }
+  .ks-bubble {
+    max-width:82%; padding:9px 13px; border-radius:12px;
+    font-size:14px; line-height:1.45; word-break:break-word;
+  }
+  .ks-user .ks-bubble { background:var(--c); color:#fff; border-radius:12px 2px 12px 12px; }
+  .ks-ai   .ks-bubble { background:#e4e4e4; color:#222; border-radius:2px 12px 12px 12px; }
+  .ks-time { font-size:10px; color:#aaa; padding:0 4px; }
+
+  /* ── typing dots ── */
+  .ks-dots { display:flex; gap:5px; align-items:center; min-width:44px; padding:12px 14px !important; }
+  .ks-dots span {
+    width:7px; height:7px; border-radius:50%; background:#888;
+    animation:ks-bounce 1.2s infinite;
+  }
+  .ks-dots span:nth-child(2) { animation-delay:.2s; }
+  .ks-dots span:nth-child(3) { animation-delay:.4s; }
+  @keyframes ks-bounce {
+    0%,60%,100% { transform:translateY(0); opacity:.5; }
+    30%          { transform:translateY(-6px); opacity:1; }
+  }
+
+  /* ── input row ── */
+  #ks-input-row {
+    display:flex; gap:8px; padding:10px 12px 6px;
+    border-top:1px solid #e8e8e8; flex-shrink:0; background:#fff;
+  }
+  #ks-input {
+    flex:1; border:1px solid #ddd; border-radius:20px;
+    padding:9px 14px; font-size:14px; outline:none;
+    transition:border-color .2s;
+  }
+  #ks-input:focus  { border-color:var(--c); }
+  #ks-input:disabled { background:#f5f5f5; }
+  #ks-send {
+    background:var(--c); color:#fff; border:none; border-radius:50%;
+    width:36px; height:36px; cursor:pointer; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    transition:background .2s;
+  }
+  #ks-send:hover    { background:#444; }
+  #ks-send:disabled { background:#aaa; cursor:default; }
+
+  /* ── footer ── */
+  #ks-footer {
+    padding:6px 12px 12px; background:#fff;
+    border-radius:0 0 14px 14px; flex-shrink:0;
+  }
+  #ks-owner-btn {
+    width:100%; background:#f2f2f2; border:1px solid #ddd;
+    border-radius:7px; padding:8px; font-size:13px; font-weight:500;
+    cursor:pointer; transition:background .2s;
+  }
+  #ks-owner-btn:hover { background:#e5e5e5; }
+
+  /* ── contact modal ── */
+  #ks-modal {
+    position:fixed; inset:0; background:rgba(0,0,0,.5);
+    z-index:10000; display:flex; align-items:center; justify-content:center;
+  }
+  #ks-modal.ks-hidden { display:none; }
+  #ks-modal-box {
+    background:#fff; border-radius:12px; width:90%; max-width:420px;
+    max-height:90vh; overflow-y:auto;
+    box-shadow:0 12px 48px rgba(0,0,0,.22);
+  }
+  #ks-modal-header {
+    padding:16px 20px; font-size:16px; font-weight:600;
+    border-bottom:1px solid #eee;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  #ks-modal-header button {
+    background:none; border:none; font-size:22px;
+    cursor:pointer; color:#999; line-height:1;
+  }
+  #ks-modal-body { padding:20px; display:flex; flex-direction:column; gap:12px; }
+  .ks-field label { display:block; font-size:13px; font-weight:500; margin-bottom:4px; }
+  .ks-field input, .ks-field textarea {
+    width:100%; padding:9px 11px; border:1px solid #ddd; border-radius:7px;
+    font-size:14px; font-family:inherit; box-sizing:border-box; outline:none;
+    transition:border-color .2s;
+  }
+  .ks-field input:focus, .ks-field textarea:focus { border-color:var(--c); }
+  #ks-f-submit {
+    background:var(--c); color:#fff; border:none; border-radius:7px;
+    padding:11px; font-size:14px; font-weight:500; cursor:pointer;
+    transition:background .2s; width:100%;
+  }
+  #ks-f-submit:hover    { background:#333; }
+  #ks-f-submit:disabled { background:#aaa; cursor:default; }
+  #ks-f-cancel {
+    background:#f0f0f0; color:#333; border:1px solid #ddd;
+    border-radius:7px; padding:11px; font-size:14px; font-weight:500;
+    cursor:pointer; width:100%; transition:background .2s;
+  }
+  #ks-f-cancel:hover { background:#e0e0e0; }
+
+  /* ── responsive ── */
+  @media(max-width:480px){
+    #ks-window { width:calc(100vw - 32px); right:16px; bottom:86px; }
+    #ks-toggle { right:16px; bottom:16px; }
+  }
   `;
-
-  document.head.appendChild(style);
+  document.head.appendChild(s);
 }
 
-console.log('Kashmir Stay Chat Widget loaded successfully');
+console.log('[Kashmir Stay] Chat widget loaded');
