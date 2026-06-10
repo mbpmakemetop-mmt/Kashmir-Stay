@@ -301,7 +301,7 @@ function injectStyles() {
   /* ── floating button ── */
   #ks-toggle {
     position: fixed;
-    bottom: 20px;
+    bottom: calc(var(--nav-h, 64px) + env(safe-area-inset-bottom) + 12px);
     right: 20px;
     width: 60px;
     height: 60px;
@@ -315,13 +315,13 @@ function injectStyles() {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    z-index: 9999;
+    z-index: 201;
   }
   #ks-toggle:hover {
     transform: scale(1.1);
     box-shadow: 0 6px 16px rgba(31, 31, 31, 0.4);
   }
-  #ks-toggle.active { bottom: 420px; }
+  #ks-toggle.active { bottom: calc(var(--nav-h, 64px) + env(safe-area-inset-bottom) + 420px); }
   #ks-badge {
     position: absolute;
     top: -5px;
@@ -340,8 +340,10 @@ function injectStyles() {
 
   /* ── chat window ── */
   #ks-window {
-    position:fixed; bottom:96px; right:24px; z-index:9998;
-    width:360px; height:480px; max-height:calc(100vh - 120px);
+    position:fixed;
+    bottom: calc(var(--nav-h, 64px) + env(safe-area-inset-bottom) + 80px);
+    right:20px; z-index:201;
+    width:360px; height:480px; max-height:calc(100vh - 200px);
     background:#fff; border-radius:14px;
     box-shadow:0 8px 40px rgba(0,0,0,.18);
     display:flex; flex-direction:column;
@@ -473,8 +475,8 @@ function injectStyles() {
 
   /* ── responsive ── */
   @media(max-width:480px){
-    #ks-window { width:calc(100vw - 32px); right:16px; bottom:86px; }
-    #ks-toggle { right:16px; bottom:16px; }
+    #ks-window { width:calc(100vw - 32px); right:16px; bottom:calc(var(--nav-h,64px) + env(safe-area-inset-bottom) + 80px); }
+    #ks-toggle { right:16px; bottom:calc(var(--nav-h,64px) + env(safe-area-inset-bottom) + 12px); }
   }
   `;
   document.head.appendChild(s);
