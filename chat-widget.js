@@ -5,7 +5,7 @@
 
 const CHAT_CONFIG = {
   // ↓ Paste your Apps Script Web App URL here (no trailing slash)
-  DEPLOYMENT_URL: 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec',
+  DEPLOYMENT_URL: 'https://script.google.com/macros/s/AKfycbwa8XFecHqXe7_pPkmbeXqX5wUMUQHeNUb2ZntAbUdiHGPPM9n0G13TdmX4rzPz9A1bDw/exec',
   INITIAL_MESSAGE: "Hello! 👋 I'm Kashmir Stay's AI Assistant. Ask me anything about Kashmir travel, hotels, or resorts!",
   PLACEHOLDER: 'Ask about hotels, tours, travel tips…',
   THEME_COLOR: '#1F1F1F'
