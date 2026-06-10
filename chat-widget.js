@@ -13,7 +13,7 @@ const CHAT_CONFIG = {
 
 // ─── Boot ────────────────────────────────────────────────────────────────────
 (function () {
-  if (!CHAT_CONFIG.DEPLOYMENT_URL || CHAT_CONFIG.DEPLOYMENT_URL.includes('https://script.google.com/macros/s/AKfycbwa8XFecHqXe7_pPkmbeXqX5wUMUQHeNUb2ZntAbUdiHGPPM9n0G13TdmX4rzPz9A1bDw/exec')) {
+  if (!CHAT_CONFIG.DEPLOYMENT_URL) {
     console.warn('[KS Chat] Set DEPLOYMENT_URL in chat-widget.js');
     return;
   }
