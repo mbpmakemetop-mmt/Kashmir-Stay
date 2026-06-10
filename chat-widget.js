@@ -5,7 +5,7 @@
 
 const CHAT_CONFIG = {
   // ↓ Paste your Apps Script Web App URL here (no trailing slash)
-  DEPLOYMENT_URL: 'https://script.google.com/macros/s/AKfycbwa8XFecHqXe7_pPkmbeXqX5wUMUQHeNUb2ZntAbUdiHGPPM9n0G13TdmX4rzPz9A1bDw/exec',
+  DEPLOYMENT_URL: 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec',
   INITIAL_MESSAGE: "Hello! 👋 I'm Kashmir Stay's AI Assistant. Ask me anything about Kashmir travel, hotels, or resorts!",
   PLACEHOLDER: 'Ask about hotels, tours, travel tips…',
   THEME_COLOR: '#1F1F1F'
@@ -300,20 +300,42 @@ function injectStyles() {
 
   /* ── floating button ── */
   #ks-toggle {
-    position:fixed; bottom:24px; right:24px; z-index:9999;
-    width:58px; height:58px; border-radius:50%;
-    background:linear-gradient(135deg,var(--c),var(--cr));
-    color:#fff; border:none; cursor:pointer;
-    display:flex; align-items:center; justify-content:center;
-    box-shadow:0 4px 16px rgba(0,0,0,.3);
-    transition:transform .2s,box-shadow .2s;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1F1F1F, #333);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(31, 31, 31, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 9999;
   }
-  #ks-toggle:hover { transform:scale(1.08); box-shadow:0 6px 20px rgba(0,0,0,.4); }
+  #ks-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(31, 31, 31, 0.4);
+  }
+  #ks-toggle.active { bottom: 420px; }
   #ks-badge {
-    position:absolute; top:-4px; right:-4px;
-    background:#e53935; color:#fff; border-radius:50%;
-    width:20px; height:20px; font-size:11px; font-weight:700;
-    display:flex; align-items:center; justify-content:center;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4444;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
   }
 
   /* ── chat window ── */
