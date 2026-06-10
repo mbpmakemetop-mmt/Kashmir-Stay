@@ -18,7 +18,7 @@ const CHAT_CONFIG = {
 
 (function initChatWidget() {
   // Only initialize if deployment URL is set
-  if (CHAT_CONFIG.DEPLOYMENT_URL === 'YOUR_APPS_SCRIPT_DEPLOYMENT_URL_HERE') {
+  if (CHAT_CONFIG.DEPLOYMENT_URL === 'https://script.google.com/macros/s/AKfycbwa8XFecHqXe7_pPkmbeXqX5wUMUQHeNUb2ZntAbUdiHGPPM9n0G13TdmX4rzPz9A1bDw/exec') {
     console.warn('Chat Widget: Deployment URL not configured');
     return;
   }
