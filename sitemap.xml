@@ -3,229 +3,289 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <!-- MakeMe Top | makemetop.in -->
-  <!-- Generated: 2026-06-13T05:53:32.826Z -->
-  <!-- Static pages: 37 | Business profiles: 23 | With images: 23 -->
+  <!-- Generated: 2026-06-19T13:52:33.395Z -->
+  <!-- Static pages: 47 | Business profiles: 23 | With images: 23 -->
 
   <url>
     <loc>https://kashmirstay.in/</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/about.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/beautiful-places-in-kashmir.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/dal-lake-guide.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/gulmarg-guide.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/gurez-valley-guide.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/kashmir-skiing-guide.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/kashmir-travel-guide.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/pahalgam-guide.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/sinthan-top-guide.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/contact.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/faq.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/terms.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://kashmirstay.in/best-hotels-kashmir-ranked.html</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://kashmirstay.in/biz.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/anantnag-to-gurez-valley-distance-kashmir-stay.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/best-season-to-visit-kashmir-stay.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/best-time-to-visit-kashmir-stay.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/blog.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/famous-places-visit-kashmir.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/golden-crown-of-kashmir-tourist-destination-kashmir-stay.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/gulmarg-gondola-guide-kashmir-stay.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/gulmarg-gondola-phase-1-vs-phase-2-kashmir-stay.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/honeymoon-in-kashmir-kashmir-stay.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/hotels-near-shankaracharya-hill.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/jktdc-huts-srinagar.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/sinthan-top-distance-kashmir-stay.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/srinagar-to-sinthan-top-distance-kashmir-stay.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/top-10-tourist-places-in-kashmir.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/where-to-stay-in-srinagar.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/blog/which-part-of-kashmir-is-most-beautiful-kashmir-stay.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/dal-lake.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/delete-account.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/desclaimer.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/guides/dal-lake-houseboats.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/gulmarg-gondola-complete-guide-2026.html</loc>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/help-ai.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://kashmirstay.in/kashmir-adventure-activities-ranked.html</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/kashmir-budget-travel-guide-2026.html</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/kashmir-food-guide-ranked.html</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/kashmir-houseboat-guide-ranked.html</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/kashmir-photography-guide-ranked.html</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/kashmir-trekking-routes-ranked.html</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://kashmirstay.in/packages.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/pahalgam-complete-guide-2026.html</loc>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kashmirstay.in/privacy-policy.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kashmirstay.in/srinagar-2-day-itinerary-2026.html</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
@@ -246,7 +306,7 @@
   <!-- Srinagar Destination Tour And Travels | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/srinagar-destination-tour-and-travels.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -272,7 +332,7 @@
   <!-- Hunt Kashmir 365 | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/hunt-kashmir-365.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -298,7 +358,7 @@
   <!-- Vellfire Holidays | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/vellfire-holidays.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -337,7 +397,7 @@
   <!-- United Royal Tours And Travels | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/united-royal-tours-and-travels.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -363,7 +423,7 @@
   <!-- RAAJ N RAAJ TOUR AND TRAVELS | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/raaj-n-raaj-tour-and-travels.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -389,7 +449,7 @@
   <!-- Kashmir Glide tour and travel | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/kashmir-glide-tour-and-travel.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -467,7 +527,7 @@
   <!-- Sun Seekers | Travel Agency | Premium -->
   <url>
     <loc>https://kashmirstay.in/biz/sun-seekers.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
