@@ -2254,11 +2254,24 @@ function renderBizList(containerId, bizList) {
       : '<span class="biz-review-count" style="color:var(--gray300);font-size:.7rem">No reviews yet</span>';
     const vpBadge = b.verified_plus ? '<span class="verified-plus-badge">✓ Verified+</span>' : '';
     const sponTag = b.category_sponsor ? '<span style="font-size:.62rem;background:#DBEAFE;color:#1D4ED8;padding:2px 7px;border-radius:10px;font-weight:700;margin-left:4px">Sponsored</span>' : '';
+    const gallery = (b.gallery_urls||[]).filter(Boolean);
+    const mainPhoto = b.cover_url || gallery[0] || b.logo_url || '';
+    const sideShots = gallery.slice(0,3);
+    while (sideShots.length < 3) sideShots.push('');
+    const gallerySlots = sideShots.map(u => u
+      ? `<div style="background-image:url('${u}')"></div>`
+      : `<div></div>`
+    ).join('');
     return `
     <div class="card" style="margin-bottom:12px" onclick="openBizDetail('${b.id}')" role="listitem" aria-label="${escapeHtml(b.name)}">
-      <div class="biz-card">
-        <img class="biz-logo" src="${b.logo_url||''}" alt="${escapeHtml(b.name)} logo" loading="lazy" onerror="this.style.background='var(--gray200)'"/>
-        <div class="biz-info">
+      <div class="biz-card2">
+        <div class="biz-card2-media">
+          <div class="biz-card2-main" style="${mainPhoto?`background-image:url('${mainPhoto}')`:''}">
+            <img class="biz-card2-logo" src="${b.logo_url||''}" alt="${escapeHtml(b.name)} logo" loading="lazy" onerror="this.style.background='var(--gray200)'"/>
+          </div>
+          <div class="biz-card2-gallery">${gallerySlots}</div>
+        </div>
+        <div class="biz-card2-info">
           <div class="biz-name">${escapeHtml(b.name)}${vpBadge}</div>
           <span class="biz-type">${escapeHtml(b.type||'Business')}</span>${sponTag}
           ${b.description ? `<div class="biz-desc">${escapeHtml(b.description)}</div>` : ''}
