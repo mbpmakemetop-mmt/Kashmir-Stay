@@ -166,7 +166,7 @@ function ksSend() {
       input.focus();
 
       if (res.success) {
-        ksAddMsg(res.message, 'ai');
+        ksStreamMsg(res.message);
       } else {
         ksAddMsg('❌ ' + (res.message || 'Something went wrong. Please try again.'), 'ai');
       }
@@ -262,6 +262,36 @@ function ksAddMsg(text, who) {
     '<div class="ks-time">'   + ksTime()        + '</div>';
   box.appendChild(div);
   box.scrollTop = box.scrollHeight;
+}
+
+// ─── Fake streaming reveal — shows AI replies word-by-word like ChatGPT ───────
+function ksStreamMsg(fullText) {
+  const box = document.getElementById('ks-messages');
+  const div = document.createElement('div');
+  div.className = 'ks-msg ks-ai';
+  div.innerHTML = '<div class="ks-bubble"></div><div class="ks-time">' + ksTime() + '</div>';
+  box.appendChild(div);
+
+  const bubble = div.querySelector('.ks-bubble');
+  const words  = fullText.split(' ');
+  let i = 0;
+
+  // Slight randomness on delay makes it feel more natural, not robotic.
+  function revealNext() {
+    if (i >= words.length) return;
+    const chunk = words.slice(0, i + 1).join(' ');
+    bubble.innerHTML = ksEscape(chunk) + '<span class="ks-cursor">▍</span>';
+    box.scrollTop = box.scrollHeight;
+    i++;
+    const delay = 18 + Math.random() * 35; // ~18-53ms per word
+    setTimeout(revealNext, delay);
+  }
+  revealNext();
+
+  // Remove the blinking cursor once fully revealed.
+  setTimeout(() => {
+    bubble.innerHTML = ksEscape(fullText);
+  }, words.length * 35 + 80);
 }
 
 function ksShowTyping() {
@@ -384,6 +414,18 @@ function injectStyles() {
   .ks-user .ks-bubble { background:var(--c); color:#fff; border-radius:12px 2px 12px 12px; }
   .ks-ai   .ks-bubble { background:#e4e4e4; color:#222; border-radius:2px 12px 12px 12px; }
   .ks-time { font-size:10px; color:#aaa; padding:0 4px; }
+
+  /* ── streaming cursor ── */
+  .ks-cursor {
+    display:inline-block;
+    animation: ks-blink 0.9s steps(1) infinite;
+    color:#666;
+    margin-left:1px;
+  }
+  @keyframes ks-blink {
+    0%, 49%  { opacity:1; }
+    50%,100% { opacity:0; }
+  }
 
   /* ── typing dots ── */
   .ks-dots { display:flex; gap:5px; align-items:center; min-width:44px; padding:12px 14px !important; }
