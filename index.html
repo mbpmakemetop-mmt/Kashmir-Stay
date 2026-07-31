@@ -43,6 +43,20 @@
 <meta name="twitter:description" content="Create your free Kashmir Stay and get on Google. Srinagar's #1 local business directory for Jammu & Kashmir."/>
 <meta name="twitter:image" content="https://kashmirstay.in/icon-512-v2.png"/>
 
+<!-- ═══ PLAY STORE ASO / APP SEO ═══ -->
+<meta name="application-name" content="Kashmir Stay"/>
+<meta name="google-play-app" content="app-id=in.kashmirstay.ks"/>
+<link rel="alternate" href="android-app://in.kashmirstay.ks/https/kashmirstay.in/" />
+<meta name="apple-itunes-app" content="app-argument=https://kashmirstay.in/"/>
+<meta property="al:android:app_name" content="Kashmir Stay"/>
+<meta property="al:android:package" content="in.kashmirstay.ks"/>
+<meta property="al:android:url" content="https://kashmirstay.in/"/>
+<meta property="al:web:url" content="https://kashmirstay.in/"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="320"/>
+<!-- ASO Keywords: Kashmir travel app, Kashmir hotel booking app, Kashmir Stay app, Kashmir tourism app India, best Kashmir travel app, Kashmir hotels resorts app, Srinagar travel app, J&K travel directory app -->
+
 <!-- ═══ GEO / LOCAL SEO ═══ -->
 <meta name="geo.region" content="IN-JK"/>
 <meta name="geo.placename" content="Srinagar, Jammu and Kashmir, India"/>
@@ -64,9 +78,6 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" sizes="128x128" href="favicon.png">
 
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3499114279910810"
-     crossorigin="anonymous"></script>
 
 <!-- ═══ STRUCTURED DATA – WebSite ═══ -->
 <script type="application/ld+json">
@@ -209,10 +220,33 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
 
 <!-- Main CSS preload -->
-<link rel="preload" href="shared.css?v=4.2" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="shared.css?v=4.1" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript>
-  <link rel="stylesheet" href="shared.css?v=4.2">
+  <link rel="stylesheet" href="shared.css?v=4.1">
 </noscript>
+
+<!-- ═══ CAPACITOR APK FIX — safe-area for status bar overlap ═══
+     In the Capacitor wrapper the WebView draws edge-to-edge under the
+     Android status bar, so .top-header (and its buttons like Edit/
+     Spotlight/Dashboard/Share) get covered and become unclickable.
+     This pushes the header down by the device's safe-area inset and
+     also keeps the bottom nav clear of gesture-bar / nav-bar insets.
+     Pure CSS addition — no existing functions/automation touched. ═══ -->
+<style>
+  :root{ --capgo-safe-top: env(safe-area-inset-top, 0px); --capgo-safe-bottom: env(safe-area-inset-bottom, 0px); }
+  .top-header{
+    padding-top: calc(10px + var(--capgo-safe-top)) !important;
+    height: auto !important;
+    min-height: calc(52px + var(--capgo-safe-top)) !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 50 !important;
+  }
+  #page-loader{ padding-top: var(--capgo-safe-top) !important; }
+  .bottom-nav{ padding-bottom: calc(6px + var(--capgo-safe-bottom)) !important; height: auto !important; }
+  .modal-overlay .modal-sheet{ padding-bottom: calc(16px + var(--capgo-safe-bottom)); }
+  #install-prompt{ bottom: calc(72px + var(--capgo-safe-bottom)) !important; }
+</style>
 
 
 
@@ -242,7 +276,7 @@
   <p class="ns-p"><strong>Keywords:</strong> Kashmir Stay Srinagar · Kashmir Stay · KS Kashmir · KSBP · local business Srinagar · business directory J&amp;K · free business listing Kashmir · restaurants Srinagar · shops Kashmir · doctors Srinagar · services J&amp;K</p>
   <p class="ns-p"><strong>To use Kashmir Stay, please enable JavaScript in your browser.</strong> Kashmir Stay is a Progressive Web App (PWA) that works on all modern browsers and can be installed on your home screen for the best experience.</p>
   <ul class="ns-ul">
-    <li>Create your free MBP listing — on MakeMe Top</li>
+    <li>Create your free business listing on Kashmir Stay</li>
     <li>Every Kashmir Stay is indexed on Google Search with Schema.org markup</li>
     <li>Real 5-star customer reviews on every business profile</li>
     <li>Direct Call, WhatsApp and Website buttons on every profile</li>
@@ -343,15 +377,15 @@
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     <span>Search</span>
   </button>
-  <button class="nav-item add-btn" onclick="window.open('https://makemetop.in','_blank')" aria-label="Create your MBP">
+  <button class="nav-item add-btn" onclick="tryAddBusiness()" aria-label="List your business">
     <div class="add-circle">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
     </div>
-    <span>Create MBP</span>
+    <span>Add Listing</span>
   </button>
-  <button class="nav-item" onclick="window.open('help-ai.html','_blank')" aria-label="AI Assistant">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-    <span>AI</span>
+  <button class="nav-item" data-page="dashboard" onclick="navTo('dashboard')" aria-label="My dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    <span>Dashboard</span>
   </button>
   <button class="nav-item" data-page="settings" onclick="navTo('settings')" aria-label="Settings">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m5.196-14.196l-4.242 4.242m0 5.656l-4.242 4.242M23 12h-6m-6 0H1m14.196 5.196l-4.242-4.242m0-5.656L6.804 2.804"/></svg>
@@ -368,6 +402,7 @@
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
     </button>
   </header>
+
   <div class="scroll-body">
     <div class="home-hero">
       <!-- SEO: Primary H1 – Kashmir Travel platform -->
@@ -417,10 +452,10 @@
         <h2 class="section-title">🏆 Top Kashmir Stay Listings</h2>
       </div>
       <div id="home-biz-list" role="list" aria-label="Kashmir Stay listings – local businesses in Srinagar Kashmir J&K">
-        <div class="empty-state"><div class="empty-icon">🔥</div><h3>No Kashmir Stays yet</h3><p>Be the first to create your Kashmir Stay in Srinagar!</p></div>
+        <div class="empty-state"><div class="empty-icon" style="display:flex;align-items:center;justify-content:center;color:var(--gray300)"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg></div><h3>No Kashmir Stays yet</h3><p>Be the first to create your Kashmir Stay in Srinagar!</p></div>
       </div>
     </div>
-    <div style="padding:0 16px 8px"><button class="btn btn-outline" onclick="window.open('https://makemetop.in','_blank')">🏔️ Create Your MBP</button></div>
+    <div style="padding:0 16px 8px"><button class="btn btn-outline" onclick="tryAddBusiness()">🏔️ List Your Business</button></div>
     <div style="padding:12px 16px 8px;font-size:.72rem;color:var(--gray400);line-height:1.6;text-align:center">
       <strong style="color:var(--gray500)">Kashmir Stay · Kashmir Tourism Platform</strong><br/>
        Discover the best hotels, luxury houseboats, resorts, homestays, travel guides, taxi services and local experiences across Jammu &amp; Kashmir. Explore Srinagar, Gulmarg, Pahalgam, Sonamarg, Doodhpathri and more with verified reviews and trusted recommendations for travelers.
@@ -445,6 +480,327 @@
 </div>
 
 <!-- ══ PAGE: ADD BUSINESS — 4-STEP PAYMENT FLOW ══ -->
+<div id="page-add" class="page">
+  <header class="top-header">
+    <button class="back-btn" onclick="navBack()" aria-label="Go back"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+    <div class="title" id="add-page-title">List Your Business</div>
+    <div class="spacer"></div>
+    <button class="icon-btn" style="width:auto;padding:0 10px;color:var(--gray500);font-size:.78rem" id="save-draft-btn" onclick="saveDraft()">Save Draft</button>
+  </header>
+  <div class="scroll-body">
+
+    <!-- ── Step Progress Indicator ── -->
+    <div class="step-indicator">
+      <div class="step-dot active" id="sdot-1">1</div>
+      <div class="step-line" id="sline-1"></div>
+      <div class="step-dot" id="sdot-2">2</div>
+      <div class="step-line" id="sline-2"></div>
+      <!-- step-dot-3 removed —Razorpay only -->
+      <div class="step-dot" id="sdot-4">4</div>
+    </div>
+    <div class="step-labels">
+      <span class="active" id="slabel-1">Details</span>
+      <span id="slabel-2">Payment</span>
+      <span id="slabel-3">Proof</span>
+      <span id="slabel-4">Done</span>
+    </div>
+
+    <!-- ══ STEP 1: Business Details ══ -->
+    <div class="form-step active" id="step-1">
+      <div class="section" style="padding-top:0">
+        <div style="background:linear-gradient(135deg,#1F1F1F,#333);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:16px;color:#fff">
+          <div style="font-family:var(--font-display);font-weight:800;font-size:1rem;margin-bottom:4px">🏔️ List on Kashmir Stay Listing</div>
+          <div style="font-size:.78rem;opacity:.85;line-height:1.5">Fill your details, pay <strong>₹999 via UPI</strong>, upload screenshot. We verify &amp; publish within <strong>48 hours</strong>.</div>
+        </div>
+        <h2 style="font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:16px">Business Information</h2>
+        <div class="form-group"><label class="form-label">Business Name *</label><input type="text" id="biz-name" class="form-input" placeholder="e.g. Kashmir Grand Resorts" oninput="autosaveDraft()"/></div>
+        <div class="form-group"><label class="form-label">Business Type *</label>
+          <select id="biz-type" class="form-select" onchange="autosaveDraft()">
+            <option value="">Select type...</option>
+            <optgroup label="Accommodation">
+              <option>Resort</option><option>Hotel</option><option>Houseboat</option>
+              <option>Guest House</option><option>Camping</option><option>Homestay</option><option>Lodge</option>
+            </optgroup>
+            <optgroup label="Travel Services">
+              <option>Travel Agency</option><option>Tour Operator</option><option>Car Rental</option><option>Taxi Service</option>
+            </optgroup>
+            <optgroup label="Activities">
+              <option>Adventure</option><option>Trekking</option><option>Skiing</option><option>Shikara</option>
+              <option>River Rafting</option><option>Paragliding</option><option>Photography Tour</option>
+            </optgroup>
+            <optgroup label="Other">
+              <option>Restaurant</option><option>Handicrafts</option><option>Other</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Services Offered</label>
+          <div class="chip-group" id="services-chips">
+           <div class="chip" onclick="toggleService(this,'Airport Pickup')">Airport Pickup</div>
+<div class="chip" onclick="toggleService(this,'Airport Drop')">Airport Drop</div>
+<div class="chip" onclick="toggleService(this,'Hotel Transfers')">Hotel Transfers</div>
+<div class="chip" onclick="toggleService(this,'Local Sightseeing')">Local Sightseeing</div>
+<div class="chip" onclick="toggleService(this,'Online Booking')">Online Booking</div>
+<div class="chip" onclick="toggleService(this,'Instant Booking')">Instant Booking</div>
+<div class="chip" onclick="toggleService(this,'Customised Packages')">Custom Packages</div>
+<div class="chip" onclick="toggleService(this,'Group Tours')">Group Tours</div>
+<div class="chip" onclick="toggleService(this,'Honeymoon Packages')">Honeymoon</div>
+<div class="chip" onclick="toggleService(this,'Family Packages')">Family Packages</div>
+<div class="chip" onclick="toggleService(this,'Corporate Tours')">Corporate Tours</div>
+<div class="chip" onclick="toggleService(this,'Adventure Tours')">Adventure Tours</div>
+<div class="chip" onclick="toggleService(this,'Snow Tours')">Snow Tours</div>
+<div class="chip" onclick="toggleService(this,'Weekend Getaways')">Weekend Getaways</div>
+
+<!-- Accommodation -->
+<div class="chip" onclick="toggleService(this,'Luxury Stay')">Luxury Stay</div>
+<div class="chip" onclick="toggleService(this,'Budget Stay')">Budget Stay</div>
+<div class="chip" onclick="toggleService(this,'Houseboat Stay')">Houseboat Stay</div>
+<div class="chip" onclick="toggleService(this,'Homestay Booking')">Homestay Booking</div>
+<div class="chip" onclick="toggleService(this,'Camping Stay')">Camping Stay</div>
+<div class="chip" onclick="toggleService(this,'Room Service')">Room Service</div>
+<div class="chip" onclick="toggleService(this,'Meals Included')">Meals Included</div>
+<div class="chip" onclick="toggleService(this,'Free WiFi')">Free WiFi</div>
+<div class="chip" onclick="toggleService(this,'Parking')">Parking</div>
+<div class="chip" onclick="toggleService(this,'24/7 Support')">24/7 Support</div>
+
+<!-- Destinations -->
+<div class="chip" onclick="toggleService(this,'Dal Lake Tour')">Dal Lake Tour</div>
+<div class="chip" onclick="toggleService(this,'Gulmarg Tour')">Gulmarg Tour</div>
+<div class="chip" onclick="toggleService(this,'Pahalgam Tour')">Pahalgam Tour</div>
+<div class="chip" onclick="toggleService(this,'Sonamarg Tour')">Sonamarg Tour</div>
+<div class="chip" onclick="toggleService(this,'Doodhpathri Tour')">Doodhpathri Tour</div>
+<div class="chip" onclick="toggleService(this,'Yusmarg Tour')">Yusmarg Tour</div>
+<div class="chip" onclick="toggleService(this,'Mughal Gardens Tour')">Mughal Gardens</div>
+
+<!-- Transport -->
+<div class="chip" onclick="toggleService(this,'Car Rental')">Car Rental</div>
+<div class="chip" onclick="toggleService(this,'Taxi Service')">Taxi Service</div>
+<div class="chip" onclick="toggleService(this,'Self Drive Cars')">Self Drive Cars</div>
+<div class="chip" onclick="toggleService(this,'Driver Service')">Driver Service</div>
+<div class="chip" onclick="toggleService(this,'Bike Rental')">Bike Rental</div>
+
+<!-- Activities -->
+<div class="chip" onclick="toggleService(this,'Shikara Ride')">Shikara Ride</div>
+<div class="chip" onclick="toggleService(this,'Trekking')">Trekking</div>
+<div class="chip" onclick="toggleService(this,'Skiing')">Skiing</div>
+<div class="chip" onclick="toggleService(this,'Camping')">Camping</div>
+<div class="chip" onclick="toggleService(this,'River Rafting')">River Rafting</div>
+<div class="chip" onclick="toggleService(this,'Paragliding')">Paragliding</div>
+<div class="chip" onclick="toggleService(this,'Photography')">Photography</div>
+<div class="chip" onclick="toggleService(this,'Horse Riding')">Horse Riding</div>
+<div class="chip" onclick="toggleService(this,'ATV Ride')">ATV Ride</div>
+<div class="chip" onclick="toggleService(this,'Fishing')">Fishing</div>
+
+<!-- Restaurant -->
+<div class="chip" onclick="toggleService(this,'Dine In')">Dine In</div>
+<div class="chip" onclick="toggleService(this,'Takeaway')">Takeaway</div>
+<div class="chip" onclick="toggleService(this,'Food Delivery')">Food Delivery</div>
+<div class="chip" onclick="toggleService(this,'Kashmiri Wazwan')">Kashmiri Wazwan</div>
+<div class="chip" onclick="toggleService(this,'Breakfast')">Breakfast</div>
+<div class="chip" onclick="toggleService(this,'Lunch')">Lunch</div>
+<div class="chip" onclick="toggleService(this,'Dinner')">Dinner</div>
+
+<!-- Handicrafts -->
+<div class="chip" onclick="toggleService(this,'Pashmina')">Pashmina</div>
+<div class="chip" onclick="toggleService(this,'Carpets')">Carpets</div>
+<div class="chip" onclick="toggleService(this,'Dry Fruits')">Dry Fruits</div>
+<div class="chip" onclick="toggleService(this,'Souvenirs')">Souvenirs</div>
+<div class="chip" onclick="toggleService(this,'Online Shopping')">Online Shopping</div>
+
+<!-- Extra -->
+<div class="chip" onclick="toggleService(this,'Visa Assistance')">Visa Assistance</div>
+<div class="chip" onclick="toggleService(this,'Travel Insurance')">Travel Insurance</div>
+<div class="chip" onclick="toggleService(this,'UPI Payment')">UPI Payment</div>
+<div class="chip" onclick="toggleService(this,'Card Payment')">Card Payment</div>
+<div class="chip" onclick="toggleService(this,'EMI Available')">EMI Available</div>
+          </div>
+        </div>
+        <!-- GOVT REGISTRATION -->
+        <div class="form-group">
+          <label class="form-label">📋 Government Registration <span style="color:var(--gray400);font-weight:400">(recommended)</span></label>
+          <div class="govt-reg-box">
+            <div class="label">✅ Verified businesses get more trust from tourists</div>
+            <input type="text" id="biz-govt-reg-num" class="form-input" placeholder="Enter GST / Trade Licence / J&K Tourism Reg. No." oninput="autosaveDraft()" style="margin-bottom:8px"/>
+            <p style="font-size:.7rem;color:var(--gray500);margin-bottom:8px">— OR upload a copy of your registration —</p>
+            <div class="img-upload-box" id="govt-reg-box" style="padding:12px">
+              <input type="file" accept="image/*,application/pdf" onchange="previewGovtReg(this)" id="govt-reg-file" aria-label="Upload govt registration document"/>
+              <span class="upload-icon">📄</span>
+              <span class="upload-label" style="font-size:.75rem">Tap to upload reg. document (image or PDF)</span>
+              <img id="govt-reg-preview" class="preview hidden" alt="Registration preview" style="max-height:80px;object-fit:contain"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI DESCRIPTION -->
+        <div class="form-group">
+          <label class="form-label">Description * <span style="color:var(--gray400);font-weight:400;font-size:.72rem">— AI can write this for you</span></label>
+          <div class="ai-desc-wrap">
+            <button class="ai-desc-btn" id="ai-desc-btn" onclick="generateAIDescription()" type="button">
+              <span class="ai-desc-badge">✦ AI</span>
+              <span style="flex:1;text-align:left">Auto-Write My Description</span>
+              <span class="ai-stars">★★★★★</span>
+            </button>
+          </div>
+          <div class="ai-desc-powered">Powered by Groq AI · Writes a professional Kashmir tourism description in seconds</div>
+          <textarea id="biz-desc" class="form-textarea" placeholder="Describe your agency/resort, specialties, and why tourists should choose you... (or tap Auto-Write above)" oninput="autosaveDraft()"></textarea>
+        </div>
+        <div class="form-group"><label class="form-label">Address *</label><input type="text" id="biz-addr" class="form-input" placeholder="e.g. Dal Lake Road, Srinagar" oninput="autosaveDraft()"/></div>
+        <div class="form-group"><label class="form-label">Phone Number *</label><input type="tel" id="biz-phone" class="form-input" placeholder="+91 94000 00000" oninput="autosaveDraft()" autocomplete="tel"/></div>
+        <div class="form-group"><label class="form-label">WhatsApp Number</label><input type="tel" id="biz-whatsapp" class="form-input" placeholder="+91 94000 00000 (optional)" oninput="autosaveDraft()"/></div>
+        <div class="form-group"><label class="form-label">Website URL</label><input type="url" id="biz-website" class="form-input" placeholder="https://yourwebsite.com (optional)" oninput="autosaveDraft()"/></div>
+        <div style="border-top:1px solid var(--gray100);padding-top:16px;margin-top:4px">
+          <p class="form-label" style="margin-bottom:12px">Business Images</p>
+          <div class="form-group"><label class="form-label">Logo *</label>
+            <div class="img-upload-box" id="logo-box"><input type="file" accept="image/*" onchange="previewImg(this,'logo-box','logo-preview')" id="logo-file" aria-label="Upload business logo"/><span class="upload-icon">🏷️</span><span class="upload-label">Tap to upload logo</span><img id="logo-preview" class="preview hidden" alt="Business logo preview"/></div>
+          </div>
+          <div class="form-group"><label class="form-label">Cover Image *</label>
+            <div class="img-upload-box" id="cover-box"><input type="file" accept="image/*" onchange="previewImg(this,'cover-box','cover-preview')" id="cover-file" aria-label="Upload cover image"/><span class="upload-icon">🖼️</span><span class="upload-label">Tap to upload cover (banner)</span><img id="cover-preview" class="preview hidden" alt="Business cover preview"/></div>
+          </div>
+          <div class="form-group"><label class="form-label">Gallery (up to 3 photos)</label>
+            <div id="gallery-grid-upload" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+              <div class="img-upload-box" style="padding:16px" id="gal-box-0"><input type="file" accept="image/*" onchange="previewGal(this,0)" aria-label="Gallery photo 1"/><span style="font-size:1.2rem">📷</span><img id="gal-prev-0" class="preview hidden" alt="Gallery 1"/></div>
+              <div class="img-upload-box" style="padding:16px" id="gal-box-1"><input type="file" accept="image/*" onchange="previewGal(this,1)" aria-label="Gallery photo 2"/><span style="font-size:1.2rem">📷</span><img id="gal-prev-1" class="preview hidden" alt="Gallery 2"/></div>
+              <div class="img-upload-box" style="padding:16px" id="gal-box-2"><input type="file" accept="image/*" onchange="previewGal(this,2)" aria-label="Gallery photo 3"/><span style="font-size:1.2rem">📷</span><img id="gal-prev-2" class="preview hidden" alt="Gallery 3"/></div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" id="next-to-payment-btn" onclick="goToStep(2)">Continue to Payment →</button>
+      </div>
+    </div>
+
+    <!-- ══ STEP 2: Razorpay Payment ══ -->
+    <div class="form-step" id="step-2">
+      <div class="section" style="padding-top:8px">
+
+        <!-- Live Offer Banner (populated from Firestore) -->
+        <div class="offer-banner" id="step2-offer-banner">
+          <div class="offer-banner-inner">
+            <div class="offer-banner-tag">🎉 Limited Offer</div>
+            <div class="offer-banner-name" id="s2-offer-name">Special Offer</div>
+            <div class="offer-banner-sub" id="s2-offer-sub">Discount applied to your plan</div>
+            <div class="offer-countdown-row" id="s2-offer-countdown"></div>
+          </div>
+        </div>
+
+      
+
+        <!-- Plan selector -->
+        <div style="margin-bottom:16px">
+          <p style="font-size:.8rem;font-weight:700;color:var(--gray700);margin-bottom:10px">Choose Your Plan:</p>
+          <div style="display:flex;flex-direction:column;gap:10px">
+
+            <!-- Monthly plan -->
+            <label style="cursor:pointer">
+              <input type="radio" name="mbp-plan" id="plan-monthly" value="monthly_799" checked style="display:none"/>
+              <div class="plan-card active" id="plan-card-monthly" onclick="selectPlan('monthly_799')">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div class="plan-radio active" id="plan-radio-monthly"></div>
+                  <div style="flex:1">
+                    <div style="font-weight:700;font-size:.9rem">1 Month</div>
+                    <div style="font-size:.75rem;color:var(--gray500);margin-top:1px">
+                      <span style="text-decoration:line-through;color:var(--gray400)">₹1,499</span>
+                      <span style="color:var(--red);font-weight:700;margin-left:5px">47% OFF</span>
+                    </div>
+                  </div>
+                  <div style="text-align:right">
+                    <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:var(--primary)" id="s2-monthly-price">₹799</div>
+                    <div style="font-size:.68rem;color:var(--gray400)">/month</div>
+                  </div>
+                </div>
+              </div>
+            </label>
+
+            <!-- Annual plan -->
+            <label style="cursor:pointer;position:relative">
+              <input type="radio" name="mbp-plan" id="plan-annual" value="annual_1499" style="display:none"/>
+              <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-size:.65rem;font-weight:800;padding:2px 10px;border-radius:10px;white-space:nowrap;z-index:1">🔥 SAVE ₹1,589 — Best Value</div>
+              <div class="plan-card" id="plan-card-annual" onclick="selectPlan('annual_1499')" style="border:1.5px solid var(--green)">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div class="plan-radio" id="plan-radio-annual"></div>
+                  <div style="flex:1">
+                    <div style="font-weight:700;font-size:.9rem">1 Year <span style="font-size:.72rem;background:#D1FAE5;color:var(--green);padding:2px 7px;border-radius:8px;margin-left:4px;font-weight:700">17% OFF</span></div>
+                    <div style="font-size:.75rem;color:var(--gray500);margin-top:1px">
+                      <span style="text-decoration:line-through;color:var(--gray400)">₹9,588</span>
+                      <span style="color:var(--green);font-weight:700;margin-left:5px">You save ₹1,589!</span>
+                    </div>
+                  </div>
+                  <div style="text-align:right">
+                    <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:var(--green)" id="s2-annual-price">₹7,999</div>
+                    <div style="font-size:.68rem;color:var(--gray400)">/year</div>
+                  </div>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- What's included -->
+        <div style="background:var(--gray50);border-radius:var(--radius-sm);border:1px solid var(--gray100);padding:12px 14px;margin-bottom:14px">
+          <p style="font-size:.78rem;font-weight:700;margin-bottom:8px">✅ All plans include:</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+            <div style="font-size:.72rem;color:var(--gray700)">✓ Verified badge</div>
+            <div style="font-size:.72rem;color:var(--gray700)">✓ Google indexed</div>
+            <div style="font-size:.72rem;color:var(--gray700)">✓ Photo gallery</div>
+            <div style="font-size:.72rem;color:var(--gray700)">✓ Call & WhatsApp</div>
+            <div style="font-size:.72rem;color:var(--gray700)">✓ 5-star reviews</div>
+            <div style="font-size:.72rem;color:var(--gray700)">✓ Live in 48 hours</div>
+          </div>
+        </div>
+
+        <!-- Razorpay Pay button -->
+        <div style="background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:14px;text-align:center">
+          <div style="font-size:.72rem;color:rgba(255,255,255,.55);margin-bottom:6px">Secure payment via</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#528FF0"/><path d="M6 8l4 8 4-8" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 8h2a2 2 0 0 1 0 4h-2V8z" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="color:#fff;font-weight:800;font-size:.95rem;letter-spacing:.5px">Razorpay</span>
+          </div>
+          <div style="display:flex;gap:6px;justify-content:center;margin-bottom:10px;flex-wrap:wrap">
+            <span style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-size:.65rem;padding:2px 8px;border-radius:10px">💳 Cards</span>
+            <span style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-size:.65rem;padding:2px 8px;border-radius:10px">📱 UPI</span>
+            <span style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-size:.65rem;padding:2px 8px;border-radius:10px">🏦 Net Banking</span>
+            <span style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-size:.65rem;padding:2px 8px;border-radius:10px">💰 Wallets</span>
+          </div>
+          <button class="btn" id="razorpay-pay-btn" onclick="initRazorpayPayment()" style="background:linear-gradient(135deg,#528FF0,#3B82F6);color:#fff;font-size:.95rem;font-weight:800;padding:13px 20px;border-radius:10px;width:100%;box-shadow:0 4px 14px rgba(82,143,240,.4)">
+            🔒 Pay Securely Now
+          </button>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:14px;justify-content:center">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:.72rem;color:var(--gray500)">256-bit SSL encryption · PCI DSS compliant · Instant activation</span>
+        </div>
+
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-ghost" onclick="goToStep(1)" style="flex:0 0 auto;width:auto;padding:12px 18px">← Back</button>
+          <!-- Manual UPI payment removed — Razorpay only -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 (manual UPI) removed — Razorpay only -->
+
+    <!-- ══ STEP 4: Success ══ -->
+    <div class="form-step" id="step-4">
+      <div class="section">
+        <div class="submit-success">
+          <span class="success-icon">🎉</span>
+          <h2>Submission Received!</h2>
+          <p>Your business details and payment proof have been sent to our team. We'll verify your payment and publish your listing within <strong>48 hours</strong>.</p>
+          <div class="timeline">
+            <div class="tl-item"><div class="tl-dot" style="background:var(--green)">✓</div><div><strong>Details Submitted</strong><br/><span style="color:var(--gray500)">Business info saved securely</span></div></div>
+            <div class="tl-item"><div class="tl-dot" style="background:var(--green)">✓</div><div><strong>Payment Proof Uploaded</strong><br/><span style="color:var(--gray500)">Screenshot sent to admin</span></div></div>
+            <div class="tl-item"><div class="tl-dot" style="background:var(--accent)">⏳</div><div><strong>Admin Verification</strong><br/><span style="color:var(--gray500)">Payment verified within 48 hours</span></div></div>
+            <div class="tl-item"><div class="tl-dot" style="background:var(--gray200);color:var(--gray500)">🔒</div><div><strong>Go Live on Google</strong><br/><span style="color:var(--gray500)">Profile published &amp; indexed once approved</span></div></div>
+          </div>
+          <div style="margin-top:16px;background:#EFF6FF;border-radius:10px;padding:12px 14px;font-size:.78rem;color:#1E40AF;line-height:1.5">📩 Check your Dashboard to track approval status.</div>
+        </div>
+        <button class="btn btn-primary" onclick="navTo('dashboard')">View My Dashboard</button>
+        <button class="btn btn-ghost" style="margin-top:8px" onclick="navTo('home')">Back to Home</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 
 <!-- ══ PAGE: BUSINESS DETAIL ══ -->
 <div id="page-biz-detail" class="page">
@@ -503,12 +859,12 @@
     <div class="section"><h2 class="section-title" style="margin-bottom:10px;font-size:.9rem">QR Code</h2><div id="detail-qr" style="display:flex;justify-content:center"></div><p class="text-center text-sm text-muted" style="margin-top:8px">Scan to share this business</p></div>
     <hr class="sep"/>
     <div class="section">
-      <div class="section-header"><h2 class="section-title" style="font-size:.9rem">Customer Reviews</h2><button class="btn btn-ghost btn-sm" style="width:auto" onclick="openReviewModal()">⭐ Rate This MBP</button></div>
+      <div class="section-header"><h2 class="section-title" style="font-size:.9rem">Customer Reviews</h2><button class="btn btn-ghost btn-sm" style="width:auto" onclick="openReviewModal()">⭐ Rate This Business</button></div>
       <div id="detail-reviews"></div>
     </div>
     <!-- Kashmir Stay SEO badge - visible and crawlable -->
     <div style="margin:4px 16px 0;padding:10px 14px;background:var(--gray50);border-radius:10px;border:1px solid var(--gray100);display:flex;align-items:center;gap:10px">
-      <span style="font-size:1.1rem">🔥</span>
+      <span style="font-size:1.1rem;color:var(--accent);display:inline-flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/><path d="M9 12l2 2 4-4"/></svg></span>
       <div style="flex:1;min-width:0">
         <div style="font-weight:700;font-size:.78rem;color:var(--primary)">Verified Kashmir Stay</div>
         <div style="font-size:.7rem;color:var(--gray400)">Kashmir Stay · Srinagar, J&amp;K · <a href="/" style="color:var(--accent);text-decoration:none;font-weight:600">kashmirstay.in</a></div>
@@ -527,8 +883,110 @@
 </div>
 
 <!-- ══ PAGE: DASHBOARD ══ -->
+<div id="page-dashboard" class="page">
+  <header class="top-header">
+    <h1 class="title" style="font-family:var(--font-display);font-weight:700;font-size:1rem;flex:1">My Listings Dashboard</h1>
+    <button class="icon-btn" onclick="loadDashboard()" aria-label="Refresh"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.63"/></svg></button>
+  </header>
+  <div class="scroll-body">
+    <div class="section" style="padding-bottom:0">
+      <div style="display:flex;gap:10px;margin-bottom:16px">
+        <div class="dash-stat"><div class="stat-num" id="dash-total">0</div><div class="stat-label">My MBPs</div></div>
+        <div class="dash-stat"><div class="stat-num" id="dash-approved">0</div><div class="stat-label">Live on Google</div></div>
+        <div class="dash-stat"><div class="stat-num" id="dash-pending">0</div><div class="stat-label">Under Review</div></div>
+      </div>
+    </div>
+    <div class="section" style="padding-top:4px">
+      <div class="section-header"><h2 class="section-title">My Listings</h2><button class="btn btn-primary btn-sm" style="width:auto" onclick="tryAddBusiness()">+ Create Listing</button></div>
+      <div id="dash-biz-list"><div class="empty-state"><div class="empty-icon">🔥</div><h3>No listings yet</h3><p>Create your first listing and rank on Google!</p></div></div>
+    </div>
+  </div>
+</div>
+
 
 <!-- ══ PAGE: PREMIUM ══ -->
+<div id="page-premium" class="page">
+  <header class="top-header"><button class="back-btn" onclick="navBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button><div class="title">Get Listed</div><div class="spacer"></div></header>
+  <div class="scroll-body"><div class="section">
+    <div style="text-align:center;padding:8px 0 16px">
+      <div style="font-size:2.5rem;margin-bottom:8px">🏔️</div>
+      <h1 style="font-family:var(--font-display);font-size:1.35rem;font-weight:800;margin-bottom:6px">List Your Agency / Resort</h1>
+      <p class="text-muted text-sm">Reach thousands of tourists planning Kashmir trips</p>
+    </div>
+
+    <!-- Live Offer Banner (from admin) -->
+    <div class="offer-banner" id="prem-offer-banner" style="margin-bottom:12px">
+      <div class="offer-banner-inner">
+        <div class="offer-banner-tag">🎉 Limited Offer</div>
+        <div class="offer-banner-name" id="p-offer-name">Special Offer</div>
+        <div class="offer-banner-sub" id="p-offer-sub">Special discounted pricing active now</div>
+        <div class="offer-countdown-row" id="p-offer-countdown"></div>
+      </div>
+    </div>
+
+   
+
+    <!-- Plan Cards -->
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px">
+
+      <!-- Monthly -->
+      <div class="price-card" style="border:2px solid var(--gray200);padding:18px 16px;border-radius:var(--radius);position:relative">
+        <h3 style="font-family:var(--font-display);font-weight:800;font-size:1rem;margin-bottom:4px">1 Month</h3>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px">
+          <span style="font-size:.85rem;text-decoration:line-through;color:var(--gray400)">₹1,499</span>
+        </div>
+        <div style="font-family:var(--font-display);font-size:2rem;font-weight:800;margin-bottom:10px" id="prem-monthly-price">₹799 <span style="font-size:.9rem;font-weight:400;color:var(--gray500)">/month</span></div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:14px">
+          <li style="font-size:.8rem;display:flex;gap:6px">✓ Verified badge · Google indexed</li>
+          <li style="font-size:.8rem;display:flex;gap:6px">✓ Call, WhatsApp, Gallery, Reviews</li>
+          <li style="font-size:.8rem;display:flex;gap:6px">✓ Live within 48 hours</li>
+          <li style="font-size:.8rem;display:flex;gap:6px">✓ Cancel anytime</li>
+        </ul>
+        <button class="btn btn-primary" onclick="tryAddBusiness('monthly_799')" id="prem-monthly-btn">Get Started – <span id="prem-monthly-btn-price">₹799</span>/month →</button>
+      </div>
+
+      <!-- Annual — Best Value -->
+      <div class="price-card featured" style="padding:18px 16px;position:relative">
+        <div class="popular-tag">🔥 Best Value — Save ₹1,589</div>
+        <h3 style="font-family:var(--font-display);font-weight:800;font-size:1rem;margin-bottom:4px;color:#fff">1 Year</h3>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <span style="font-size:.85rem;text-decoration:line-through;color:rgba(255,255,255,.4)">₹9,588</span>
+        </div>
+        <div style="font-family:var(--font-display);font-size:2rem;font-weight:800;margin-bottom:2px;color:#fff" id="prem-annual-price">₹7,999 <span style="font-size:.9rem;font-weight:400;opacity:.7">/year</span></div>
+        <div style="font-size:.75rem;color:rgba(255,255,255,.65);margin-bottom:10px">= ₹667/month · Save ₹1,589!</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:14px">
+          <li style="font-size:.8rem;display:flex;gap:6px;color:#fff">✓ Everything in Monthly</li>
+          <li style="font-size:.8rem;display:flex;gap:6px;color:#fff">✓ Priority placement in search</li>
+          <li style="font-size:.8rem;display:flex;gap:6px;color:#fff">✓ Auto-renews after 1 year</li>
+          <li style="font-size:.8rem;display:flex;gap:6px;color:#fff">✓ Best ROI for your business</li>
+        </ul>
+        <button class="btn" style="background:#f5A623;color:var(--primary);font-weight:800" onclick="tryAddBusiness('annual_1499')" id="prem-annual-btn">Get Listed – <span id="prem-annual-btn-price">₹7,999</span>/year →</button>
+      </div>
+    </div>
+
+    <!-- Payment methods badge -->
+    <div style="background:var(--gray50);border-radius:var(--radius-sm);border:1px solid var(--gray100);padding:10px 14px;text-align:center;margin-bottom:14px">
+      <div style="font-size:.72rem;color:var(--gray500);margin-bottom:5px;font-weight:600">Secure payment via Razorpay</div>
+      <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap">
+        <span style="font-size:.7rem;background:#fff;border:1px solid var(--gray200);padding:2px 8px;border-radius:6px">💳 Cards</span>
+        <span style="font-size:.7rem;background:#fff;border:1px solid var(--gray200);padding:2px 8px;border-radius:6px">📱 UPI</span>
+        <span style="font-size:.7rem;background:#fff;border:1px solid var(--gray200);padding:2px 8px;border-radius:6px">🏦 Net Banking</span>
+        <span style="font-size:.7rem;background:#fff;border:1px solid var(--gray200);padding:2px 8px;border-radius:6px">💰 Wallets</span>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div style="background:var(--gray50);border-radius:var(--radius);padding:16px;border:1px solid var(--gray100)">
+      <h3 style="font-family:var(--font-display);font-size:.95rem;font-weight:700;margin-bottom:12px">How It Works</h3>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:12px;align-items:flex-start"><div style="width:26px;height:26px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;flex-shrink:0">1</div><div style="font-size:.82rem"><strong>Fill Your Details</strong><br/><span style="color:var(--gray500)">Add your agency/resort info, photos &amp; services</span></div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><div style="width:26px;height:26px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;flex-shrink:0">2</div><div style="font-size:.82rem"><strong>Pay via Razorpay</strong><br/><span style="color:var(--gray500)">Cards, UPI, Net Banking — instant &amp; secure</span></div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><div style="width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;flex-shrink:0">✓</div><div style="font-size:.82rem"><strong>Auto-approved in 48 Hours</strong><br/><span style="color:var(--gray500)">Payment verified automatically · listing goes live</span></div></div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
 
 <!-- ══ PAGE: SETTINGS ══ -->
 <div id="page-settings" class="page">
@@ -545,13 +1003,19 @@
     </div>
     <div style="margin:12px 0 4px;padding:0 16px"><span style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--gray400)">Information</span></div>
     <div style="background:var(--bg);border-radius:var(--radius);margin:0 16px;border:1px solid var(--gray100);overflow:hidden">
-      <a href="/about.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon">🔥</div><div style="flex:1"><div class="settings-label">About Kashmir Stay</div><div class="text-muted text-sm">Kashmir Stay</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
-      <div class="settings-item" onclick="window.open('https://makemetop.in/','_blank')"><div class="settings-icon">🔎</div><div style="flex:1"><div class="settings-label">Get Listed On K.S</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
-      <a href="/privacy.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon">🔒</div><div style="flex:1"><div class="settings-label">Privacy Policy</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
-      <a href="/terms.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon">📄</div><div style="flex:1"><div class="settings-label">Terms &amp; Conditions</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
-      <a href="/desclaimer.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon">🎇</div><div style="flex:1"><div class="settings-label">Desclaimer</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
-      <a href="/contact.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon">💬</div><div style="flex:1"><div class="settings-label">Contact</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
-      <a href="/faq.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon">❔</div><div style="flex:1"><div class="settings-label">Faq</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
+      <a href="/about.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div style="flex:1"><div class="settings-label">About Kashmir Stay</div><div class="text-muted text-sm">Kashmir Stay</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
+      <div class="settings-item" onclick="tryAddBusiness()"><div class="settings-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div><div style="flex:1"><div class="settings-label">Get Listed On K.S</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+
+      <!-- ══ SUPPORT US — Buy me a coffee (UPI) + watch a rewarded ad ══ -->
+      <div style="margin:16px 0 6px;font-size:.72rem;font-weight:700;color:var(--gray400);text-transform:uppercase;letter-spacing:.04em;padding:0 4px">Support Us</div>
+      <div class="settings-item" onclick="supportBuyCoffee()"><div class="settings-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div><div style="flex:1"><div class="settings-label">Buy Me a Coffee</div><div class="text-muted text-sm">Support Kashmir Stay via UPI</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+      <div class="settings-item" id="support-watch-ad-btn" onclick="supportWatchAd()"><div class="settings-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></div><div style="flex:1"><div class="settings-label">Watch an Ad to Support Us</div><div class="text-muted text-sm">Free — helps us keep the app running</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+      <a href="/privacy-policy.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div style="flex:1"><div class="settings-label">Privacy Policy</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
+      <a href="/terms.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><div style="flex:1"><div class="settings-label">Terms &amp; Conditions</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
+      <a href="/desclaimer.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div style="flex:1"><div class="settings-label">Desclaimer</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
+      <a href="/contact.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div style="flex:1"><div class="settings-label">Contact</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
+      <a href="/faq.html" style="text-decoration:none;color:inherit"><div class="settings-item"><div class="settings-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div style="flex:1"><div class="settings-label">Faq</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></a>
+      <div class="settings-item" onclick="navTo('report-bug')"><div class="settings-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4v1h1a2 2 0 0 1 2 2v1h2v2h-2v3a2 2 0 0 1-.15.76A6 6 0 0 1 18 17.5V19a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-1.5a6 6 0 0 1-.85-2.74A2 2 0 0 1 5 15v-3H3v-2h2V9a2 2 0 0 1 2-2h1V6a4 4 0 0 1 4-4z"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div><div style="flex:1"><div class="settings-label">Report a Bug</div><div class="text-muted text-sm">Something not working right? Tell us</div></div><svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
  </div>
     <div style="margin:12px 0 4px;padding:0 16px"><span style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--gray400)">App</span></div>
     <div style="background:var(--bg);border-radius:var(--radius);margin:0 16px;border:1px solid var(--gray100);overflow:hidden">
@@ -575,7 +1039,7 @@
 
   <a href="blog/kashmir-travel-guide.html" style="text-decoration:none;color:inherit">
     <div class="settings-item">
-      <div class="settings-icon">🍁</div>
+      <div class="settings-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
       <div style="flex:1">
         <div class="settings-label">Kashmir Travel Guide</div>
       </div>
@@ -587,7 +1051,7 @@
 
   <a href="blog/beautiful-places-in-kashmir.html" style="text-decoration:none;color:inherit">
     <div class="settings-item">
-      <div class="settings-icon">🌸</div>
+      <div class="settings-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
       <div style="flex:1">
         <div class="settings-label">Beautiful Places in Kashmir</div>
       </div>
@@ -599,7 +1063,7 @@
   
   <a href="blog/dal-lake-guide.html" style="text-decoration:none;color:inherit">
     <div class="settings-item">
-      <div class="settings-icon">🛶</div>
+      <div class="settings-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div>
       <div style="flex:1">
         <div class="settings-label">Dal Lake Guide</div>
       </div>
@@ -617,23 +1081,137 @@
       </button>
     </a>
  <div style="margin:16px 16px 0"><button class="btn btn-red" onclick="logout()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sign Out</button></div>
-<div style="text-align:center;padding:20px 16px;color:var(--gray400);font-size:.72rem"><div style="font-family:var(--font-display);font-weight:800;color:var(--primary);font-size:.95rem;margin-bottom:2px">Kashmir Stay 🔥</div><div style="font-size:.72rem;color:var(--gray500);font-weight:600;margin-bottom:2px">Kashmir Stay</div>Srinagar's #1 Local Business Directory · J&amp;K<br/>Kashmir Travel Directory · v1.0.0</div>
+<div style="text-align:center;padding:20px 16px;color:var(--gray400);font-size:.72rem"><div style="font-family:var(--font-display);font-weight:800;color:var(--primary);font-size:.95rem;margin-bottom:2px">Kashmir Stay</div><div style="font-size:.72rem;color:var(--gray500);font-weight:600;margin-bottom:2px">Kashmir Stay</div>Srinagar's #1 Local Business Directory · J&amp;K<br/>Kashmir Travel Directory · v1.0.0</div>
 </div>  
 
 </div>
 </div>
 
 <!-- ══ PAGE: CHANGE PASSWORD ══ -->
+<div id="page-change-password" class="page">
+  <header class="top-header"><button class="back-btn" onclick="navBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button><div class="title">Change Password</div><div class="spacer"></div></header>
+  <div class="scroll-body"><div class="section">
+    <div class="form-group"><label class="form-label">New Password</label><input type="password" id="cp-new" class="form-input" placeholder="Min 6 characters" autocomplete="new-password"/></div>
+    <div class="form-group"><label class="form-label">Confirm New Password</label><input type="password" id="cp-confirm" class="form-input" placeholder="Repeat password" autocomplete="new-password"/></div>
+    <button class="btn btn-primary" onclick="changePassword()">Update Password</button>
+    <p class="text-center text-sm text-muted" style="margin-top:12px">Or <a href="#" style="color:var(--primary);font-weight:600" onclick="sendPasswordReset();return false">send reset link to email</a></p>
+  </div></div>
+</div>
+
+
+<!-- ══ PAGE: REPORT A BUG ══ -->
+<div id="page-report-bug" class="page">
+  <header class="top-header"><button class="back-btn" onclick="navBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button><div class="title">Report a Bug</div><div class="spacer"></div></header>
+  <div class="scroll-body"><div class="section">
+    <p class="text-sm text-muted" style="margin-bottom:16px">Found something broken or not working right? Let us know and we'll take a look.</p>
+    <div class="form-group">
+      <label class="form-label">What's the issue? *</label>
+      <input type="text" id="bug-title" class="form-input" placeholder="e.g. Photos not uploading on my business page" maxlength="120"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Describe what happened</label>
+      <textarea id="bug-description" class="form-textarea" placeholder="What were you doing when it happened? What did you expect vs. what actually happened?" maxlength="1000"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Page / Section (optional)</label>
+      <input type="text" id="bug-page" class="form-input" placeholder="e.g. Business Detail page, Dashboard, Add Business form"/>
+    </div>
+    <button class="btn btn-primary" onclick="submitBugReport()">Submit Bug Report</button>
+    <p class="text-center text-sm text-muted" style="margin-top:12px">Reports go straight to our team for review.</p>
+  </div></div>
+</div>
+
 
 <!-- ══ PAGE: HELP & SUPPORT ══ -->
+<div id="page-help" class="page">
+  <header class="top-header"><button class="back-btn" onclick="navBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button><div class="title">Help &amp; Support</div><div class="spacer"></div></header>
+  <div class="scroll-body">
+    <div class="section" style="padding-bottom:0">
+      <div style="background:var(--primary);border-radius:var(--radius);padding:16px;color:#fff;margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+          <div class="avatar" style="background:#fff;color:var(--primary);font-size:.8rem;font-weight:800;flex-shrink:0">MT</div>
+          <div>
+            <div style="font-weight:700;font-size:.95rem">Kashmir Stay Support</div>
+            <div style="font-size:.75rem;opacity:.8"><span class="chat-online-dot"></span>Live chat · Usually replies in minutes</div>
+          </div>
+        </div>
+        <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);padding:10px" onclick="navTo('chat')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Start Live Chat
+        </button>
+      </div>
+    </div>
+    <div class="section" style="padding-top:20px;padding-bottom:0">
+      <h2 style="font-family:var(--font-display);font-weight:700;font-size:1rem;margin-bottom:12px">Frequently Asked Questions</h2>
+    </div>
+    <div id="faq-list">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>How do I add my business to Kashmir Stay?</span><svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="faq-a">Tap the + button, fill in your business details, upload images, and submit for review. Our team approves listings within 24 hours. Once live, your profile appears on Google Search.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>How do I edit my business profile?</span><svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="faq-a">Open your business from Dashboard → tap the Edit (pencil) icon in the top right. Update all details including images.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Will my business appear on Google?</span><svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="faq-a">Yes! Once approved, your business profile is indexed by Google with full Schema markup — your name, address, phone, and reviews all help you rank in Google Search.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Why is my listing pending?</span><svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="faq-a">All listings go through manual review for quality and authenticity. This typically takes 12–24 hours on business days.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Is Kashmir Stay free?</span><svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="faq-a">Yes! Basic listing is completely free forever. Premium plans start at ₹499/month for priority placement and more visibility.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Can I edit or delete my review?</span><svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="faq-a">Yes! On any review you wrote, you'll see Edit and Delete buttons. Tap them to update or remove your review.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Can I submit only one review per business?</span><svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="faq-a">Yes. Each user can submit only one review per business. This keeps reviews fair and authentic.</div></div>
+    </div>
+    <div style="height:16px"></div>
+  </div>
+</div>
+
 
 <!-- ══ PAGE: LIVE CHAT ══ -->
+<div id="page-chat" class="page" style="padding-bottom:0">
+  <header class="top-header">
+    <button class="back-btn" onclick="navBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+    <div style="flex:1"><div class="title" style="font-size:.95rem">Kashmir Stay Support</div><div style="font-size:.7rem;color:var(--green);font-weight:600"><span class="chat-online-dot"></span>Online</div></div>
+  </header>
+  <div id="chat-messages" role="log" aria-live="polite"></div>
+  <div id="chat-input-bar" style="padding-bottom:calc(12px + env(safe-area-inset-bottom))">
+    <textarea id="chat-text" placeholder="Type your message..." rows="1" aria-label="Chat message" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px'" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMsg()}"></textarea>
+    <button onclick="sendChatMsg()" aria-label="Send message"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+  </div>
+</div>
+
+
+
 
 
 
 <!-- ══ PAGE: ADMIN ══ -->
+<div id="page-admin" class="page">
+  <header class="top-header">
+    <button class="back-btn" onclick="navBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+    <div class="title">Admin Panel</div><div class="spacer"></div>
+    <button class="icon-btn" onclick="loadAdmin()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.63"/></svg></button>
+  </header>
+  <div class="scroll-body">
+    <div style="display:flex;gap:0;border-bottom:2px solid var(--gray100)" id="admin-tabs">
+      <button class="admin-tab active" onclick="loadAdminTab(this,'pending')" style="flex:1;padding:10px 4px;background:none;border:none;font-weight:600;font-size:.72rem;border-bottom:2px solid var(--primary);margin-bottom:-2px;cursor:pointer;white-space:nowrap">Pending</button>
+      <button class="admin-tab" onclick="loadAdminTab(this,'payments')" style="flex:1;padding:10px 4px;background:none;border:none;font-weight:600;font-size:.72rem;color:var(--gray500);cursor:pointer;white-space:nowrap">💰 Pay</button>
+      <button class="admin-tab" onclick="loadAdminTab(this,'approved')" style="flex:1;padding:10px 4px;background:none;border:none;font-weight:600;font-size:.72rem;color:var(--gray500);cursor:pointer;white-space:nowrap">Approved</button>
+      <button class="admin-tab" onclick="loadAdminTab(this,'rejected')" style="flex:1;padding:10px 4px;background:none;border:none;font-weight:600;font-size:.72rem;color:var(--gray500);cursor:pointer;white-space:nowrap">Rejected</button>
+      <button class="admin-tab" onclick="loadAdminTab(this,'messages')" style="flex:1;padding:10px 4px;background:none;border:none;font-weight:600;font-size:.72rem;color:var(--gray500);cursor:pointer;white-space:nowrap">💬 Chat</button>
+      <button class="admin-tab" onclick="loadAdminTab(this,'claims')" style="flex:1;padding:10px 4px;background:none;border:none;font-weight:600;font-size:.72rem;color:var(--gray500);cursor:pointer;white-space:nowrap">🏢 Claims</button>
+    </div>
+    <div id="admin-list"></div>
+  </div>
+</div>
+
 
 <!-- ══ PAGE: ADMIN CHAT THREAD ══ -->
+<div id="page-admin-chat-thread" class="page" style="padding-bottom:0">
+  <header class="top-header">
+    <button class="back-btn" onclick="navBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+    <div class="title" id="admin-chat-thread-title" style="font-size:.95rem">Chat</div>
+  </header>
+  <div id="admin-chat-messages" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:4px"></div>
+  <div id="admin-reply-bar" style="padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--gray100);display:flex;gap:10px;align-items:flex-end;background:var(--bg)">
+    <textarea id="admin-reply-text" placeholder="Reply..." rows="1" style="flex:1;border:1.5px solid var(--gray200);border-radius:12px;padding:10px 12px;font-family:var(--font-body);font-size:.88rem;resize:none;outline:none;max-height:100px;overflow-y:auto" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px'" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAdminReply()}"></textarea>
+    <button onclick="sendAdminReply()" style="width:40px;height:40px;border-radius:50%;background:var(--primary);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+  </div>
+</div>
+
+</div><!-- end #main-app -->
+
 
 </div><!-- end #main-app -->
 
@@ -683,7 +1261,7 @@
 <div class="modal-overlay" id="modal-welcome" role="dialog" aria-modal="true" style="align-items:flex-end">
   <div class="modal-sheet" style="text-align:center;padding-bottom:32px">
     <div class="modal-handle"></div>
-    <div style="font-size:3rem;margin:8px 0 4px">🔥</div>
+    <div style="margin:8px 0 4px;color:var(--accent)"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;display:block"><path d="M8 3l4 8 5-5 5 12H2L8 3z"/></svg></div>
     <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:4px">Welcome to <span style="color:var(--accent)">Kashmir Stay</span>!</div>
     <div style="font-size:.82rem;color:var(--gray500);margin-bottom:16px;line-height:1.5">Kashmir Stay<br/>Srinagar's #1 Business Directory for J&amp;K</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;text-align:left">
@@ -709,8 +1287,65 @@
       </div>
     </div>
     <div id="welcome-name-line" style="font-size:.88rem;color:var(--gray500);margin-bottom:14px">A welcome email is on its way to you! 📧</div>
-    <button class="btn btn-primary" onclick="closeModal('modal-welcome');tryAddBusiness()" style="margin-bottom:8px">🔥 Create Your Kashmir Stay Now</button>
+    <button class="btn btn-primary" onclick="closeModal('modal-welcome');tryAddBusiness()" style="margin-bottom:8px">Create Your Kashmir Stay Now</button>
     <button class="btn btn-ghost" onclick="closeModal('modal-welcome')">Explore First</button>
+  </div>
+</div>
+
+<!-- Share Sheet Modal (fixes: share icon was only copying link, no app picker) -->
+<div class="modal-overlay" id="modal-share-sheet" role="dialog" aria-modal="true" aria-label="Share business" onclick="if(event.target===this) closeModal('modal-share-sheet')">
+  <div class="modal-sheet" style="text-align:center">
+    <div class="modal-handle"></div>
+    <div class="modal-title" style="margin-bottom:4px">Share this Kashmir Stay</div>
+    <div style="font-size:.78rem;color:var(--gray400);margin-bottom:18px" id="share-sheet-subtitle">Send this profile to friends &amp; family</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px">
+      <button onclick="shareVia('whatsapp')" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;padding:4px" aria-label="Share on WhatsApp">
+        <div style="width:48px;height:48px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:1.4rem">💬</div>
+        <span style="font-size:.68rem;color:var(--gray500);font-weight:600">WhatsApp</span>
+      </button>
+      <button onclick="shareVia('facebook')" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;padding:4px" aria-label="Share on Facebook">
+        <div style="width:48px;height:48px;border-radius:50%;background:#1877F2;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;font-weight:800">f</div>
+        <span style="font-size:.68rem;color:var(--gray500);font-weight:600">Facebook</span>
+      </button>
+      <button onclick="shareVia('twitter')" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;padding:4px" aria-label="Share on X / Twitter">
+        <div style="width:48px;height:48px;border-radius:50%;background:#1F1F1F;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;font-weight:800">𝕏</div>
+        <span style="font-size:.68rem;color:var(--gray500);font-weight:600">X</span>
+      </button>
+      <button onclick="shareVia('telegram')" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;padding:4px" aria-label="Share on Telegram">
+        <div style="width:48px;height:48px;border-radius:50%;background:#229ED9;display:flex;align-items:center;justify-content:center;font-size:1.4rem">✈️</div>
+        <span style="font-size:.68rem;color:var(--gray500);font-weight:600">Telegram</span>
+      </button>
+      <button onclick="shareVia('sms')" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;padding:4px" aria-label="Share via SMS">
+        <div style="width:48px;height:48px;border-radius:50%;background:var(--gray100);display:flex;align-items:center;justify-content:center;font-size:1.3rem">✉️</div>
+        <span style="font-size:.68rem;color:var(--gray500);font-weight:600">SMS</span>
+      </button>
+      <button onclick="shareVia('email')" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;padding:4px" aria-label="Share via Email">
+        <div style="width:48px;height:48px;border-radius:50%;background:var(--gray100);display:flex;align-items:center;justify-content:center;font-size:1.3rem">📧</div>
+        <span style="font-size:.68rem;color:var(--gray500);font-weight:600">Email</span>
+      </button>
+      <button onclick="shareVia('copy')" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;padding:4px" aria-label="Copy link">
+        <div style="width:48px;height:48px;border-radius:50%;background:var(--gray100);display:flex;align-items:center;justify-content:center;font-size:1.3rem">🔗</div>
+        <span style="font-size:.68rem;color:var(--gray500);font-weight:600">Copy Link</span>
+      </button>
+      <button onclick="shareVia('more')" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;padding:4px" aria-label="More share options">
+        <div style="width:48px;height:48px;border-radius:50%;background:var(--gray100);display:flex;align-items:center;justify-content:center;font-size:1.3rem">⋯</div>
+        <span style="font-size:.68rem;color:var(--gray500);font-weight:600">More</span>
+      </button>
+    </div>
+    <button class="btn btn-ghost" onclick="closeModal('modal-share-sheet')">Cancel</button>
+  </div>
+</div>
+
+<!-- Rate App on Play Store Modal -->
+<div class="modal-overlay" id="modal-rate-app" role="dialog" aria-modal="true" aria-label="Rate Kashmir Stay app" style="align-items:flex-end">
+  <div class="modal-sheet" style="text-align:center;padding-bottom:28px">
+    <div class="modal-handle"></div>
+    <div style="font-size:2.6rem;margin:6px 0 6px">⭐</div>
+    <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:800;margin-bottom:6px">Enjoying Kashmir Stay?</div>
+    <div style="font-size:.82rem;color:var(--gray500);margin-bottom:18px;line-height:1.5;padding:0 8px">Your review helps other travelers &amp; businesses in J&amp;K find us on the Play Store. It only takes a few seconds 🙏</div>
+    <button class="btn btn-primary" onclick="rateAppPlayStore()" style="margin-bottom:8px">⭐ Rate Us on Play Store</button>
+    <button class="btn btn-ghost" onclick="dismissRatePrompt('later')">Maybe Later</button>
+    <div style="margin-top:10px"><a href="#" onclick="dismissRatePrompt('never');return false" style="font-size:.74rem;color:var(--gray400);text-decoration:underline">Don't ask again</a></div>
   </div>
 </div>
 
@@ -879,7 +1514,7 @@
 ══════════════════════════════════ -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, sendEmailVerification, sendPasswordResetEmail, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithCredential, sendEmailVerification, sendPasswordResetEmail, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, orderBy, serverTimestamp, getDoc, onSnapshot, setDoc, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // ── FIREBASE CONFIG — get from console.firebase.google.com ──
@@ -940,7 +1575,7 @@ googleProvider.setCustomParameters({ prompt: 'select_account' });
 
 window._auth = auth; window._db = db; window._googleProvider = googleProvider;
 window._collections = { addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, orderBy, serverTimestamp, getDoc, collection, onSnapshot, setDoc, limit };
-window._authFns = { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, sendEmailVerification, sendPasswordResetEmail, updatePassword, EmailAuthProvider, reauthenticateWithCredential };
+window._authFns = { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithCredential, sendEmailVerification, sendPasswordResetEmail, updatePassword, EmailAuthProvider, reauthenticateWithCredential };
 window.ADMIN_EMAILS = ADMIN_EMAILS;
 window.DRIVE_UPLOAD_URL = DRIVE_UPLOAD_URL;
 window.EMAIL_SCRIPT_URL = EMAIL_SCRIPT_URL;
@@ -1113,6 +1748,50 @@ function showWelcomeModal(name) {
 function showMainApp() {
   ['view-login','view-signup','view-forgot'].forEach(id => document.getElementById(id).style.display = 'none');
   document.getElementById('main-app').style.display = 'block';
+  maybeShowRatePrompt();
+}
+
+// ══ SUPPORT US — Buy me a coffee (UPI) ══
+function supportBuyCoffee() {
+  const upiId = 'abrarrtallks19@ptyes';
+  const upiLink = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent('Kashmir Stay')}&cu=INR&tn=${encodeURIComponent('Support Kashmir Stay')}`;
+  try {
+    window.location.href = upiLink;
+  } catch (e) {
+    showToast('Could not open a UPI app. UPI ID: ' + upiId);
+  }
+  // Fallback: if no UPI app is installed, nothing happens on tap — let
+  // the user know the ID so they can pay manually.
+  setTimeout(() => showToast('UPI ID: ' + upiId), 1200);
+}
+
+// ══ SUPPORT US — Watch a rewarded ad ══
+// Real "Watch Ad Support" Rewarded Interstitial ad unit.
+const REWARDED_AD_UNIT = 'ca-app-pub-3499114279910810/6301670106'; // "Rewarder Ad" (confirmed in AdMob Console)
+function supportWatchAd() {
+  const AdmobAds = window.Capacitor?.Plugins?.AdmobAds;
+  if (!window.Capacitor?.isNativePlatform?.() || !AdmobAds) {
+    showToast('Ads are only available in the app, not this preview.');
+    return;
+  }
+
+  const btn = document.getElementById('support-watch-ad-btn');
+  if (btn) btn.style.opacity = '0.6';
+  showToast('Loading ad…');
+
+  AdmobAds.loadRewardedInterstitialAd({
+    adId: REWARDED_AD_UNIT,
+    isTesting: false // real ad unit — must be false to serve real ads
+  }).then(() => {
+    return AdmobAds.showRewardedInterstitialAd();
+  }).then(() => {
+    showToast('🙏 Thank you for supporting Kashmir Stay!');
+  }).catch(err => {
+    showToast('Ad not available right now — please try again later.');
+    console.warn('[AdmobAds] rewarded ad failed:', err?.message || err);
+  }).finally(() => {
+    if (btn) btn.style.opacity = '1';
+  });
 }
 function showAuth(view) {
   document.getElementById('main-app').style.display = 'none';
@@ -1186,7 +1865,7 @@ document.getElementById('signup-btn').onclick = async () => {
   setLoading('signup-btn', true);
   try {
     const cred = await window._authFns.createUserWithEmailAndPassword(window._auth, email, pass);
-    showToast('🔥 Kashmir Stay account created! Welcome to Kashmir Stay!');
+    showToast('Kashmir Stay account created! Welcome to Kashmir Stay!');
     // handleFirstLogin fires automatically via onAuthStateChanged
   } catch(e) { showToast('❌ ' + friendlyError(e.code)); }
   setLoading('signup-btn', false);
@@ -1195,7 +1874,44 @@ document.getElementById('signup-btn').onclick = async () => {
 document.getElementById('google-login-btn').onclick = googleAuth;
 document.getElementById('google-signup-btn').onclick = googleAuth;
 
+// ── GOOGLE SIGN-IN — fixed for Capacitor APK ──
+// Old behavior: signInWithPopup() can't open a real popup inside the
+// Capacitor WebView, so Firebase fell back to opening the external
+// browser for Google login — which then has no way to hand control
+// back to the app, leaving the user stuck in Chrome.
+//
+// Fix: inside the native APK, use the native @capacitor-firebase/
+// authentication plugin (window.Capacitor.Plugins.FirebaseAuthentication)
+// to do Google sign-in natively, then exchange the returned native
+// credential for a Firebase Web SDK session via signInWithCredential —
+// so the rest of the app (Firestore, onAuthStateChanged, etc.) keeps
+// working exactly as before, completely untouched.
+// On real web (browser/PWA) it keeps using signInWithPopup as before.
+//
+// Requires: npm install @capacitor-firebase/authentication + npx cap sync
+// (see setup steps provided separately) — until that's installed and
+// synced, this safely falls back to signInWithPopup everywhere.
 async function googleAuth() {
+  const isNativeApp = window.Capacitor?.isNativePlatform?.();
+  const nativeAuthPlugin = window.Capacitor?.Plugins?.FirebaseAuthentication;
+
+  if (isNativeApp && nativeAuthPlugin) {
+    try {
+      const result = await nativeAuthPlugin.signInWithGoogle();
+      const idToken = result?.credential?.idToken;
+      if (!idToken) throw new Error('No ID token returned from native Google sign-in');
+      const credential = window._authFns.GoogleAuthProvider.credential(idToken);
+      const userCred = await window._authFns.signInWithCredential(window._auth, credential);
+      if (userCred.user) showToast('✅ Signed in with Google!');
+    } catch (e) {
+      console.warn('Native Google sign-in failed:', e);
+      if (e?.code !== 'auth/cancelled-popup-request' && !String(e?.message||'').toLowerCase().includes('cancel'))
+        showToast('❌ Google sign-in failed: ' + (e.code ? friendlyError(e.code) : 'Please try again'));
+    }
+    return;
+  }
+
+  // Web / PWA fallback — unchanged original behavior
   try {
     const result = await window._authFns.signInWithPopup(window._auth, window._googleProvider);
     if (result.user) showToast('✅ Signed in with Google!');
@@ -2246,8 +2962,8 @@ function filterCat(el, cat) {
 }
 function renderBizList(containerId, bizList) {
   const container = document.getElementById(containerId);
-  if (!bizList?.length) { container.innerHTML='<div class="empty-state"><div class="empty-icon">🔥</div><h3>No Kashmir Stays found</h3><p>Be the first to create your Kashmir Stay in Srinagar!</p></div>'; return; }
-  container.innerHTML = bizList.map(b => {
+  if (!bizList?.length) { container.innerHTML='<div class="empty-state"><div class="empty-icon" style="display:flex;align-items:center;justify-content:center;color:var(--gray300)"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg></div><h3>No Kashmir Stays found</h3><p>Be the first to create your Kashmir Stay in Srinagar!</p></div>'; return; }
+  const cards = bizList.map(b => {
     const topServices = (b.services||[]).slice(0,3);
     const ratingHtml = b.review_count > 0
       ? renderStars(b.rating||0) + `<span class="biz-review-count">${(b.rating||0).toFixed(1)} (${b.review_count})</span>`
@@ -2279,9 +2995,14 @@ function renderBizList(containerId, bizList) {
           ${b.address ? `<div style="display:flex;align-items:center;gap:4px;margin-top:4px"><span style="font-size:.75rem;flex-shrink:0">📍</span><span class="biz-addr">${escapeHtml(b.address)}</span></div>` : ''}
         </div>
       </div>
-      ${topServices.length ? `<div class="biz-card-footer">${topServices.map(s=>`<span class="biz-tag">${escapeHtml(s)}</span>`).join('')}${b.services?.length>3?`<span class="biz-tag">+${b.services.length-3} more</span>`:''}</div>` : ''}
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:0 0 2px">
+        ${topServices.length ? `<div class="biz-card-footer" style="flex:1;padding:0;border:none">${topServices.map(s=>`<span class="biz-tag">${escapeHtml(s)}</span>`).join('')}${b.services?.length>3?`<span class="biz-tag">+${b.services.length-3} more</span>`:''}</div>` : '<div style="flex:1"></div>'}
+        <span style="font-size:.72rem;font-weight:700;color:#2563EB;background:#EFF6FF;border:1px solid #BFDBFE;padding:4px 10px;border-radius:20px;white-space:nowrap;margin-left:8px;flex-shrink:0">View More →</span>
+      </div>
     </div>`;
-  }).join('');
+  });
+
+  container.innerHTML = cards.join('');
 }
 function renderStars(r) {
   const rounded = Math.round(r || 0);
@@ -2381,7 +3102,7 @@ function injectBizSchema(b) {
     "thumbnail": b.cover_url || b.logo_url || 'https://kashmirstay.in/icon-512.png',
     "telephone": b.phone || '',
     "url": bizStaticUrl(b),
-    "identifier": `mbp-${b.id}`,
+    "identifier": `ks-${b.id}`,
     "address": {
       "@type": "PostalAddress",
       "streetAddress": b.address || '',
@@ -2726,6 +3447,37 @@ function openClaimModal() {
   openModal('modal-claim');
 }
 
+async function submitBugReport() {
+  const title = document.getElementById('bug-title').value.trim();
+  const description = document.getElementById('bug-description').value.trim();
+  const pageContext = document.getElementById('bug-page').value.trim();
+  if (!title) { showToast('⚠️ Please describe the issue in a few words'); return; }
+  if (!window._currentUser) { showAuth('login'); return; }
+
+  const { addDoc, collection, serverTimestamp } = window._collections;
+  const user = window._currentUser;
+
+  try {
+    await addDoc(collection(window._db, 'bug_reports'), {
+      title,
+      description: description || '',
+      page: pageContext || '',
+      reported_by_uid: user.uid,
+      reported_by_email: user.email || '',
+      status: 'open',
+      created_at: serverTimestamp(),
+      app_version: 'kashmirstay-app'
+    });
+    showToast('✅ Thanks! Your bug report was submitted.');
+    document.getElementById('bug-title').value = '';
+    document.getElementById('bug-description').value = '';
+    document.getElementById('bug-page').value = '';
+    navBack();
+  } catch (e) {
+    showToast('❌ Could not submit report: ' + e.message);
+  }
+}
+
 async function submitClaimRequest() {
   const name    = document.getElementById('claim-name').value.trim();
   const email   = document.getElementById('claim-email').value.trim();
@@ -2804,7 +3556,7 @@ async function submitClaimRequest() {
 }
 
 // Called when owner clicks Accept/Reject link from email
-// URL format: makemetop.in/?claim=TOKEN&action=accept  or  ?claim=TOKEN&action=reject
+// URL format: kashmirstay.in/?claim=TOKEN&action=accept  or  ?claim=TOKEN&action=reject
 async function handleClaimAction(token, action) {
   if (!token || !action) return;
   const { getDocs, collection, query: fsQ, where, updateDoc, doc } = window._collections;
@@ -2935,15 +3687,138 @@ function callBusiness() {
   window.location.href='tel:'+currentBizData.phone.replace(/\s/g,''); 
 }
 function whatsappBusiness() { if(currentBizData?.id) trackEvent(currentBizData.id,'whatsapp'); const num=(currentBizData?.whatsapp||currentBizData?.phone||'').replace(/\D/g,''); if(!num){showToast('⚠️ WhatsApp not available');return;} window.open('https://wa.me/'+(num.startsWith('91')?num:'91'+num),'_blank'); }
+// ── SHARE — fixed for Capacitor APK ──
+// Old behavior: navigator.share() is unsupported inside the Capacitor
+// WebView on most Android builds, so it silently fell through to
+// clipboard copy with zero visible app picker. This opens a proper
+// share-sheet UI (modal-share-sheet) with direct app intents, and
+// still tries the native OS share sheet first when it's genuinely
+// available (real Chrome/Safari, or a Capacitor Share plugin if present).
 function shareBusiness() {
   if (!currentBizData) return;
-  const url = bizStaticUrl(currentBizData);
-  if (navigator.share) {
-    navigator.share({ title: currentBizData.name + ' – Kashmir Stay', text: 'Check out ' + currentBizData.name + ' on Kashmir Stay – Kashmir Stay, Srinagar J&K!', url });
-  } else {
+  openModal('modal-share-sheet');
+  const sub = document.getElementById('share-sheet-subtitle');
+  if (sub) sub.textContent = 'Send "' + currentBizData.name + '" to friends & family';
+}
+
+function shareVia(channel) {
+  if (!currentBizData) return;
+  const url   = bizStaticUrl(currentBizData);
+  const title = currentBizData.name + ' – Kashmir Stay';
+  const text  = 'Check out ' + currentBizData.name + ' on Kashmir Stay – Kashmir Stay, Srinagar J&K!';
+  const fullText = text + ' ' + url;
+
+  switch (channel) {
+    case 'whatsapp':
+      window.open('https://wa.me/?text=' + encodeURIComponent(fullText), '_blank');
+      break;
+    case 'facebook':
+      window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url), '_blank');
+      break;
+    case 'twitter':
+      window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url), '_blank');
+      break;
+    case 'telegram':
+      window.open('https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(text), '_blank');
+      break;
+    case 'sms':
+      window.location.href = 'sms:?body=' + encodeURIComponent(fullText);
+      break;
+    case 'email':
+      window.location.href = 'mailto:?subject=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(fullText);
+      break;
+    case 'copy':
+      copyShareLink(url);
+      break;
+    case 'more':
+    default:
+      // Try the native OS share sheet (works in real Chrome/Safari and
+      // in Capacitor builds that have the Share plugin wired to
+      // navigator.share via the bridge). Falls back to copy.
+      if (navigator.share) {
+        navigator.share({ title, text, url }).catch(() => {});
+      } else if (window.Capacitor?.Plugins?.Share) {
+        window.Capacitor.Plugins.Share.share({ title, text, url, dialogTitle: 'Share via' }).catch(() => copyShareLink(url));
+      } else {
+        copyShareLink(url);
+      }
+      break;
+  }
+  closeModal('modal-share-sheet');
+}
+
+function copyShareLink(url) {
+  if (navigator.clipboard?.writeText) {
     navigator.clipboard.writeText(url).then(() => showToast('🔗 Profile link copied!'));
+  } else {
+    // Last-resort fallback for older Android WebViews without Clipboard API
+    const ta = document.createElement('textarea');
+    ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); showToast('🔗 Profile link copied!'); } catch (e) { showToast('⚠️ Could not copy link'); }
+    document.body.removeChild(ta);
   }
 }
+
+// ── RATE US ON PLAY STORE (Capacitor APK) ──
+// ⚠️ Replace PLAY_STORE_PACKAGE_NAME below with your real Android
+// applicationId from capacitor.config (e.g. "in.kashmirstay.ks")
+// once you know it — this is the only line that needs editing.
+const PLAY_STORE_PACKAGE_NAME = 'in.kashmirstay.ks';
+const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=' + PLAY_STORE_PACKAGE_NAME;
+
+function rateAppPlayStore() {
+  // Try Capacitor's native in-app review plugin first (best UX — shows
+  // Google's own in-app review popup without leaving the app). Falls
+  // back to opening the Play Store listing directly.
+  if (window.Capacitor?.Plugins?.InAppReview?.requestReview) {
+    window.Capacitor.Plugins.InAppReview.requestReview().catch(() => {
+      window.open(PLAY_STORE_URL, '_system');
+    });
+  } else if (window.Capacitor?.isNativePlatform?.()) {
+    window.open('market://details?id=' + PLAY_STORE_PACKAGE_NAME, '_system');
+  } else {
+    window.open(PLAY_STORE_URL, '_blank');
+  }
+  localStorage.setItem('mbp_rate_app_status', 'rated');
+  closeModal('modal-rate-app');
+}
+
+function dismissRatePrompt(mode) {
+  closeModal('modal-rate-app');
+  if (mode === 'never') {
+    localStorage.setItem('mbp_rate_app_status', 'never');
+  } else {
+    // Snooze — ask again after a week, and bump the "ask count" so we
+    // back off automatically (asks at session 3, then +10 sessions each time)
+    localStorage.setItem('mbp_rate_app_snoozed_at', Date.now());
+  }
+}
+
+function maybeShowRatePrompt() {
+  // Only relevant inside the actual installed APK, not the website/PWA
+  const isNativeApp = window.Capacitor?.isNativePlatform?.() ||
+                       window.matchMedia('(display-mode: standalone)').matches ||
+                       navigator.standalone;
+  if (!isNativeApp) return;
+
+  const status = localStorage.getItem('mbp_rate_app_status');
+  if (status === 'rated' || status === 'never') return;
+
+  const snoozedAt = parseInt(localStorage.getItem('mbp_rate_app_snoozed_at') || '0', 10);
+  if (snoozedAt && Date.now() - snoozedAt < 7 * 24 * 60 * 60 * 1000) return; // wait 7 days after "Maybe Later"
+
+  // Count sessions/opens so we don't ask on the very first launch
+  let opens = parseInt(localStorage.getItem('mbp_app_opens') || '0', 10) + 1;
+  localStorage.setItem('mbp_app_opens', opens);
+  if (opens < 3) return; // ask from the 3rd app open onward
+
+  setTimeout(() => {
+    if (!document.querySelector('.modal-overlay.open')) openModal('modal-rate-app');
+  }, 2500);
+}
+
+
 
 // ══════════════════════════════════════
 //  DASHBOARD
@@ -3381,7 +4256,7 @@ function isAllowedImageUrl(url) {
   if (!url) return false;
   const allowed = ['unsplash.com','images.unsplash.com','cloudinary.com','res.cloudinary.com',
     'drive.google.com','lh3.googleusercontent.com','googleapis.com','imgur.com',
-    'cdn.pixabay.com','images.pexels.com','makemetop.in'];
+    'cdn.pixabay.com','images.pexels.com','kashmirstay.in'];
   try {
     const host = new URL(url).hostname;
     return allowed.some(d => host === d || host.endsWith('.' + d));
@@ -3890,7 +4765,7 @@ function clearOffer() {
 // Start listener when Firebase ready
 window.addEventListener('load', () => setTimeout(initOfferListener, 1500));
 
-Object.assign(window,{navTo,navBack,tryAddBusiness,loadHomeBiz,loadDashboard,renderBizList,filterBiz,filterCat,renderStars,renderSpotlightList,openBizDetail,callBusiness,whatsappBusiness,openWebsite,shareBusiness,openReviewModal,editReview,deleteReview,selectStar,submitReview,previewImg,previewGal,toggleService,saveDraft,autosaveDraft,goToStep,selectPlan,initRazorpayPayment,initSpotlightPayment,applyOffer,clearOffer,initOfferListener,onRazorpaySuccess,ensureRazorpaySdk,generateAIDescription,previewGovtReg,openSpotlightModal,closeSpotlightModal,buySpotlight,renderSpotlightList,trackEvent,loadAnalyticsDashboard,startDiscountCountdown,previewPaymentSS,submitBusinessWithPayment,loadAdminPayments,adminVerifyPayment,viewPaymentSS,openEditBizModal,saveEditBusiness,deleteMyBusiness,openBizDetailAndEdit,toggleFaq,sendContactMsg,sendVerification,openModal,closeModal,openLightbox,logout,changePassword,sendPasswordReset,showToast,loadAdmin,loadAdminTab,adminAction,adminDelete,sendChatMsg,sendAdminReply,openAdminChatThread,showWelcomeModal,triggerInstall,updateInstallButtonVisibility,showInstallInstructions,showMainApp,showAuth,updateSettingsUI,checkAdminAccess,showVerifyBanner,loadDashboard,loadHomeBiz,openClaimModal,submitClaimRequest,handleClaimAction,adminResolveClaim,loadAdminClaims,goSlide,rateLimit,sanitizeInput,callAppsScript,setLoading});
+Object.assign(window,{navTo,navBack,tryAddBusiness,loadHomeBiz,loadDashboard,renderBizList,filterBiz,filterCat,renderStars,renderSpotlightList,openBizDetail,callBusiness,whatsappBusiness,openWebsite,shareBusiness,openReviewModal,editReview,deleteReview,selectStar,submitReview,previewImg,previewGal,toggleService,saveDraft,autosaveDraft,goToStep,selectPlan,initRazorpayPayment,initSpotlightPayment,applyOffer,clearOffer,initOfferListener,onRazorpaySuccess,ensureRazorpaySdk,generateAIDescription,previewGovtReg,openSpotlightModal,closeSpotlightModal,buySpotlight,renderSpotlightList,trackEvent,loadAnalyticsDashboard,startDiscountCountdown,loadAdminPayments,adminVerifyPayment,viewPaymentSS,openEditBizModal,saveEditBusiness,deleteMyBusiness,openBizDetailAndEdit,toggleFaq,sendContactMsg,sendVerification,openModal,closeModal,openLightbox,logout,changePassword,sendPasswordReset,showToast,loadAdmin,loadAdminTab,adminAction,adminDelete,sendChatMsg,sendAdminReply,openAdminChatThread,showWelcomeModal,triggerInstall,updateInstallButtonVisibility,showInstallInstructions,showMainApp,showAuth,updateSettingsUI,checkAdminAccess,showVerifyBanner,loadDashboard,loadHomeBiz,openClaimModal,submitClaimRequest,submitBugReport,handleClaimAction,adminResolveClaim,loadAdminClaims,goSlide,rateLimit,sanitizeInput,callAppsScript,setLoading});
 
 // ─────────────────────────────────────────────────────────────
 //  AUTO-LOAD BUSINESSES ON PAGE OPEN
@@ -4113,6 +4988,6 @@ window.addEventListener('load', async () => {
 
 <!-- Kashmir Stay Chat Widget -->
 <script src="chat-widget.js?v=2"></script>
-
+<script src="google-signin-capacitor.js"></script>
 </body>
 </html>
