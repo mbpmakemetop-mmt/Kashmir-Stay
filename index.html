@@ -1400,6 +1400,7 @@
     <div class="form-group"><label class="form-label">Website URL</label><input type="url" id="edit-biz-website" class="form-input" placeholder="https://yourbusiness.com"/></div>
     <div class="form-group"><label class="form-label">Services</label>
       <div class="chip-group" id="edit-services-chips">
+         <div class="chip" onclick="toggleService(this,'Airport Pickup')">Airport Pickup</div>
             <div class="chip" onclick="toggleService(this,'Airport Pickup')">Airport Pickup</div>
 <div class="chip" onclick="toggleService(this,'Airport Drop')">Airport Drop</div>
 <div class="chip" onclick="toggleService(this,'Hotel Transfers')">Hotel Transfers</div>
@@ -1876,18 +1877,7 @@ async function googleAuth() {
   const nativeAuthPlugin = window.Capacitor?.Plugins?.FirebaseAuthentication;
 
   if (isNativeApp && nativeAuthPlugin) {
-    try {
-      const result = await nativeAuthPlugin.signInWithGoogle();
-      const idToken = result?.credential?.idToken;
-      if (!idToken) throw new Error('No ID token returned from native Google sign-in');
-      const credential = window._authFns.GoogleAuthProvider.credential(idToken);
-      const userCred = await window._authFns.signInWithCredential(window._auth, credential);
-      if (userCred.user) showToast('✅ Signed in with Google!');
-    } catch (e) {
-      console.warn('Native Google sign-in failed:', e);
-      if (e?.code !== 'auth/cancelled-popup-request' && !String(e?.message||'').toLowerCase().includes('cancel'))
-        showToast('❌ Google sign-in failed: ' + (e.code ? friendlyError(e.code) : 'Please try again'));
-    }
+    await attemptNativeGoogleSignIn(nativeAuthPlugin, /*isRetry=*/false);
     return;
   }
 
@@ -1899,6 +1889,36 @@ async function googleAuth() {
     if (e.code === 'auth/popup-blocked') showToast('⚠️ Please allow popups for this site');
     else if (e.code !== 'auth/cancelled-popup-request' && e.code !== 'auth/popup-closed-by-user')
       showToast('❌ Google sign-in failed: ' + friendlyError(e.code));
+  }
+}
+
+// Credential Manager / Play Services can fail intermittently (stale state,
+// brief Play Services hiccup) even with correct config — a quick automatic
+// retry recovers most of these without the person needing to tap again.
+async function attemptNativeGoogleSignIn(nativeAuthPlugin, isRetry) {
+  try {
+    const result = await nativeAuthPlugin.signInWithGoogle();
+    const idToken = result?.credential?.idToken;
+    if (!idToken) throw new Error('No ID token returned from native Google sign-in');
+    const credential = window._authFns.GoogleAuthProvider.credential(idToken);
+    const userCred = await window._authFns.signInWithCredential(window._auth, credential);
+    if (userCred.user) showToast('✅ Signed in with Google!');
+  } catch (e) {
+    console.warn(`Native Google sign-in failed${isRetry ? ' (after retry)' : ''}:`, e?.code, e?.message);
+
+    const msg = String(e?.message || '').toLowerCase();
+    const wasCancelled = e?.code === 'auth/cancelled-popup-request' || msg.includes('cancel');
+    if (wasCancelled) return; // person backed out on purpose — don't retry, don't show an error
+
+    if (!isRetry) {
+      // First failure: likely transient — wait briefly and try once more automatically
+      showToast('⏳ Sign-in hiccup, retrying...');
+      await new Promise(r => setTimeout(r, 900));
+      return attemptNativeGoogleSignIn(nativeAuthPlugin, /*isRetry=*/true);
+    }
+
+    // Failed twice in a row — this is a real problem, not a blip
+    showToast('❌ Google sign-in failed: ' + (e.code ? friendlyError(e.code) : 'Please check your connection and try again'));
   }
 }
 
@@ -2940,6 +2960,13 @@ function filterCat(el, cat) {
     renderBizList('home-biz-list', filterBiz(allBizData, cat));
   }
 }
+// Govt. Verified takes priority over plain Verified — a business can't show both at once here
+function getVerifyBadgeHtml(b) {
+  if (b.is_govt_verified) return '<span class="verify-badge govt">🏛️ Govt Verified</span>';
+  if (b.is_verified) return '<span class="verify-badge trusted">✓ Verified</span>';
+  return '';
+}
+
 function renderBizList(containerId, bizList) {
   const container = document.getElementById(containerId);
   if (!bizList?.length) { container.innerHTML='<div class="empty-state"><div class="empty-icon" style="display:flex;align-items:center;justify-content:center;color:var(--gray300)"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg></div><h3>No Kashmir Stays found</h3><p>Be the first to create your Kashmir Stay in Srinagar!</p></div>'; return; }
@@ -2968,7 +2995,7 @@ function renderBizList(containerId, bizList) {
           <div class="biz-card2-gallery">${gallerySlots}</div>
         </div>
         <div class="biz-card2-info">
-          <div class="biz-name">${escapeHtml(b.name)}${vpBadge}</div>
+          <div class="biz-name-row"><div class="biz-name">${escapeHtml(b.name)}${vpBadge}</div>${getVerifyBadgeHtml(b)}</div>
           <span class="biz-type">${escapeHtml(b.type||'Business')}</span>${sponTag}
           ${b.description ? `<div class="biz-desc">${escapeHtml(b.description)}</div>` : ''}
           <div class="biz-meta">${ratingHtml}</div>
@@ -2977,7 +3004,7 @@ function renderBizList(containerId, bizList) {
       </div>
       <div style="display:flex;align-items:center;justify-content:space-between;padding:0 0 2px">
         ${topServices.length ? `<div class="biz-card-footer" style="flex:1;padding:0;border:none">${topServices.map(s=>`<span class="biz-tag">${escapeHtml(s)}</span>`).join('')}${b.services?.length>3?`<span class="biz-tag">+${b.services.length-3} more</span>`:''}</div>` : '<div style="flex:1"></div>'}
-        <span style="font-size:.72rem;font-weight:700;color:#2563EB;background:#EFF6FF;border:1px solid #BFDBFE;padding:4px 10px;border-radius:20px;white-space:nowrap;margin-left:8px;flex-shrink:0">View More →</span>
+        <span style="font-size:.74rem;font-weight:700;color:#fff;background:var(--card-navy);padding:7px 16px;border-radius:20px;white-space:nowrap;margin-left:8px;flex-shrink:0;display:inline-flex;align-items:center;gap:5px">View More <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
       </div>
     </div>`;
   });
@@ -4316,7 +4343,7 @@ function renderSpotlightList(spots) {
       <div class="biz-card" style="padding-top:22px">
         <img class="biz-logo" src="${b.logo_url||''}" alt="${escapeHtml(b.name)}" loading="lazy" onerror="this.style.background='var(--gray200)'"/>
         <div class="biz-info">
-          <div class="biz-name">${escapeHtml(b.name)}${vpBadge}</div>
+          <div class="biz-name-row"><div class="biz-name">${escapeHtml(b.name)}${vpBadge}</div>${getVerifyBadgeHtml(b)}</div>
           <span class="biz-type">${escapeHtml(b.type||'')}</span>
           ${b.description?`<div class="biz-desc">${escapeHtml(b.description)}</div>`:''}
           <div class="biz-meta">${rHtml}</div>
@@ -4324,7 +4351,10 @@ function renderSpotlightList(spots) {
           <div class="spotlight-timer">⏱ ${timeStr}</div>
         </div>
       </div>
-      ${topSvcs.length?`<div class="biz-card-footer">${topSvcs.map(s=>`<span class="biz-tag">${escapeHtml(s)}</span>`).join('')}</div>`:''}
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:0 14px 14px">
+        ${topSvcs.length ? `<div class="biz-card-footer" style="flex:1;padding:0;border:none">${topSvcs.map(s=>`<span class="biz-tag">${escapeHtml(s)}</span>`).join('')}</div>` : '<div style="flex:1"></div>'}
+        <span style="font-size:.74rem;font-weight:700;color:#fff;background:var(--card-navy);padding:7px 16px;border-radius:20px;white-space:nowrap;margin-left:8px;flex-shrink:0;display:inline-flex;align-items:center;gap:5px">View More <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
     </div>`;
   }).join('');
 }
