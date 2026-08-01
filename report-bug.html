@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report a Bug - Kashmir Stay</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+
+<style>
+:root {
+  --primary: #1F1F1F;
+  --bg: #F9FAFB;
+  --white: #FFFFFF;
+  --accent: #F5A623;
+  --green: #16A34A;
+  --blue: #2563EB;
+  --red: #DC2626;
+  --gray100: #F3F4F6;
+  --gray200: #E5E7EB;
+  --gray400: #9CA3AF;
+  --gray500: #6B7280;
+  --gray700: #374151;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
+  --shadow: 0 4px 16px rgba(0,0,0,.1);
+  --radius: 12px;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--primary);
+  padding: 20px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.header {
+  background: linear-gradient(135deg, var(--primary), #333);
+  color: white;
+  padding: 24px;
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+}
+.back-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.8);
+  font-size: .85rem;
+  cursor: pointer;
+  margin-bottom: 10px;
+  padding: 0;
+}
+.header h1 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+.header p {
+  color: rgba(255,255,255,.75);
+  font-size: .88rem;
+  margin-top: 4px;
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 24px;
+}
+
+.form-group { margin-bottom: 18px; }
+.form-label {
+  display: block;
+  font-weight: 700;
+  font-size: .85rem;
+  margin-bottom: 6px;
+  color: var(--gray700);
+}
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--gray200);
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: .92rem;
+  color: var(--primary);
+  background: var(--white);
+  transition: border-color .15s ease;
+}
+.form-input:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+}
+.form-textarea { min-height: 110px; resize: vertical; }
+.hint { font-size: .78rem; color: var(--gray500); margin-top: 16px; text-align: center; }
+
+.btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: .95rem;
+  cursor: pointer;
+  transition: opacity .15s ease, transform .1s ease;
+}
+.btn:active { transform: scale(.98); }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+.btn-primary { background: var(--blue); color: #fff; }
+
+.spinner {
+  border: 3px solid var(--gray200);
+  border-top: 3px solid var(--blue);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+#gate, #success { text-align: center; padding: 50px 20px; }
+#success { display: none; }
+#success .icon { font-size: 3rem; margin-bottom: 12px; }
+#success h2 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 8px; }
+#success p { color: var(--gray500); font-size: .9rem; margin-bottom: 20px; }
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: .85rem;
+  box-shadow: var(--shadow);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+.toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <button class="back-btn" onclick="window.location.href='index.html'">← Back to Home</button>
+  <h1>🐞 Report a Bug</h1>
+  <p>Found something broken? Let us know and we'll take a look.</p>
+</div>
+
+<div id="gate">
+  <div class="spinner"></div>
+  <p style="color:var(--gray500)">Checking your account...</p>
+</div>
+
+<div id="form-card" class="card" style="display:none">
+  <div class="form-group">
+    <label class="form-label">What's the issue? *</label>
+    <input type="text" id="bug-title" class="form-input" placeholder="e.g. Photos not uploading on my business page" maxlength="120"/>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Describe what happened</label>
+    <textarea id="bug-description" class="form-textarea" placeholder="What were you doing when it happened? What did you expect vs. what actually happened?" maxlength="1000"></textarea>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Page / Section (optional)</label>
+    <input type="text" id="bug-page" class="form-input" placeholder="e.g. Business Detail page, Dashboard, Add Business form"/>
+  </div>
+  <button class="btn btn-primary" id="submit-btn" onclick="submitBugReport()">Submit Bug Report</button>
+  <p class="hint">Reports go straight to our team for review.</p>
+</div>
+
+<div id="success" class="card">
+  <div class="icon">✅</div>
+  <h2>Thanks for the report!</h2>
+  <p>We'll take a look and fix it as soon as we can.</p>
+  <button class="btn btn-primary" onclick="window.location.href='index.html'">Back to Home</button>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBPYZjjzZk8oXweMXLjGN9-H9uTnW4vgWY",
+  authDomain: "makeme-top.firebaseapp.com",
+  projectId: "makeme-top",
+  storageBucket: "makeme-top.firebasestorage.app",
+  messagingSenderId: "867981206214",
+  appId: "1:867981206214:web:f6f250b1832978ef302dc7"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let currentUser = null;
+
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+onAuthStateChanged(auth, (user) => {
+  document.getElementById('gate').style.display = 'none';
+  if (!user) {
+    showToast('Please sign in first');
+    setTimeout(() => window.location.href = 'index.html', 1500);
+    return;
+  }
+  currentUser = user;
+  document.getElementById('form-card').style.display = 'block';
+});
+
+window.submitBugReport = async function() {
+  const title = document.getElementById('bug-title').value.trim();
+  const description = document.getElementById('bug-description').value.trim();
+  const pageContext = document.getElementById('bug-page').value.trim();
+
+  if (!title) { showToast('⚠️ Please describe the issue in a few words'); return; }
+  if (!currentUser) { showToast('⚠️ Please sign in first'); return; }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  try {
+    await addDoc(collection(db, 'bug_reports'), {
+      title,
+      description: description || '',
+      page: pageContext || '',
+      reported_by_uid: currentUser.uid,
+      reported_by_email: currentUser.email || '',
+      status: 'open',
+      created_at: serverTimestamp(),
+      app_version: 'kashmirstay-app'
+    });
+    document.getElementById('form-card').style.display = 'none';
+    document.getElementById('success').style.display = 'block';
+  } catch (e) {
+    showToast('❌ Could not submit: ' + e.message);
+    btn.disabled = false;
+    btn.textContent = 'Submit Bug Report';
+  }
+};
+</script>
+
+</body>
+</html>
