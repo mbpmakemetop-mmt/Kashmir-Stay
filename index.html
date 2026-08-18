@@ -2741,7 +2741,7 @@ async function loadAdminPayments(container) {
       const date = p.submitted_at?.toDate ? p.submitted_at.toDate().toLocaleDateString() : 'N/A';
       return `<div class="payment-row">
         <div style="display:flex;align-items:flex-start;gap:12px">
-          <img class="pr-ss" src="${escapeHtml(p.screenshot_url||'')}" alt="Payment SS" onclick="viewPaymentSS('${escapeHtml(p.screenshot_url||'')}')" onerror="this.style.background='var(--gray200)'"/>
+          <img class="pr-ss" src="${escapeHtml(p.screenshot_url||'')}" alt="Payment SS" loading="lazy" onclick="viewPaymentSS('${escapeHtml(p.screenshot_url||'')}')" onerror="this.style.background='var(--gray200)'"/>
           <div style="flex:1;min-width:0">
             <div class="pr-biz">${escapeHtml(p.business_name||'')}</div>
             <div class="pr-meta">
@@ -4070,7 +4070,7 @@ async function loadAdminTab(el, status) {
     if (!businesses.length) { container.innerHTML=`<div class="empty-state"><div class="empty-icon">✅</div><h3>No ${status} listings</h3></div>`; return; }
     container.innerHTML = businesses.map(b => `
       <div class="admin-biz-row">
-        <img class="biz-logo-sm" src="${b.logo_url||''}" alt="${escapeHtml(b.name)}" onerror="this.style.background='var(--gray200)'"/>
+        <img class="biz-logo-sm" src="${b.logo_url||''}" alt="${escapeHtml(b.name)}" loading="lazy" onerror="this.style.background='var(--gray200)'"/>
         <div class="info">
           <div class="name">${escapeHtml(b.name)}</div>
           <div class="sub">${escapeHtml(b.type||'')} · ${escapeHtml(b.address?.substring(0,28)||'')} · <span style="color:${b.status==='pending_payment'?'var(--accent)':'var(--gray500)'}">${b.status}</span></div>
@@ -5132,7 +5132,7 @@ window.addEventListener('load', async () => {
 </script>
 
 <!-- Kashmir Stay Chat Widget -->
-<script src="chat-widget.js?v=2"></script>
-<script src="google-signin-capacitor.js"></script>
+<script src="chat-widget.js?v=2" defer></script>
+<script src="google-signin-capacitor.js" defer></script>
 </body>
 </html>
