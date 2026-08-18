@@ -11,8 +11,8 @@
 <meta name="theme-color" content="#1F1F1F"/>
 <meta name="google-site-verification" content="2Ki_lrLQ2dZVyvXR0R8Qm2uVfYNkiFJDKpLBRsLUo4E" />
 <!-- ═══ PRIMARY SEO ═══ -->
-<title>Kashmir Stay – Find Hotels, Resorts & Travel Agencies in Kashmir | Book Your Kashmir Trip</title>
-<meta name="description" content="Kashmir Stay – Browse verified hotels, resorts, travel agencies, and houseboats in Kashmir. Find tours in Srinagar, Gulmarg, Pahalgam, Sonamarg, Dal Lake. Book your Kashmir trip today!"/>
+<title>Kashmir Stay – Find Verified Hotels, Resorts & Travel Agencies in Kashmir</title>
+<meta name="description" content="Kashmir Stay – Browse verified hotels, resorts, travel agencies, and houseboats in Kashmir. Find trusted businesses in Srinagar, Gulmarg, Pahalgam, Sonamarg, Dal Lake. Contact them directly — no booking fees, no middlemen."/>
 <meta name="keywords" content="Kashmir hotels, Kashmir resorts, Kashmir travel agencies, Kashmir houseboats, Srinagar hotels, Gulmarg resorts, Pahalgam hotels, Sonamarg tours, Dal Lake houseboats, Kashmir tour packages, Kashmir holiday packages, Kashmir tourism, Kashmir travel guide, Kashmir vacation, Kashmir trip planner, best hotels Kashmir, luxury resorts Kashmir, budget hotels Kashmir, Kashmir tour operators, verified travel agents Kashmir, Kashmir sightseeing, Kashmir adventure tours, Kashmir trekking, Kashmir skiing, Gulmarg gondola, Pahalgam Betab Valley, Sonamarg glacier, Mughal gardens Srinagar, Dal Lake shikara, Kashmir houseboat booking, Kashmir cab services, Kashmir taxi booking, Srinagar to Gulmarg, Kashmir honeymoon packages, Kashmir family tours, Kashmir group tours, Kashmir solo travel, Kashmir road trip, Kashmir itinerary, Kashmir places to visit, Kashmir winter tour, Kashmir summer vacation, Leh Ladakh tour, Kashmir offbeat destinations, Gurez Valley, Yusmarg, Doodhpathri, Kashmir tulip garden, Kashmir saffron fields, Kashmiri cuisine, Kashmir Wazwan, Kashmir shopping, Kashmir weather, best time visit Kashmir, Kashmir travel tips, Kashmir business listings, verified businesses Kashmir"/>
 <meta name="author" content="Kashmir Stay"/>
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
@@ -20,7 +20,7 @@
 <meta name="language" content="English"/>
 <meta name="revisit-after" content="3 days"/>
 <meta name="rating" content="general"/>
-<meta name="category" content="business directory, local services"/>
+<meta name="category" content="travel, tourism, hotels"/>
 <!-- Tell Google this is a JS app — pages render client-side -->
 <meta name="fragment" content="!"/>
 
@@ -28,7 +28,7 @@
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://kashmirstay.in/"/>
   <meta property="og:title" content="Kashmir Stay – Hotels, Resorts & Travel Agencies in Kashmir"/>
-  <meta property="og:description" content="Discover and book verified travel agencies, resorts and tour operators across Kashmir J&amp;K"/>
+  <meta property="og:description" content="Discover verified travel agencies, resorts and tour operators across Kashmir J&amp;K — contact them directly"/>
 <meta property="og:image" content="https://kashmirstay.in/icon-512.png"/>
 <meta property="og:image:width" content="512"/>
 <meta property="og:image:height" content="512"/>
@@ -3234,7 +3234,7 @@ function injectBizSchema(b) {
     ],
     "description": b.description
       ? b.description
-      : `${b.name} – ${b.type||'local business'} in Srinagar, Jammu & Kashmir. Verified Kashmir Stay (Kashmir Stay) on J&K's #1 business directory. Contact, reviews & directions available.`,
+      : `${b.name} – ${b.type||'local business'} in Srinagar, Jammu & Kashmir. Verified listing on Kashmir Stay, Kashmir's trusted travel directory. Contact, reviews & directions available.`,
     "image": b.logo_url || 'https://kashmirstay.in/icon-512.png',
     "logo": {
       "@type": "ImageObject",
@@ -3336,7 +3336,7 @@ function injectBizSchema(b) {
   // ── Dynamic meta description ──
   let metaDesc = document.querySelector('meta[name="description"]');
   if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.name='description'; document.head.appendChild(metaDesc); }
-  metaDesc.content = `${b.name} Kashmir Stay – ${b.type||'Business'} in Srinagar, J&K. ${b.description ? b.description.slice(0,100)+'...' : 'View address, phone, reviews & contact.'} Listed on Kashmir Stay – J&K's #1 business directory.`;
+  metaDesc.content = `${b.name} – ${b.type||'Business'} in Srinagar, J&K. ${b.description ? b.description.slice(0,100)+'...' : 'View address, phone, reviews & contact.'} Verified listing on Kashmir Stay, Kashmir's travel directory.`;
 
   // ── Canonical → static slug URL (matches generated biz pages) ──
   const bizPageUrl = bizStaticUrl(b);
@@ -3346,7 +3346,7 @@ function injectBizSchema(b) {
 
   // ── Open Graph per profile ──
   const ogMap = {
-    'og:title': `${b.name} – Kashmir Stay | ${b.type||'Business'} in Srinagar | Kashmir Stay`,
+    'og:title': `${b.name} – ${b.type||'Business'} in Srinagar | Kashmir Stay`,
     'og:description': metaDesc.content,
     'og:image': b.cover_url || b.logo_url || 'https://kashmirstay.in/icon-512.png',
     'og:url': bizPageUrl
