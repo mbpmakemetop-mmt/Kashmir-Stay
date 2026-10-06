@@ -1,0 +1,376 @@
+{
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "firestore.rules",
+      "**/.git/**",
+      "**/.DS_Store",
+      ".gitignore",
+      "**/.github/**",
+      "**/node_modules/**",
+      "README.md",
+      "CNAME",
+      "capacitor.config.json",
+      "cordova.js",
+      "cordova_plugins.js"
+    ],
+    "cleanUrls": false,
+    "trailingSlash": false,
+    "redirects": [
+      {
+        "source": "/beautiful-places-in-kashmir.html.html",
+        "destination": "/beautiful-places-in-kashmir.html",
+        "type": 301
+      },
+      {
+        "source": "/gulmarg.html.html",
+        "destination": "/gulmarg.html",
+        "type": 301
+      },
+      {
+        "source": "/ladakh.html.html",
+        "destination": "/ladakh.html",
+        "type": 301
+      },
+      {
+        "source": "/olympias-athena.html.html",
+        "destination": "/olympias-athena.html",
+        "type": 301
+      },
+      {
+        "source": "/srinagar.html.html",
+        "destination": "/srinagar.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/sinthantop-guide.html.html",
+        "destination": "/blog/sinthantop-guide.html",
+        "type": 301
+      },
+      {
+        "source": "/icon-192.png",
+        "destination": "/icon-192-v2.png",
+        "type": 301
+      },
+      {
+        "source": "/favicon.32png",
+        "destination": "/favicon-32.png",
+        "type": 301
+      },
+      {
+        "source": "/blog/icon-192.png",
+        "destination": "/icon-192-v2.png",
+        "type": 301
+      },
+      {
+        "source": "/blog/favicon-32.png",
+        "destination": "/favicon-32.png",
+        "type": 301
+      },
+      {
+        "source": "/blog/favicon-16.png",
+        "destination": "/favicon-16.png",
+        "type": 301
+      },
+      {
+        "source": "/blog/favicon.png",
+        "destination": "/favicon.png",
+        "type": 301
+      },
+      {
+        "source": "/blog/index.html",
+        "destination": "/blog/blog.html",
+        "type": 301
+      },
+      {
+        "source": "/blog.html",
+        "destination": "/blog/blog.html",
+        "type": 301
+      },
+      {
+        "source": "/guides/index.html",
+        "destination": "/blog/blog.html",
+        "type": 301
+      },
+      {
+        "source": "/best-time-to-visit-kashmir-stay.html",
+        "destination": "/blog/best-time-to-visit-kashmir-stay.html",
+        "type": 301
+      },
+      {
+        "source": "/dal-lake-guide.html",
+        "destination": "/blog/dal-lake-guide.html",
+        "type": 301
+      },
+      {
+        "source": "/famous-places-visit-kashmir.html",
+        "destination": "/blog/famous-places-visit-kashmir.html",
+        "type": 301
+      },
+      {
+        "source": "/best-season-to-visit-kashmir-stay.html",
+        "destination": "/blog/best-season-to-visit-kashmir-stay.html",
+        "type": 301
+      },
+      {
+        "source": "/anantnag-to-gurez-valley-distance-kashmir-stay.html",
+        "destination": "/blog/anantnag-to-gurez-valley-distance-kashmir-stay.html",
+        "type": 301
+      },
+      {
+        "source": "/kashmir-travel-guide.html",
+        "destination": "/blog/kashmir-travel-guide.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/about.html",
+        "destination": "/about.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/privacy.html",
+        "destination": "/privacy.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/terms.html",
+        "destination": "/terms.html",
+        "type": 301
+      },
+      {
+        "source": "/guides/about.html",
+        "destination": "/about.html",
+        "type": 301
+      },
+      {
+        "source": "/guides/privacy.html",
+        "destination": "/privacy.html",
+        "type": 301
+      },
+      {
+        "source": "/guides/terms.html",
+        "destination": "/terms.html",
+        "type": 301
+      },
+      {
+        "source": "/privacy/index.html",
+        "destination": "/privacy.html",
+        "type": 301
+      },
+      {
+        "source": "/terms/index.html",
+        "destination": "/terms.html",
+        "type": 301
+      },
+      {
+        "source": "/contact/index.html",
+        "destination": "/contact.html",
+        "type": 301
+      },
+      {
+        "source": "/privacy",
+        "destination": "/privacy.html",
+        "type": 301
+      },
+      {
+        "source": "/terms",
+        "destination": "/terms.html",
+        "type": 301
+      },
+      {
+        "source": "/contact",
+        "destination": "/contact.html",
+        "type": 301
+      },
+      {
+        "source": "/gurez.html",
+        "destination": "/blog/gurez-valley-guide.html",
+        "type": 301
+      },
+      {
+        "source": "/sonamarg.html",
+        "destination": "/blog/beautiful-places-in-kashmir.html",
+        "type": 301
+      },
+      {
+        "source": "/guides/best-places-kashmir.html",
+        "destination": "/blog/beautiful-places-in-kashmir.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/dal-lake-houseboats.html",
+        "destination": "/guides/dal-lake-houseboats.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/is-kashmir-safe-solo-female-travelers.html",
+        "destination": "/blog/kashmir-safe-solo-female-travelers.html",
+        "type": 301
+      },
+      {
+        "source": "/businesses.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/agencies.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/houseboats.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/list-your-business.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/desclaimer.html",
+        "destination": "/disclaimer.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/kashmir-travel-scam-avoid.html",
+        "destination": "/blog/blog.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/kashmir-packing-list.html",
+        "destination": "/blog/blog.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/kashmir-trip-budget.html",
+        "destination": "/blog/blog.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/mughal-gardens-srinagar.html",
+        "destination": "/blog/blog.html",
+        "type": 301
+      },
+      {
+        "source": "/guides/mughal-gardens-srinagar.html",
+        "destination": "/blog/blog.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/how-to-reach-kashmir.html",
+        "destination": "/blog/blog.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/betaab-valley-vs-aru-valley.html",
+        "destination": "/blog/gulmarg-vs-pahalgam.html",
+        "type": 301
+      }
+    ],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          },
+          {
+            "key": "Referrer-Policy",
+            "value": "strict-origin-when-cross-origin"
+          },
+          {
+            "key": "X-Frame-Options",
+            "value": "SAMEORIGIN"
+          },
+          {
+            "key": "Permissions-Policy",
+            "value": "camera=(), microphone=(), geolocation=(self)"
+          }
+        ]
+      },
+      {
+        "source": "**/*.html",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "/",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "/sw.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(js|css)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=3600, must-revalidate"
+          }
+        ]
+      },
+      {
+        "source": "/vendor/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(png|jpg|jpeg|gif|webp|avif|svg|ico|woff|woff2)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=2592000"
+          }
+        ]
+      },
+      {
+        "source": "/@(sitemap.xml|robots.txt|ads.txt|manifest.json)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=3600"
+          }
+        ]
+      },
+      {
+        "source": "/.well-known/assetlinks.json",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          }
+        ]
+      }
+    ]
+  }
+}

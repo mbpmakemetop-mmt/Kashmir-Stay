@@ -1,0 +1,244 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ══════════════════════════════════════════════════════════
+    // HELPERS
+    // ══════════════════════════════════════════════════════════
+    function signedIn() { return request.auth != null; }
+
+    // Admin = your Google account, and Google must have verified the email
+    function isAdmin() {
+      return signedIn()
+        && request.auth.token.email == 'abrarrtallks@gmail.com'
+        && request.auth.token.email_verified == true;
+    }
+
+    function isOwner() { return signedIn() && request.auth.uid == resource.data.user_id; }
+
+    function isOwnerOfBusiness(bizId) {
+      return signedIn()
+        && get(/databases/$(database)/documents/businesses/$(bizId)).data.user_id == request.auth.uid;
+    }
+
+    function changed() { return request.resource.data.diff(resource.data).affectedKeys(); }
+
+    function shortText(v, max) { return v is string && v.size() <= max; }
+
+    // ══════════════════════════════════════════════════════════
+    // USERS — nobody can make themselves premium/admin
+    // ══════════════════════════════════════════════════════════
+    match /users/{uid} {
+      allow read: if (signedIn() && request.auth.uid == uid) || isAdmin();
+
+      allow create: if signedIn() && request.auth.uid == uid
+        && request.resource.data.get('uid', uid) == uid
+        && !request.resource.data.keys().hasAny(['is_premium','premium_plan','premium_expiry','payment_id','role','is_admin']);
+
+      allow update: if isAdmin() || (signedIn() && request.auth.uid == uid
+        && !changed().hasAny(['uid','is_premium','premium_plan','premium_expiry','payment_id','role','is_admin']));
+
+      allow delete: if isAdmin();
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // BUSINESSES
+    //  • New listings always start as 'pending' (admin approves)
+    //  • Owners can edit their details, but NOT premium / spotlight /
+    //    storage / approval / rating / ownership — only the server can
+    // ══════════════════════════════════════════════════════════
+    match /businesses/{bizId} {
+
+      function lockedForOwner() {
+        return ['is_premium','premium_plan','premium_expiry','payment_id','razorpay_order_id',
+                'spotlight_until','spotlight_plan','spotlight_active','spotlight_started','spotlight_expired_at',
+                'image_limit','storage_plan','storage_payment_id',
+                'user_id','user_email','rating','review_count',
+                'approved_at','created_at','biz_id','is_govt_verified'];
+      }
+
+      function ownerEdit() {
+        return isOwner()
+          && !changed().hasAny(lockedForOwner())
+          // owners may only send their listing back to review, never approve it
+          && (!changed().hasAny(['status']) || request.resource.data.status == 'pending');
+      }
+
+      // Any signed-in user may update ONLY rating + review_count, and the
+      // count can move by at most 1 (one review added / removed / edited)
+      function ratingUpdate() {
+        let oldCount = resource.data.get('review_count', 0);
+        let newCount = request.resource.data.review_count;
+        return signedIn()
+          && changed().hasOnly(['rating', 'review_count'])
+          && newCount is int && newCount >= 0
+          && newCount <= oldCount + 1 && newCount >= oldCount - 1
+          && request.resource.data.rating is number
+          && request.resource.data.rating >= 0
+          && request.resource.data.rating <= 5;
+      }
+
+      allow read: if resource.data.status == 'approved' || isOwner() || isAdmin();
+
+      allow create: if isAdmin() || (signedIn()
+        && request.resource.data.user_id == request.auth.uid
+        && request.resource.data.status == 'pending'
+        && request.resource.data.get('rating', 0) == 0
+        && request.resource.data.get('review_count', 0) == 0
+        && !request.resource.data.keys().hasAny(['spotlight_until','spotlight_active','spotlight_plan',
+                                                  'spotlight_started','image_limit','storage_plan','approved_at']));
+
+      allow update: if isAdmin() || ownerEdit() || ratingUpdate();
+
+      allow delete: if isOwner() || isAdmin();
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // ANALYTICS (legacy) — owners read, only server/admin writes
+    // ══════════════════════════════════════════════════════════
+    match /analytics/{businessId} {
+      allow read: if isAdmin() || isOwnerOfBusiness(businessId);
+      allow write: if isAdmin();
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // ANALYTICS EVENTS — anyone can log a view/click, but only
+    // in the exact shape the site sends (no junk, no huge docs)
+    // ══════════════════════════════════════════════════════════
+    match /analytics_events/{eventId} {
+      allow read: if isAdmin() || (signedIn() && isOwnerOfBusiness(resource.data.biz_id));
+
+      allow create: if request.resource.data.keys().hasOnly(['biz_id','type','created_at','ts'])
+        && shortText(request.resource.data.biz_id, 100)
+        && request.resource.data.type in ['view','phone','whatsapp','website']
+        && request.resource.data.created_at == request.time;
+
+      allow update, delete: if isAdmin();
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // NOTIFICATIONS — only admin/server can send them
+    // ══════════════════════════════════════════════════════════
+    match /notifications/{notificationId} {
+      allow read, update: if signedIn() && resource.data.user_id == request.auth.uid;
+      allow create: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // PAYMENTS — users can only file records for themselves.
+    // (These are receipts only; premium is granted by the server.)
+    // ══════════════════════════════════════════════════════════
+    match /payments/{payId} {
+      allow read: if (signedIn() && request.auth.uid == resource.data.user_id) || isAdmin();
+      allow create: if signedIn() && request.resource.data.user_id == request.auth.uid;
+      allow update, delete: if isAdmin();
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // REVIEWS
+    // ══════════════════════════════════════════════════════════
+    match /reviews/{reviewId} {
+      function validReview() {
+        return request.resource.data.rating is number
+          && request.resource.data.rating >= 1
+          && request.resource.data.rating <= 5
+          && shortText(request.resource.data.get('comment', ''), 500)
+          && shortText(request.resource.data.get('user_name', ''), 100);
+      }
+
+      allow read: if true;
+
+      allow create: if isAdmin() || (signedIn()
+        && request.resource.data.user_id == request.auth.uid
+        && shortText(request.resource.data.business_id, 100)
+        && validReview());
+
+      allow update: if isAdmin() || (signedIn()
+        && resource.data.user_id == request.auth.uid
+        && changed().hasOnly(['rating', 'comment', 'updated_at'])
+        && validReview());
+
+      allow delete: if isAdmin() || (signedIn() && resource.data.user_id == request.auth.uid);
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // OWNERSHIP CLAIMS
+    // ══════════════════════════════════════════════════════════
+    match /ownership_claims/{claimId} {
+      allow read: if signedIn() && (
+        request.auth.uid == resource.data.requester_uid ||
+        request.auth.uid == resource.data.current_owner_uid ||
+        isAdmin()
+      );
+      allow create: if signedIn()
+        && request.resource.data.requester_uid == request.auth.uid
+        && request.resource.data.status == 'pending'
+        && shortText(request.resource.data.get('requester_message', ''), 1000);
+      allow update: if isAdmin() || (signedIn() && request.auth.uid == resource.data.current_owner_uid
+        && changed().hasOnly(['status', 'resolved_at']));
+      allow delete: if isAdmin();
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // SUPPORT CHAT — users can only write in THEIR OWN conversation
+    // ══════════════════════════════════════════════════════════
+    match /chat_conversations/{convId} {
+      allow read: if (signedIn() && request.auth.uid == resource.data.user_id) || isAdmin();
+      allow create: if signedIn() && request.resource.data.user_id == request.auth.uid;
+      allow update: if isAdmin() || (signedIn() && request.auth.uid == resource.data.user_id
+        && !changed().hasAny(['user_id']));
+      allow delete: if isAdmin();
+
+      match /messages/{msgId} {
+        function convOwner() {
+          return get(/databases/$(database)/documents/chat_conversations/$(convId)).data.user_id;
+        }
+        allow read: if isAdmin() || (signedIn() && request.auth.uid == convOwner());
+        allow create: if isAdmin() || (signedIn()
+          && request.auth.uid == convOwner()
+          && request.resource.data.sender == 'user'
+          && shortText(request.resource.data.text, 2000));
+        allow delete: if isAdmin();
+      }
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // CONTACT FORM (public) — size-limited
+    // ══════════════════════════════════════════════════════════
+    match /contact_messages/{msgId} {
+      allow read, update, delete: if isAdmin();
+      allow create: if request.resource.data.keys().size() <= 15
+        && shortText(request.resource.data.get('message', ''), 3000);
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // BUG REPORTS
+    // ══════════════════════════════════════════════════════════
+    match /bug_reports/{reportId} {
+      allow read: if isAdmin() || (signedIn() && request.auth.uid == resource.data.reported_by_uid);
+      allow create: if signedIn() && request.resource.data.reported_by_uid == request.auth.uid;
+      allow update, delete: if isAdmin();
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // PUBLIC CONTENT (admin writes)
+    // ══════════════════════════════════════════════════════════
+    match /updates/{updateId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /site_config/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // DEFAULT DENY
+    // ══════════════════════════════════════════════════════════
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

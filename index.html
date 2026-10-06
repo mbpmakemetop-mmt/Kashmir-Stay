@@ -220,9 +220,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
 
 <!-- Main CSS preload -->
-<link rel="preload" href="shared.css?v=4.1" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="shared.css?v=4.2" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript>
-  <link rel="stylesheet" href="shared.css?v=4.1">
+  <link rel="stylesheet" href="shared.css?v=4.2">
 </noscript>
 
 <!-- ═══ CAPACITOR APK FIX — safe-area for status bar overlap ═══
@@ -246,6 +246,10 @@
   .bottom-nav{ padding-bottom: calc(6px + var(--capgo-safe-bottom)) !important; height: auto !important; }
   .modal-overlay .modal-sheet{ padding-bottom: calc(16px + var(--capgo-safe-bottom)); }
   #install-prompt{ bottom: calc(72px + var(--capgo-safe-bottom)) !important; }
+  .get-app-btn{align-items:center;gap:5px;height:30px;padding:0 12px;margin-right:4px;border-radius:999px;
+    background:var(--primary,#1F1F1F);color:#fff !important;font-size:.74rem;font-weight:700;letter-spacing:.01em;
+    text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.12);transition:transform .15s,opacity .15s}
+  .get-app-btn:active{transform:scale(.95);opacity:.9}
 </style>
 
 
@@ -253,6 +257,7 @@
 <!-- Bug Fixes -->
 <script src="security.js" defer></script>
 <script src="auth-fix.js" defer></script>
+<script src="ks-ads.js?v=2" defer></script>
 </head>
 <body>
 <!-- ═══ NOSCRIPT FALLBACK — shown to Google crawler / no-JS users ═══ -->
@@ -319,6 +324,37 @@
     <span style="background:#F9FAFB;border:1px solid #E5E7EB;padding:6px 14px;border-radius:20px;font-size:.82rem">🚤 Shikara</span>
   </div>
 
+  <h2 style="font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:12px">Verified Businesses on Kashmir Stay</h2>
+  <ul style="padding-left:20px;line-height:2;margin-bottom:28px;color:#374151;font-size:.9rem">
+    <li><a href="/biz/365-holiday-travels.html" style="color:#1F1F1F">365 Holiday Travels</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/aadi-tour-travel.html" style="color:#1F1F1F">Aadi Tour &amp; Travel</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/char-chinar-dal-lake.html" style="color:#1F1F1F">Char Chinar Dal lake</a> <span style="color:#9CA3AF">· Shikara</span></li>
+    <li><a href="/biz/havenly-horizon-tours.html" style="color:#1F1F1F">Havenly Horizon Tours</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/hotel-dal-nights.html" style="color:#1F1F1F">Hotel Dal Nights</a> <span style="color:#9CA3AF">· Hotel</span></li>
+    <li><a href="/biz/hunt-kashmir-365.html" style="color:#1F1F1F">Hunt Kashmir 365</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/joy-tour-and-travels.html" style="color:#1F1F1F">Joy tour and travels</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/kashmir-glide-tour-and-travel.html" style="color:#1F1F1F">Kashmir Glide tour and travel</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/kashmir-holiday-resort.html" style="color:#1F1F1F">Kashmir Holiday Resort</a> <span style="color:#9CA3AF">· Resort</span></li>
+    <li><a href="/biz/kashmir-sinthantoptour-travel.html" style="color:#1F1F1F">Kashmir SinthantopTour &amp; Travel</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/lake-house-palace.html" style="color:#1F1F1F">Lake House Palace</a> <span style="color:#9CA3AF">· Resort</span></li>
+    <li><a href="/biz/lassa-bhat-guest-house.html" style="color:#1F1F1F">Lassa Bhat Guest House</a> <span style="color:#9CA3AF">· Guest House</span></li>
+    <li><a href="/biz/lonely-guest-house.html" style="color:#1F1F1F">Lonely Guest House</a> <span style="color:#9CA3AF">· Guest House</span></li>
+    <li><a href="/biz/olympias-athena.html" style="color:#1F1F1F">Olympias Athena</a> <span style="color:#9CA3AF">· Houseboat</span></li>
+    <li><a href="/biz/raaj-n-raaj-tour-and-travels.html" style="color:#1F1F1F">RAAJ N RAAJ TOUR AND TRAVELS</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/radisson-hotel-srinagar.html" style="color:#1F1F1F">Radisson Hotel Srinagar</a> <span style="color:#9CA3AF">· Hotel</span></li>
+    <li><a href="/biz/srinagar-destination-tour-and-travels.html" style="color:#1F1F1F">Srinagar Destination Tour And Travels</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/ss-travels.html" style="color:#1F1F1F">SS Travels</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/sun-seekers.html" style="color:#1F1F1F">Sun Seekers</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/sunway-kashmir.html" style="color:#1F1F1F">Sunway Kashmir</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/the-eco-village-resort-srinagar.html" style="color:#1F1F1F">The Eco Village Resort Srinagar</a> <span style="color:#9CA3AF">· Resort</span></li>
+    <li><a href="/biz/trip-tunes-tour-and-travels.html" style="color:#1F1F1F">Trip Tunes (Tour and Travels)</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/triporbit-tour-and-travel.html" style="color:#1F1F1F">TripOrbit (Tour and Travel)</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/united-royal-tours-and-travels.html" style="color:#1F1F1F">United Royal Tours And Travels</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/ut-kashmir-tour-and-travels.html" style="color:#1F1F1F">UT Kashmir Tour and Travels</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/vellfire-holidays.html" style="color:#1F1F1F">Vellfire Holidays</a> <span style="color:#9CA3AF">· Travel Agency</span></li>
+    <li><a href="/biz/zostel-srinagar.html" style="color:#1F1F1F">Zostel Srinagar</a> <span style="color:#9CA3AF">· Hotel</span></li>
+  </ul>
+
   <h2 style="font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:12px">Kashmir Travel Guides</h2>
   <ul style="padding-left:20px;line-height:2;margin-bottom:28px;color:#374151;font-size:.9rem">
     <li><a href="/blog/best-time-to-visit-gulmarg-month-by-month.html" style="color:#1F1F1F">Best Time to Visit Gulmarg Month by Month</a></li>
@@ -361,65 +397,20 @@
 <div id="offline-banner">📵 You're offline – some features may be unavailable</div>
 <div id="toast"></div>
 
-<!-- ─── INSTALL PROMPT ─── -->
-<div id="install-prompt">
-  <span style="font-size:1.4rem">📲</span>
-  <div class="install-text"><strong>Install Kashmir Stay App</strong><span id="install-prompt-sub">Add to home screen – free &amp; works offline</span></div>
-  <button class="btn btn-accent btn-sm" style="width:auto" id="install-btn">Install</button>
-  <button id="install-dismiss" style="background:none;border:none;color:rgba(255,255,255,.6);font-size:1.2rem;cursor:pointer;padding:4px">✕</button>
-</div>
+
 
 <!-- ══════════ AUTH VIEWS ══════════ -->
 <div id="view-login" class="auth-page" style="display:none">
-  <div class="auth-logo">Kashmir<span>Stay</spam></div>
-  <p class="auth-tagline">j&k's #1 Business Directory</p>
+  <div class="auth-logo">Kashmir<span>Stay</span></div>
+  <p class="auth-tagline">J&amp;K's #1 Business Directory</p>
   <div class="auth-card">
-    <h1 class="auth-title" style="font-size:1.2rem">Welcome back 👋</h1>
+    <h1 class="auth-title" style="font-size:1.2rem">Welcome to Kashmir Stay 👋</h1>
     <p class="auth-subtitle">Sign in to add businesses &amp; write reviews</p>
     <button class="btn btn-google" id="google-login-btn">
       <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy44eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=" alt="Google"/>
       Continue with Google
     </button>
-    <div class="divider"><span>or with email</span></div>
-    <div class="form-group"><label class="form-label">Email</label><input type="email" id="login-email" class="form-input" placeholder="you@example.com" autocomplete="email"/></div>
-    <div class="form-group"><label class="form-label">Password</label><input type="password" id="login-pass" class="form-input" placeholder="••••••••" autocomplete="current-password"/></div>
-    <div class="text-center mt-4" style="margin-bottom:14px"><a href="#" class="text-sm text-muted" id="forgot-link" style="text-decoration:underline">Forgot password?</a></div>
-    <button class="btn btn-primary" id="login-btn">Sign In</button>
-    <p class="text-center text-sm text-muted" style="margin-top:14px">New here? <a href="#" id="to-signup" style="color:var(--primary);font-weight:700">Create Account</a></p>
-  </div>
-</div>
-
-<div id="view-signup" class="auth-page" style="display:none">
-  <div class="auth-logo">Kashmir<span>Stay</span></div>
-  <p class="auth-tagline">Join Srinagar's Business Community</p>
-  <div class="auth-card">
-    <h1 class="auth-title" style="font-size:1.2rem">Create Account ✨</h1>
-    <p class="auth-subtitle">List your business &amp; reach local customers</p>
-    <button class="btn btn-google" id="google-signup-btn">
-      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy44eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=" alt="Google"/>
-      Continue with Google
-    </button>
-    <div class="divider"><span>or with email</span></div>
-    <div class="form-group"><label class="form-label">Full Name</label><input type="text" id="signup-name" class="form-input" placeholder="Your full name" autocomplete="name"/></div>
-    <div class="form-group"><label class="form-label">Email</label><input type="email" id="signup-email" class="form-input" placeholder="you@example.com" autocomplete="email"/></div>
-    <div class="form-group"><label class="form-label">Password</label><input type="password" id="signup-pass" class="form-input" placeholder="Min 6 characters" autocomplete="new-password"/></div>
-    <div class="form-group"><label class="form-label">Confirm Password</label><input type="password" id="signup-cpass" class="form-input" placeholder="Repeat password" autocomplete="new-password"/></div>
-    <button class="btn btn-primary" id="signup-btn">Create Account</button>
-    <p class="text-center text-sm text-muted" style="margin-top:14px">Already have an account? <a href="#" id="to-login" style="color:var(--primary);font-weight:700">Sign In</a></p>
-  </div>
-</div>
-
-<div id="view-forgot" class="auth-page" style="display:none">
-  <div class="auth-logo">Kashmir<span>Stay</span></div>
-  <p class="auth-tagline">Put your business on top</p>
-  <div class="auth-card">
-    <button id="forgot-back" style="background:none;border:none;cursor:pointer;font-size:.85rem;color:var(--gray500);display:flex;align-items:center;gap:4px;margin-bottom:16px;padding:0">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Back
-    </button>
-    <h2 class="auth-title">Reset Password 🔑</h2>
-    <p class="auth-subtitle">We'll send you a reset link</p>
-    <div class="form-group"><label class="form-label">Email</label><input type="email" id="forgot-email" class="form-input" placeholder="you@example.com" autocomplete="email"/></div>
-    <button class="btn btn-primary" id="forgot-btn">Send Reset Link</button>
+    <p class="text-center text-sm text-muted" style="margin-top:14px;line-height:1.5">New or returning — one tap with Google. No password to remember.</p>
   </div>
 </div>
 
@@ -456,6 +447,11 @@
   <header class="top-header">
     <div class="logo" role="banner">Kashmir<span>Stay</span></div>
     <div class="spacer"></div>
+    <!-- Get the Android app (website only — hidden inside the app and on iPhone) -->
+    <a id="get-app-btn" class="get-app-btn" href="https://play.google.com/store/apps/details?id=in.kashmirstay.ks&amp;referrer=utm_source%3Dwebsite%26utm_medium%3Dheader_button" target="_blank" rel="noopener" aria-label="Get the Kashmir Stay app on Google Play" style="display:none">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 1.8c-.3.3-.5.8-.5 1.4v17.6c0 .6.2 1.1.5 1.4l9.9-10.2L3.6 1.8zm11.3 8.8 2.8-2.9L5.3.6c-.4-.2-.8-.3-1.1-.2l10.7 10.2zm0 2.8L4.2 23.6c.3.1.7 0 1.1-.2l12.4-7.1-2.8-2.9zm6.6-3.7-2.6-1.5-3 3.1 3 3.1 2.6-1.5c.8-.5.8-1.7 0-2.2z"/></svg>
+      Get App
+    </a>
     <button class="icon-btn" id="admin-icon" onclick="navTo('admin')" style="display:none" aria-label="Admin panel">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
     </button>
@@ -927,6 +923,9 @@
       </button>
       <p style="font-size:.72rem;color:var(--gray400);margin-top:6px;text-align:center">Is this your business? Claim ownership to edit and manage it.</p>
     </div>
+    <!-- Ad: at the very end of the business page, after all content -->
+    <div style="height:18px"></div>
+    <div class="ks-ad-slot ks-ad-detail" data-ks-ad="detail" role="complementary" aria-label="Advertisement"></div>
     <div style="height:16px"></div>
   </div>
 </div>
@@ -1072,7 +1071,7 @@
         <div class="settings-icon" style="background:var(--primary)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
         <div style="flex:1">
           <div class="settings-label">Download Kashmir Stay App</div>
-          <div class="text-muted text-sm" id="install-btn-sub">Add to home screen – free</div>
+          <div class="text-muted text-sm" id="install-btn-sub">Free on Google Play</div>
         </div>
         <svg class="settings-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
@@ -1135,18 +1134,6 @@
 
 </div>
 </div>
-
-<!-- ══ PAGE: CHANGE PASSWORD ══ -->
-<div id="page-change-password" class="page">
-  <header class="top-header"><button class="back-btn" onclick="navBack()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button><div class="title">Change Password</div><div class="spacer"></div></header>
-  <div class="scroll-body"><div class="section">
-    <div class="form-group"><label class="form-label">New Password</label><input type="password" id="cp-new" class="form-input" placeholder="Min 6 characters" autocomplete="new-password"/></div>
-    <div class="form-group"><label class="form-label">Confirm New Password</label><input type="password" id="cp-confirm" class="form-input" placeholder="Repeat password" autocomplete="new-password"/></div>
-    <button class="btn btn-primary" onclick="changePassword()">Update Password</button>
-    <p class="text-center text-sm text-muted" style="margin-top:12px">Or <a href="#" style="color:var(--primary);font-weight:600" onclick="sendPasswordReset();return false">send reset link to email</a></p>
-  </div></div>
-</div>
-
 
 <!-- ══ PAGE: REPORT A BUG ══ -->
 <div id="page-report-bug" class="page">
@@ -1331,8 +1318,8 @@
       </div>
       <div style="background:var(--gray50);border-radius:10px;padding:12px 10px;border:1px solid var(--gray100)">
         <div style="font-size:1.2rem;margin-bottom:4px">📲</div>
-        <div style="font-weight:700;font-size:.8rem">Install App</div>
-        <div style="font-size:.72rem;color:var(--gray500)">Add to home screen free</div>
+        <div style="font-weight:700;font-size:.8rem">Get the App</div>
+        <div style="font-size:.72rem;color:var(--gray500)">Free on Google Play</div>
       </div>
     </div>
     <div id="welcome-name-line" style="font-size:.88rem;color:var(--gray500);margin-bottom:14px">A welcome email is on its way to you! 📧</div>
@@ -1555,7 +1542,7 @@
 ══════════════════════════════════ -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithCredential, sendEmailVerification, sendPasswordResetEmail, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithCredential } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, orderBy, serverTimestamp, getDoc, onSnapshot, setDoc, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // ── FIREBASE CONFIG — get from console.firebase.google.com ──
@@ -1616,7 +1603,7 @@ googleProvider.setCustomParameters({ prompt: 'select_account' });
 
 window._auth = auth; window._db = db; window._googleProvider = googleProvider;
 window._collections = { addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, orderBy, serverTimestamp, getDoc, collection, onSnapshot, setDoc, limit };
-window._authFns = { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithCredential, sendEmailVerification, sendPasswordResetEmail, updatePassword, EmailAuthProvider, reauthenticateWithCredential };
+window._authFns = { signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithCredential };
 window.ADMIN_EMAILS = ADMIN_EMAILS;
 window.DRIVE_UPLOAD_URL = DRIVE_UPLOAD_URL;
 window.EMAIL_SCRIPT_URL = EMAIL_SCRIPT_URL;
@@ -1726,6 +1713,11 @@ async function callAppsScript(payload, retries = 1) {
     console.warn('[Kashmir Stay] Apps Script URL not configured for action:', payload.action);
     return null;
   }
+  // Send the signed-in user's Firebase login so the server knows who is calling
+  try {
+    const u = window._auth && window._auth.currentUser;
+    if (u && !payload.idToken) payload = Object.assign({}, payload, { idToken: await u.getIdToken() });
+  } catch (tokErr) { console.warn('[Kashmir Stay] could not attach login token', tokErr); }
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const resp = await fetch(url, {
@@ -1787,7 +1779,7 @@ function showWelcomeModal(name) {
   openModal('modal-welcome');
 }
 function showMainApp() {
-  ['view-login','view-signup','view-forgot'].forEach(id => document.getElementById(id).style.display = 'none');
+  document.getElementById('view-login').style.display = 'none';
   document.getElementById('main-app').style.display = 'block';
   const shell = document.getElementById('static-shell');
   if (shell) shell.style.display = 'none';
@@ -1838,7 +1830,8 @@ function supportWatchAd() {
 }
 function showAuth(view) {
   document.getElementById('main-app').style.display = 'none';
-  ['login','signup','forgot'].forEach(v => document.getElementById('view-'+v).style.display = v === view ? 'flex' : 'none');
+  // Google-only auth: every auth view now maps to the single Google screen
+  document.getElementById('view-login').style.display = 'flex';
 }
 function navTo(page, fromPopState) {
   const target = document.getElementById('page-' + page);
@@ -1882,40 +1875,8 @@ document.querySelectorAll('.cat-scroll').forEach(scroller => {
 // ══════════════════════════════════════
 //  AUTH
 // ══════════════════════════════════════
-document.getElementById('to-signup').onclick = () => showAuth('signup');
-document.getElementById('to-login').onclick = () => showAuth('login');
-document.getElementById('forgot-link').onclick = () => showAuth('forgot');
-document.getElementById('forgot-back').onclick = () => showAuth('login');
-
-document.getElementById('login-btn').onclick = async () => {
-  const email = document.getElementById('login-email').value.trim();
-  const pass = document.getElementById('login-pass').value;
-  if (!email || !pass) { showToast('⚠️ Please fill all fields'); return; }
-  setLoading('login-btn', true);
-  try { await window._authFns.signInWithEmailAndPassword(window._auth, email, pass); }
-  catch(e) { showToast('❌ ' + friendlyError(e.code)); }
-  setLoading('login-btn', false);
-};
-
-document.getElementById('signup-btn').onclick = async () => {
-  const name = document.getElementById('signup-name').value.trim();
-  const email = document.getElementById('signup-email').value.trim();
-  const pass = document.getElementById('signup-pass').value;
-  const cpass = document.getElementById('signup-cpass').value;
-  if (!name||!email||!pass||!cpass) { showToast('⚠️ Please fill all fields'); return; }
-  if (pass !== cpass) { showToast('❌ Passwords do not match'); return; }
-  if (pass.length < 6) { showToast('❌ Min 6 characters'); return; }
-  setLoading('signup-btn', true);
-  try {
-    const cred = await window._authFns.createUserWithEmailAndPassword(window._auth, email, pass);
-    showToast('Kashmir Stay account created! Welcome to Kashmir Stay!');
-    // handleFirstLogin fires automatically via onAuthStateChanged
-  } catch(e) { showToast('❌ ' + friendlyError(e.code)); }
-  setLoading('signup-btn', false);
-};
-
+// Email/password login & signup removed — Google Sign-In only.
 document.getElementById('google-login-btn').onclick = googleAuth;
-document.getElementById('google-signup-btn').onclick = googleAuth;
 
 // ── STARTUP READINESS GATE ──
 // On a cold app launch (not via Android Studio, which incidentally adds
@@ -1930,11 +1891,8 @@ document.getElementById('google-signup-btn').onclick = googleAuth;
   if (!isNativeApp) return; // web/PWA doesn't need this — signInWithPopup has no such warm-up
 
   const loginBtn  = document.getElementById('google-login-btn');
-  const signupBtn = document.getElementById('google-signup-btn');
-  const originalLoginText  = loginBtn.innerHTML;
-  const originalSignupText = signupBtn.innerHTML;
 
-  [loginBtn, signupBtn].forEach(btn => {
+  [loginBtn].forEach(btn => {
     btn.disabled = true;
     btn.style.opacity = '.55';
     btn.style.pointerEvents = 'none';
@@ -1947,7 +1905,7 @@ document.getElementById('google-signup-btn').onclick = googleAuth;
     const elapsed = Date.now() - start;
     const remaining = Math.max(0, MIN_WARMUP_MS - elapsed);
     setTimeout(() => {
-      [loginBtn, signupBtn].forEach(btn => {
+      [loginBtn].forEach(btn => {
         btn.disabled = false;
         btn.style.opacity = '';
         btn.style.pointerEvents = '';
@@ -2031,14 +1989,6 @@ async function attemptNativeGoogleSignIn(nativeAuthPlugin, isRetry) {
   }
 }
 
-document.getElementById('forgot-btn').onclick = async () => {
-  const email = document.getElementById('forgot-email').value.trim();
-  if (!email) { showToast('⚠️ Enter your email'); return; }
-  setLoading('forgot-btn', true);
-  try { await window._authFns.sendPasswordResetEmail(window._auth, email); showToast('📧 Reset link sent!'); setTimeout(() => showAuth('login'), 2000); }
-  catch(e) { showToast('❌ ' + friendlyError(e.code)); }
-  setLoading('forgot-btn', false);
-};
 
 function logout() { window._authFns.signOut(window._auth); }
 
@@ -2058,18 +2008,9 @@ function updateSettingsUI(user) {
 function isVerified() { return true; } // Always true — no email verification needed
 function requireVerified() { return true; } // Always pass
 
-async function changePassword() {
-  const np = document.getElementById('cp-new').value, cp = document.getElementById('cp-confirm').value;
-  if (!np||!cp) { showToast('⚠️ Fill both fields'); return; }
-  if (np !== cp) { showToast('❌ Passwords do not match'); return; }
-  if (np.length < 6) { showToast('❌ Min 6 characters'); return; }
-  try { await window._authFns.updatePassword(window._currentUser, np); showToast('✅ Password updated!'); navBack(); }
-  catch(e) { showToast('❌ ' + (e.code==='auth/requires-recent-login' ? 'Please sign out and sign in again first' : friendlyError(e.code))); }
-}
-async function sendPasswordReset() {
-  try { await window._authFns.sendPasswordResetEmail(window._auth, window._currentUser.email); showToast('📧 Reset link sent!'); }
-  catch(e) { showToast('❌ ' + friendlyError(e.code)); }
-}
+// Password features removed (Google-only auth) — stubs kept so window exports don't break
+function changePassword() {}
+function sendPasswordReset() {}
 
 // ══════════════════════════════════════
 //  ADMIN
@@ -2280,6 +2221,7 @@ async function initSpotlightPayment(planId, plan, bizId) {
   // Open Razorpay checkout
   const rzp = new Razorpay({
     key:         keyId,
+    webview_intent: !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()), // show UPI apps inside the Android app
     order_id:    orderId,
     amount:      plan.amount,
     currency:    'INR',
@@ -2408,6 +2350,7 @@ async function initRazorpayPayment(overrideBizId, isSpotlight) {
     // ── Step 3: Open Razorpay checkout modal ──
     const options = {
       key:         key_id,
+      webview_intent: !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()), // show UPI apps inside the Android app
       amount:      amount,
       currency:    currency || 'INR',
       name:        'Kashmir Stay',
@@ -2491,14 +2434,18 @@ async function onRazorpaySuccess(rzpResponse, planId, bizId, orderData) {
       const activatedAt = new Date().toISOString();
       const expiresAt   = new Date(Date.now() + daysMs).toISOString();
 
-      // ── Step 1: Auto-enable spotlight on business document ──
-      await updateDoc(doc(window._db, 'businesses', bizId), {
-        spotlight_until:   expiresAt,
-        spotlight_plan:    planId,
-        spotlight_active:  true,
-        spotlight_started: activatedAt
-        // Note: payment_id/order_id saved in /payments collection, not here
+      // ── Step 1: Server verifies the payment with Razorpay, then turns Spotlight on ──
+      // (Firestore rules no longer let the browser set spotlight fields itself)
+      const act = await callAppsScript({
+        action:     'spotlightActivated',
+        biz_id:     bizId,
+        plan_id:    planId,
+        days:       plan.days || 3,
+        payment_id: rzpResponse.razorpay_payment_id || ''
       });
+      if (!act || act.error) {
+        throw new Error((act && act.error) || 'Could not confirm payment. Contact support with payment ID ' + (rzpResponse.razorpay_payment_id || ''));
+      }
 
       // ── Step 2: Save payment record ──
       await addDoc(collection(window._db, 'payments'), {
@@ -2518,22 +2465,7 @@ async function onRazorpaySuccess(rzpResponse, planId, bizId, orderData) {
         created_at:  serverTimestamp()
       });
 
-      // ── Step 3: Notify Apps Script webhook (server-side backup) ──
-      // This also triggers the sendSpotlightActivatedEmail
-      try {
-        await callAppsScript({
-          action:      'spotlightActivated',
-          biz_id:      bizId,
-          user_id:     window._currentUser.uid,
-          user_email:  window._currentUser.email || '',
-          plan_id:     planId,
-          days:        plan.days || 3,
-          expires_at:  expiresAt,
-          payment_id:  rzpResponse.razorpay_payment_id || ''
-        });
-      } catch(emailErr) {
-        console.warn('Spotlight email notification failed (non-fatal):', emailErr.message);
-      }
+      // (Step 3 removed — the server already activated Spotlight + sent the email in Step 1)
 
       // ── Step 4: Update local cache + re-render home list ──
       if (window.allBizData) {
@@ -3144,6 +3076,11 @@ function renderBizList(containerId, bizList) {
     </div>`;
   });
 
+  // One ad at the END of the list only (never between businesses) — home + search, 3+ results
+  if ((containerId === 'home-biz-list' || containerId === 'search-results') && cards.length >= 3) {
+    cards.push('<div class="ks-ad-slot ks-ad-feed" data-ks-ad="feed" role="complementary" aria-label="Advertisement"></div>');
+  }
+
   container.innerHTML = cards.join('');
 }
 function renderStars(r) {
@@ -3715,21 +3652,11 @@ async function handleClaimAction(token, action) {
     if (action === 'accept') {
       // Transfer ownership via Apps Script (server-side) — Firestore rules
       // don't allow client to change user_id/user_email on a business
-      try {
-        await callAppsScript({
-          action:         'transferBusinessOwnership',
-          biz_id:         claim.business_id,
-          new_owner_uid:  claim.requester_uid,
-          new_owner_email:claim.requester_email,
-          claim_id:       claim.id
-        });
-      } catch(e) {
-        console.warn('Transfer via Apps Script failed, trying direct:', e.message);
-        // Fallback: direct write (works if user is current owner + admin)
-        await updateDoc(doc(window._db, 'businesses', claim.business_id), {
-          user_id:    claim.requester_uid,
-          user_email: claim.requester_email
-        });
+      // Server checks you are the current owner, transfers, marks the claim and emails the new owner
+      const tr = await callAppsScript({ action: 'transferBusinessOwnership', claim_id: claim.id });
+      if (!tr || tr.error) {
+        showToast('❌ Transfer failed: ' + ((tr && tr.error) || 'server not reachable — try again'));
+        return;
       }
       // Mark claim as accepted
       await updateDoc(doc(window._db, 'ownership_claims', claim.id), {
@@ -4192,88 +4119,38 @@ function friendlyError(code) {
 // ══════════════════════════════════════
 //  PWA INSTALL — Android, iOS, Desktop
 // ══════════════════════════════════════
+// The website now promotes the real Android app on Google Play (no PWA install popup)
+// (PLAY_STORE_URL is already defined above for the rate-us feature)
+function openPlayStore(medium) {
+  const ref = 'utm_source%3Dwebsite%26utm_medium%3D' + encodeURIComponent(medium || 'settings');
+  window.open(PLAY_STORE_URL + '&referrer=' + ref, '_blank', 'noopener');
+}
 function updateInstallButtonVisibility() {
+  const inApp = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const showGetApp = !inApp && !isIOS;                   // Android + desktop browsers only
+  const headerBtn = document.getElementById('get-app-btn');
+  if (headerBtn) headerBtn.style.display = showGetApp ? 'inline-flex' : 'none';
   const btn = document.getElementById('install-settings-btn');
   const sub = document.getElementById('install-btn-sub');
-  if (!btn) return;
-  const isInstalled = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
-  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  if (isInstalled) {
-    if (sub) sub.textContent = '✅ App already installed';
-    btn.style.opacity = '0.6';
-    btn.onclick = () => showToast('✅ Kashmir Stay app is already installed!');
-  } else if (deferredInstallPrompt) {
-    if (sub) sub.textContent = 'Tap to install – works offline too';
-    btn.style.opacity = '1'; btn.onclick = triggerInstall;
-  } else if (isIOS) {
-    if (sub) sub.textContent = 'Tap Share ↑ → "Add to Home Screen"';
-    btn.style.opacity = '1'; btn.onclick = showInstallInstructions;
-  } else {
-    if (sub) sub.textContent = 'Open in Chrome → ⋮ → Install app';
-    btn.style.opacity = '1'; btn.onclick = showInstallInstructions;
+  if (btn) {
+    btn.style.display = showGetApp ? '' : 'none';
+    btn.onclick = () => openPlayStore('settings');
   }
+  if (sub) sub.textContent = 'Free on Google Play';
 }
+// Old names kept so existing buttons keep working
+function triggerInstall() { openPlayStore('settings'); }
+function showInstallInstructions() { openPlayStore('settings'); }
 
-async function triggerInstall() {
-  if (!deferredInstallPrompt) { showInstallInstructions(); return; }
-  deferredInstallPrompt.prompt();
-  const r = await deferredInstallPrompt.userChoice;
-  if (r.outcome === 'accepted') { showToast('🎉 Kashmir Stay app installed!'); updateInstallButtonVisibility(); }
-  document.getElementById('install-prompt').classList.remove('show');
-  deferredInstallPrompt = null;
-}
+// Stop Chrome's own "Install" popup for the web version
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); });
 
-function showInstallInstructions() {
-  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  if (isIOS) showToast('📲 Tap the Share button ↑ then "Add to Home Screen"');
-  else showToast('📲 Tap ⋮ in Chrome → "Install app" or "Add to Home Screen"');
-}
-
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredInstallPrompt = e;
-  const dismissed = localStorage.getItem('mbp_install_dismissed');
-  const recentlyDismissed = dismissed && Date.now() - parseInt(dismissed) < 3 * 24 * 60 * 60 * 1000;
-  if (!recentlyDismissed) {
-    setTimeout(() => document.getElementById('install-prompt').classList.add('show'), 4000);
-  }
-  updateInstallButtonVisibility();
-});
-
-document.getElementById('install-btn').onclick = () => triggerInstall();
-document.getElementById('install-dismiss').onclick = () => {
-  document.getElementById('install-prompt').classList.remove('show');
-  localStorage.setItem('mbp_install_dismissed', Date.now());
-};
-
-window.addEventListener('appinstalled', () => {
-  document.getElementById('install-prompt').classList.remove('show');
-  deferredInstallPrompt = null;
-  updateInstallButtonVisibility();
-  showToast('✅ Kashmir Stay app installed successfully!');
-});
 window.addEventListener('online',  () => document.getElementById('offline-banner').style.display = 'none');
 window.addEventListener('offline', () => document.getElementById('offline-banner').style.display = 'block');
 
-// Show iOS banner after 3s if not installed and not dismissed
-window.addEventListener('load', () => {
-  updateInstallButtonVisibility();
-  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  const isInstalled = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-  const dismissed = localStorage.getItem('mbp_install_dismissed');
-  if (isIOS && !isInstalled && !dismissed) {
-    setTimeout(() => {
-      const p = document.getElementById('install-prompt');
-      const sub = document.getElementById('install-prompt-sub');
-      const btn = document.getElementById('install-btn');
-      if (p && sub && btn) {
-        sub.textContent = 'Tap Share ↑ → "Add to Home Screen"';
-        btn.textContent = 'How?'; btn.onclick = showInstallInstructions;
-        p.classList.add('show');
-      }
-    }, 3000);
-  }
-});
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', updateInstallButtonVisibility);
+else updateInstallButtonVisibility();
 
 // ══════════════════════════════════════
 //  UPDATES SLIDER — admin posts, shown at top of home
@@ -4945,7 +4822,9 @@ Object.assign(window,{navTo,navBack,tryAddBusiness,loadHomeBiz,loadDashboard,ren
 })();
 
 // Auth fix - prevents auto-logout
-window.addEventListener('load', async () => {
+// Boot as soon as the page + scripts are ready — NOT on 'load', which waits for every image/ad/font
+function ksWhenReady(fn){ if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn); else fn(); }
+ksWhenReady(async () => {
   if (window.authManager) {
     try {
       const user = await window.authManager.initialize();

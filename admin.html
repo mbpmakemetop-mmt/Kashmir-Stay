@@ -482,6 +482,11 @@ window.APPS_SCRIPT_URL = APPS_SCRIPT_URL;
 // ── Apps Script caller ──
 async function callAppsScript(payload) {
   if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('PASTE')) return null;
+  // Admin actions are verified on the server with your Firebase login
+  try {
+    const u = auth && auth.currentUser;
+    if (u && !payload.idToken) payload = Object.assign({}, payload, { idToken: await u.getIdToken() });
+  } catch (tokErr) { console.warn('could not attach login token', tokErr); }
   try {
     const resp = await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
