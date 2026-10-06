@@ -1,0 +1,25 @@
+# Auto-deploy kashmirstay.in to Firebase Hosting on every push to main.
+# That includes commits made by your Apps Scripts (new business pages, sitemap).
+name: Deploy to Firebase Hosting
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}          # also lets you click "Run workflow" by hand
+
+concurrency:                     # many commits close together → only the latest one deploys
+  group: firebase-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MAKEME_TOP }}
+          channelId: live
+          projectId: makeme-top
