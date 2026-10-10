@@ -246,6 +246,16 @@
   .bottom-nav{ padding-bottom: calc(6px + var(--capgo-safe-bottom)) !important; height: auto !important; }
   .modal-overlay .modal-sheet{ padding-bottom: calc(16px + var(--capgo-safe-bottom)); }
   #install-prompt{ bottom: calc(72px + var(--capgo-safe-bottom)) !important; }
+  .ks-fab-stack{position:fixed;right:24px;z-index:201;display:flex;flex-direction:column;align-items:center;gap:12px;
+    bottom:calc(var(--nav-h,64px) + env(safe-area-inset-bottom) + 12px + 60px + 14px)}
+  .ks-fab{width:52px;height:52px;border-radius:50%;border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 12px rgba(31,31,31,.3);transition:transform .2s ease,box-shadow .2s ease;-webkit-tap-highlight-color:transparent}
+  .ks-fab:active{transform:scale(.92)}
+  .ks-fab:hover{transform:scale(1.08);box-shadow:0 6px 16px rgba(31,31,31,.4)}
+  .ks-fab-gold{background:linear-gradient(135deg,#F5A623,#E09410)}
+  .ks-fab-blue{background:linear-gradient(135deg,#2563EB,#1D4ED8)}
+  body:has(#ks-toggle.active) .ks-fab-stack{display:none}   /* hide while the chat window is open */
+  @media(max-width:480px){.ks-fab-stack{right:20px}}
   .get-app-btn{align-items:center;gap:5px;height:30px;padding:0 12px;margin-right:4px;border-radius:999px;
     background:var(--primary,#1F1F1F);color:#fff !important;font-size:.74rem;font-weight:700;letter-spacing:.01em;
     text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.12);transition:transform .15s,opacity .15s}
@@ -258,6 +268,7 @@
 <script src="security.js" defer></script>
 <script src="auth-fix.js" defer></script>
 <script src="ks-ads.js?v=2" defer></script>
+<script type="module" src="ks-packages.js?v=1"></script>
 </head>
 <body>
 <!-- ═══ NOSCRIPT FALLBACK — shown to Google crawler / no-JS users ═══ -->
@@ -368,6 +379,7 @@
     <li><a href="/blog/kashmir-safe-solo-female-travelers.html" style="color:#1F1F1F">Is Kashmir Safe for Solo Female Travelers?</a></li>
     <li><a href="/blog/best-houseboats-for-families.html" style="color:#1F1F1F">Best Houseboats on Dal Lake for Families</a></li>
     <li><a href="/blog/blog.html" style="color:#F5A623;font-weight:600">View all guides →</a></li>
+    <li><a href="/packages/kashmir-tour-packages.html" style="color:#16A34A;font-weight:600">Kashmir tour packages from verified operators →</a></li>
   </ul>
 
   <h2 style="font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:12px">Frequently Asked Questions</h2>
@@ -849,6 +861,18 @@
 
 <!-- ══ PAGE: BUSINESS DETAIL ══ -->
 <div id="page-biz-detail" class="page">
+  <!-- Owner quick actions: round floating buttons stacked above the chat button -->
+  <div class="ks-fab-stack" aria-label="Owner actions">
+    <button id="detail-packages-btn" class="ks-fab ks-fab-green" onclick="window.ksPackages && ksPackages.openManager()" style="display:none" aria-label="My tour packages" title="Packages">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg>
+    </button>
+    <button id="detail-spotlight-btn" class="ks-fab ks-fab-gold" onclick="openSpotlightModal(currentBizData?.id)" style="display:none" aria-label="Spotlight this listing" title="Spotlight">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.94 5.96 6.56.95-4.75 4.63 1.12 6.53L12 17.5l-5.87 3.07 1.12-6.53L2.5 9.41l6.56-.95z"/></svg>
+    </button>
+    <button id="detail-dashboard-btn" class="ks-fab ks-fab-blue" onclick="window.location.href='dashboard.html?bizId='+currentBizData?.id" style="display:none" aria-label="Open business dashboard" title="Dashboard">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+    </button>
+  </div>
   <header class="top-header">
     <button class="back-btn" onclick="navBack()" aria-label="Go back"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
     <div class="title" id="detail-header-title">Business</div>
@@ -856,8 +880,6 @@
     <button class="icon-btn" id="detail-edit-btn" onclick="openEditBizModal()" style="display:none" aria-label="Edit business">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
     </button>
-    <button id="detail-spotlight-btn" onclick="openSpotlightModal(currentBizData?.id)" style="display:none;align-items:center;gap:4px;padding:7px 12px;background:linear-gradient(135deg,#F5A623,#E09410);color:#fff;border:none;border-radius:var(--radius-xs);font-size:.73rem;font-weight:700;cursor:pointer" aria-label="Spotlight">⭐</button>
-    <button id="detail-dashboard-btn" onclick="window.location.href='dashboard.html?bizId='+currentBizData?.id" style="display:none;align-items:center;gap:4px;padding:7px 14px;background:#2563EB;color:#fff;border:none;border-radius:var(--radius-xs);font-size:.73rem;font-weight:700;cursor:pointer;margin-left:6px" aria-label="Dashboard">📊</button>
     <button class="icon-btn" onclick="shareBusiness()" aria-label="Share business">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
     </button>
@@ -892,6 +914,10 @@
     </div>
     <hr class="sep"/>
     <div class="section" id="detail-services-section"><h2 class="section-title" style="margin-bottom:10px;font-size:.9rem">Services</h2><div class="chip-group" id="detail-services"></div></div>
+    <div id="detail-packages-section" style="display:none">
+      <hr class="sep"/>
+      <div class="section"><h2 class="section-title" style="margin-bottom:10px;font-size:.9rem">🧳 Tour Packages</h2><div class="pk-row"></div></div>
+    </div>
     <hr class="sep"/>
     <div class="section"><h2 class="section-title" style="margin-bottom:8px;font-size:.9rem">About</h2><p id="detail-desc" style="font-size:.85rem;line-height:1.65;color:var(--gray700)"></p></div>
     <hr class="sep"/>
@@ -3127,10 +3153,12 @@ async function openBizDetail(bizId) {
     document.getElementById('detail-addr').textContent = b.address||'';
     const isOwner = window._currentUser?.uid === b.user_id;
     document.getElementById('detail-edit-btn').style.display = isOwner ? 'flex' : 'none';
+    window._ksPendingBiz = { b, isOwner };
+    if (window.ksPackages) window.ksPackages.onBizOpened(b, isOwner);
     // Show spotlight/addons button for owner
     const spBtn = document.getElementById('detail-spotlight-btn');
   const dashBtn = document.getElementById('detail-dashboard-btn');
-  if (dashBtn) dashBtn.style.display = isOwner ? 'inline-flex' : 'none';
+  if (dashBtn) dashBtn.style.display = isOwner ? 'flex' : 'none';
     if (spBtn) spBtn.style.display = isOwner && b.status==='approved' ? 'flex' : 'none';
     document.getElementById('detail-status-badge').innerHTML = isOwner ? `<span class="badge badge-${b.status}">${b.status}</span>` : '';
     // Show "Own This Business" button to non-owners (even guests — they'll be asked to login)
