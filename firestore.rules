@@ -52,7 +52,7 @@ service cloud.firestore {
       function lockedForOwner() {
         return ['is_premium','premium_plan','premium_expiry','payment_id','razorpay_order_id',
                 'spotlight_until','spotlight_plan','spotlight_active','spotlight_started','spotlight_expired_at',
-                'image_limit','storage_plan','storage_payment_id',
+                'image_limit','storage_plan','storage_payment_id','package_slots',
                 'user_id','user_email','rating','review_count',
                 'approved_at','created_at','biz_id','is_govt_verified'];
       }
@@ -86,11 +86,67 @@ service cloud.firestore {
         && request.resource.data.get('rating', 0) == 0
         && request.resource.data.get('review_count', 0) == 0
         && !request.resource.data.keys().hasAny(['spotlight_until','spotlight_active','spotlight_plan',
-                                                  'spotlight_started','image_limit','storage_plan','approved_at']));
+                                                  'spotlight_started','image_limit','storage_plan','approved_at',
+                                                  'package_slots']));
 
       allow update: if isAdmin() || ownerEdit() || ratingUpdate();
 
       allow delete: if isOwner() || isAdmin();
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // TOUR PACKAGES
+    //  • Doc id = <businessId>_<slot>. Slot must be within the
+    //    business's package_slots (3 free; +1 per ₹49 paid — set by server)
+    //  • Only the owner of an APPROVED business can add packages
+    //  • Live instantly; owner can hide; admin can hide/delete anything
+    // ══════════════════════════════════════════════════════════
+    match /packages/{pkgId} {
+      function bizData(id) { return get(/databases/$(database)/documents/businesses/$(id)).data; }
+
+      function validPackage() {
+        let d = request.resource.data;
+        return d.keys().hasOnly(['biz_id','biz_name','user_id','slot','type','title','description',
+                                 'image_url','image_path','nights','days','price','price_unit',
+                                 'places','includes','itinerary','status','created_at','updated_at','page_url'])
+          && d.type in ['honeymoon','couple','family','group','snow','adventure','budget','luxury','pilgrimage','custom']
+          && d.title is string && d.title.size() >= 5 && d.title.size() <= 80
+          && d.description is string && d.description.size() >= 20 && d.description.size() <= 400
+          && d.image_url is string && d.image_url.matches('https://firebasestorage[.]googleapis[.]com/.*')
+          && d.image_path is string && d.image_path.matches('packages/' + d.biz_id + '/.*')
+          && d.nights is int && d.nights >= 0 && d.nights <= 30
+          && d.days is int && d.days >= 0 && d.days <= 31
+          && (d.price == null || (d.price is int && d.price >= 0 && d.price <= 10000000))
+          && d.price_unit in ['per person','per couple','per group']
+          && d.places is list && d.places.size() <= 20
+          && d.includes is list && d.includes.size() <= 20
+          && d.itinerary is list && d.itinerary.size() <= 15
+          && d.status in ['live','hidden']
+          && shortText(d.biz_name, 120);
+      }
+
+      allow read: if resource.data.status == 'live'
+                  || (signedIn() && resource.data.user_id == request.auth.uid)
+                  || isAdmin();
+
+      allow create: if isAdmin() || (signedIn()
+        && validPackage()
+        && request.resource.data.user_id == request.auth.uid
+        && bizData(request.resource.data.biz_id).user_id == request.auth.uid
+        && bizData(request.resource.data.biz_id).status == 'approved'
+        && request.resource.data.slot is int
+        && request.resource.data.slot >= 1
+        && request.resource.data.slot <= bizData(request.resource.data.biz_id).get('package_slots', 3)
+        && pkgId == request.resource.data.biz_id + '_' + string(request.resource.data.slot)
+        && !('page_url' in request.resource.data));
+
+      allow update: if isAdmin() || (signedIn()
+        && resource.data.user_id == request.auth.uid
+        && bizData(resource.data.biz_id).user_id == request.auth.uid
+        && validPackage()
+        && !changed().hasAny(['biz_id','user_id','slot','created_at','page_url']));
+
+      allow delete: if isAdmin() || (signedIn() && resource.data.user_id == request.auth.uid);
     }
 
     // ══════════════════════════════════════════════════════════
@@ -232,6 +288,30 @@ service cloud.firestore {
     match /site_config/{docId} {
       allow read: if true;
       allow write: if isAdmin();
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // BUMPS — owner of an APPROVED business can bump it to the top of
+    // its category for 1 hour, at most once every 20 hours.
+    // Doc id = business id. last_at must be the server time, so the
+    // limit can't be faked from the phone's clock.
+    // ══════════════════════════════════════════════════════════
+    match /bumps/{bizId} {
+      function validBump() {
+        let biz = get(/databases/$(database)/documents/businesses/$(bizId)).data;
+        return signedIn()
+          && biz.user_id == request.auth.uid
+          && biz.status == 'approved'
+          && request.resource.data.keys().hasOnly(['biz_id', 'user_id', 'last_at'])
+          && request.resource.data.biz_id == bizId
+          && request.resource.data.user_id == request.auth.uid
+          && request.resource.data.last_at == request.time;
+      }
+      allow read: if true;
+      allow create: if validBump();
+      allow update: if validBump()
+        && resource.data.last_at < request.time - duration.value(20, 'h');
+      allow delete: if isAdmin();
     }
 
     // ══════════════════════════════════════════════════════════

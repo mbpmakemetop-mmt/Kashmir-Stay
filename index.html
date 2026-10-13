@@ -269,6 +269,7 @@
 <script src="auth-fix.js" defer></script>
 <script src="ks-ads.js?v=2" defer></script>
 <script type="module" src="ks-packages.js?v=1"></script>
+<script type="module" src="ks-boost.js?v=1"></script>
 </head>
 <body>
 <!-- ═══ NOSCRIPT FALLBACK — shown to Google crawler / no-JS users ═══ -->
@@ -3023,7 +3024,17 @@ function renderFromCache() {
   renderBizList('home-biz-list', filterBiz(allBizData.filter(b => !spotIds.has(b.id)), currentCatFilter));
 }
 
-function filterBiz(list, cat) { return cat==='all' ? list : list.filter(b => b.type===cat); }
+function filterBiz(list, cat) {
+  const l = cat==='all' ? list : list.filter(b => b.type===cat);
+  return window.ksBoost ? window.ksBoost.sortBumped(l) : l;   // owners who watched an ad sit on top for 1 hour
+}
+// Re-draw the home list (used when bumps load or change)
+function ksRerenderHome() {
+  if (!allBizData || !allBizData.length) return;
+  if (currentCatFilter === 'all') renderFromCache();
+  else renderBizList('home-biz-list', filterBiz(allBizData, currentCatFilter));
+}
+window.ksRerenderHome = ksRerenderHome;
 function filterCat(el, cat) {
   document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active'); currentCatFilter = cat;
@@ -3069,7 +3080,8 @@ function renderBizList(containerId, bizList) {
       ? renderStars(b.rating||0) + `<span class="biz-review-count">${(b.rating||0).toFixed(1)} (${b.review_count})</span>`
       : '<span class="biz-review-count" style="color:var(--gray300);font-size:.7rem">No reviews yet</span>';
     const vpBadge = b.verified_plus ? '<span class="verified-plus-badge">✓ Verified+</span>' : '';
-    const sponTag = b.category_sponsor ? '<span style="font-size:.62rem;background:#DBEAFE;color:#1D4ED8;padding:2px 7px;border-radius:10px;font-weight:700;margin-left:4px">Sponsored</span>' : '';
+    const sponTag = (b.category_sponsor ? '<span style="font-size:.62rem;background:#DBEAFE;color:#1D4ED8;padding:2px 7px;border-radius:10px;font-weight:700;margin-left:4px">Sponsored</span>' : '')
+      + (window.ksBoost && window.ksBoost.isBumped(b.id) ? '<span class="kb-boosted">⬆ Boosted</span>' : '');
     const gallery = (b.gallery_urls||[]).filter(Boolean);
     const mainPhoto = b.cover_url || gallery[0] || b.logo_url || '';
     const sideShots = gallery.slice(0,3);
@@ -3155,6 +3167,7 @@ async function openBizDetail(bizId) {
     document.getElementById('detail-edit-btn').style.display = isOwner ? 'flex' : 'none';
     window._ksPendingBiz = { b, isOwner };
     if (window.ksPackages) window.ksPackages.onBizOpened(b, isOwner);
+    if (window.ksBoost) window.ksBoost.onBizOpened(b, isOwner);
     // Show spotlight/addons button for owner
     const spBtn = document.getElementById('detail-spotlight-btn');
   const dashBtn = document.getElementById('detail-dashboard-btn');
