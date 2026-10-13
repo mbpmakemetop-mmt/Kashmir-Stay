@@ -205,7 +205,7 @@ async function renderFreeOption(bizId, paidLive) {
   } else {
     const done = adsDone(bizId);
     sub = `Top of the home page for 1 hour · once a day${done ? ` · ${done} of ${FREE_ADS} ads watched` : ''}`;
-    btn = btnHtml(done ? `🎬 Watch ad ${done + 1} of ${FREE_ADS}` : `🎬 Watch ${FREE_ADS} ads`, `ksBoost.freeSpot('${esc(bizId)}', ${Number(paidLive) || 0})`, false);
+    btn = btnHtml(done >= FREE_ADS ? '⭐ Start my free hour' : done ? `🎬 Watch ad ${done + 1} of ${FREE_ADS}` : `🎬 Watch ${FREE_ADS} ads`, `ksBoost.freeSpot('${esc(bizId)}', ${Number(paidLive) || 0})`, false);
   }
   box.innerHTML = optCard(sub, btn);
 }
@@ -240,7 +240,12 @@ async function freeSpot(bizId, paidLive) {
       await setDoc(doc(db(), 'spot_boosts', bizId), { biz_id: bizId, user_id: u.uid, last_at: serverTimestamp() });
     } catch (e) {
       console.warn('[ksBoost] free spot:', e.message);
-      toast(String(e.code || '').includes('permission') ? 'You can use the free hour once a day.' : 'Could not start your free hour — please try again.');
+      // lastAt was checked before the ads, so a refusal here is not the daily limit —
+      // usually the new Firestore rules aren't deployed yet. Ads stay saved (30 min).
+      toast(String(e.code || '').includes('permission')
+        ? 'Server not ready for free Spotlight yet — your ads are saved, try again in a few minutes.'
+        : 'Could not start your free hour — your ads are saved, please try again.');
+      renderFreeOption(bizId, paidLive);
       return;
     }
     setAdsDone(bizId, 0);
