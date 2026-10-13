@@ -291,13 +291,14 @@ service cloud.firestore {
     }
 
     // ══════════════════════════════════════════════════════════
-    // BUMPS — owner of an APPROVED business can bump it to the top of
-    // its category for 1 hour, at most once every 20 hours.
+    // FREE SPOTLIGHT HOUR (owner watched 2 ads in the app)
+    // Owner of an APPROVED business, at most once every 20 hours.
     // Doc id = business id. last_at must be the server time, so the
-    // limit can't be faked from the phone's clock.
+    // limit can't be faked with the phone's clock. Paid spotlights
+    // (spotlight_until on the business) are never touched by this.
     // ══════════════════════════════════════════════════════════
-    match /bumps/{bizId} {
-      function validBump() {
+    match /spot_boosts/{bizId} {
+      function validFreeSpot() {
         let biz = get(/databases/$(database)/documents/businesses/$(bizId)).data;
         return signedIn()
           && biz.user_id == request.auth.uid
@@ -308,8 +309,8 @@ service cloud.firestore {
           && request.resource.data.last_at == request.time;
       }
       allow read: if true;
-      allow create: if validBump();
-      allow update: if validBump()
+      allow create: if validFreeSpot();
+      allow update: if validFreeSpot()
         && resource.data.last_at < request.time - duration.value(20, 'h');
       allow delete: if isAdmin();
     }

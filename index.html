@@ -269,7 +269,7 @@
 <script src="auth-fix.js" defer></script>
 <script src="ks-ads.js?v=2" defer></script>
 <script type="module" src="ks-packages.js?v=1"></script>
-<script type="module" src="ks-boost.js?v=1"></script>
+<script type="module" src="ks-boost.js?v=3"></script>
 </head>
 <body>
 <!-- ═══ NOSCRIPT FALLBACK — shown to Google crawler / no-JS users ═══ -->
@@ -2983,10 +2983,7 @@ async function loadHomeBiz() {
     }
 
     // Only show spotlights that are still active and not expired
-    const spotlights = allBizData
-      .filter(b => b.spotlight_until && b.spotlight_until > now)
-      .sort((a,b) => (b.spotlight_until||'') > (a.spotlight_until||'') ? 1 : -1)
-      .slice(0, window.SPOTLIGHT_MAX_SLOTS || 3);
+    const spotlights = ksGetSpotlights();
 
     const spotSection = document.getElementById('spotlight-section');
     if (spotSection) {
@@ -3007,10 +3004,7 @@ async function loadHomeBiz() {
 // Render from cached allBizData immediately (before fresh Firestore fetch)
 function renderFromCache() {
   const now = new Date().toISOString();
-  const spotlights = allBizData
-    .filter(b => b.spotlight_until && b.spotlight_until > now)
-    .sort((a,b) => (b.spotlight_until||'') > (a.spotlight_until||'') ? 1 : -1)
-    .slice(0, window.SPOTLIGHT_MAX_SLOTS || 3);
+  const spotlights = ksGetSpotlights();
   const spotSection = document.getElementById('spotlight-section');
   if (spotSection) {
     if (spotlights.length > 0) {
@@ -3024,17 +3018,25 @@ function renderFromCache() {
   renderBizList('home-biz-list', filterBiz(allBizData.filter(b => !spotIds.has(b.id)), currentCatFilter));
 }
 
-function filterBiz(list, cat) {
-  const l = cat==='all' ? list : list.filter(b => b.type===cat);
-  return window.ksBoost ? window.ksBoost.sortBumped(l) : l;   // owners who watched an ad sit on top for 1 hour
+// ── Spotlight slots: PAID spotlights always come first. Free 1-hour spotlights
+//    (owner watched 2 ads in the app) only fill slots nobody has paid for.
+function ksGetSpotlights() {
+  const now = new Date().toISOString();
+  const max = window.SPOTLIGHT_MAX_SLOTS || 3;
+  const paid = allBizData
+    .filter(b => b.spotlight_until && b.spotlight_until > now)
+    .sort((a,b) => (b.spotlight_until||'') > (a.spotlight_until||'') ? 1 : -1)
+    .slice(0, max);
+  const free = (window.ksBoost && window.ksBoost.freeSpots) ? window.ksBoost.freeSpots(allBizData, paid) : [];
+  return paid.concat(free).slice(0, max);
 }
-// Re-draw the home list (used when bumps load or change)
+// Re-draw the home list (used when free spotlights load or change)
 function ksRerenderHome() {
   if (!allBizData || !allBizData.length) return;
   if (currentCatFilter === 'all') renderFromCache();
-  else renderBizList('home-biz-list', filterBiz(allBizData, currentCatFilter));
 }
 window.ksRerenderHome = ksRerenderHome;
+function filterBiz(list, cat) { return cat==='all' ? list : list.filter(b => b.type===cat); }
 function filterCat(el, cat) {
   document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active'); currentCatFilter = cat;
@@ -3042,10 +3044,7 @@ function filterCat(el, cat) {
   const now = new Date().toISOString();
   if (cat === 'all') {
     // Show spotlight section when on "All"
-    const spotlights = allBizData
-      .filter(b => b.spotlight_until && b.spotlight_until > now)
-      .sort((a,b) => (b.spotlight_until||'') > (a.spotlight_until||'') ? 1 : -1)
-      .slice(0, window.SPOTLIGHT_MAX_SLOTS || 3);
+    const spotlights = ksGetSpotlights();
     const spotSection = document.getElementById('spotlight-section');
     if (spotSection) {
       if (spotlights.length > 0) {
@@ -3080,8 +3079,7 @@ function renderBizList(containerId, bizList) {
       ? renderStars(b.rating||0) + `<span class="biz-review-count">${(b.rating||0).toFixed(1)} (${b.review_count})</span>`
       : '<span class="biz-review-count" style="color:var(--gray300);font-size:.7rem">No reviews yet</span>';
     const vpBadge = b.verified_plus ? '<span class="verified-plus-badge">✓ Verified+</span>' : '';
-    const sponTag = (b.category_sponsor ? '<span style="font-size:.62rem;background:#DBEAFE;color:#1D4ED8;padding:2px 7px;border-radius:10px;font-weight:700;margin-left:4px">Sponsored</span>' : '')
-      + (window.ksBoost && window.ksBoost.isBumped(b.id) ? '<span class="kb-boosted">⬆ Boosted</span>' : '');
+    const sponTag = b.category_sponsor ? '<span style="font-size:.62rem;background:#DBEAFE;color:#1D4ED8;padding:2px 7px;border-radius:10px;font-weight:700;margin-left:4px">Sponsored</span>' : '';
     const gallery = (b.gallery_urls||[]).filter(Boolean);
     const mainPhoto = b.cover_url || gallery[0] || b.logo_url || '';
     const sideShots = gallery.slice(0,3);
@@ -4509,6 +4507,7 @@ async function openSpotlightModal(bizId) {
           <div style="font-size:.78rem;color:var(--gray500);margin-top:4px;line-height:1.5">Your listing appears at the very top of the homepage for all tourists. Only 3 agencies can be spotlighted at once.</div>
         </div>
         <div style="margin:14px 0">${slotsHtml}</div>
+        ${slotsLeft > 0 ? `<div style="font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray500);margin:0 0 8px">💳 Buy Spotlight</div>` : ''}
         <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:18px">
           ${slotsLeft > 0 ? `
           <div style="border:2px solid var(--gray200);border-radius:12px;padding:14px;cursor:pointer;transition:.15s" onclick="buySpotlight('spotlight_1day',this,'${spotlightTargetBizId}')">
@@ -4531,10 +4530,13 @@ async function openSpotlightModal(bizId) {
             </div>
           </div>` : ''}
         </div>
+        <div id="ks-free-spot-opt"></div>
         <button onclick="closeSpotlightModal()" style="width:100%;padding:12px;border:none;border-radius:10px;background:var(--gray100);font-family:var(--font-body);font-size:.88rem;font-weight:600;cursor:pointer;color:var(--gray700)">Cancel</button>
       </div>
     </div>`;
   document.body.insertAdjacentHTML('beforeend', modalHtml);
+  // 2nd option: watch 2 ads → 1 hour free (only fills a slot nobody paid for)
+  if (window.ksBoost && window.ksBoost.renderFreeOption) window.ksBoost.renderFreeOption(spotlightTargetBizId, liveCount);
 }
 
 function closeSpotlightModal() {
