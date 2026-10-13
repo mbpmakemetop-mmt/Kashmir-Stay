@@ -8,9 +8,8 @@
                         category list for 1 hour (once a day — enforced by
                         Firestore rules, not just the app)
 
-   • Premium businesses get both WITHOUT watching ads (a reason to upgrade)
-   • Ads only work inside the Android app; on the website the buttons
-     point to the Play Store
+   • App only: on the website both tiles stay locked and a tap shows an
+     "available only in the app" popup with a Get App button
    • Bumps live in their own collection (bumps/{bizId}) so a bump never
      changes the business document → the SEO page isn't rebuilt each time
    ══════════════════════════════════════════════════════════════════ */
@@ -46,11 +45,6 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
 };
 
-function isPremium(b) {
-  if (!b || !b.is_premium) return false;
-  const exp = toMs(b.premium_expiry);
-  return !exp || exp > Date.now();
-}
 
 // ════════════════ ACTIVE BUMPS (used by the home list) ════════════════
 let bumps = new Map();   // bizId → until (ms)
@@ -115,6 +109,27 @@ function confirmAd(title, reward) {
     });
     document.body.appendChild(wrap);
   });
+}
+
+/** Website: these rewards need the app (ads only run there). */
+function appOnly(feature) {
+  feature = { stats: "Today's stats", bump: 'Bump to top' }[feature] || feature;
+  const wrap = document.createElement('div');
+  wrap.className = 'kb-modal';
+  wrap.innerHTML = `<div class="kb-sheet" role="dialog" aria-modal="true" aria-label="Available in the app">
+    <div class="kb-sheet-ic">📱</div>
+    <h3>Available only in the app</h3>
+    <p><b>${esc(feature)}</b> works in the Kashmir Stay Android app. Open your listing in the app and watch a short ad to unlock it.</p>
+    <div class="kb-sheet-btns">
+      <button class="kb-btn ghost" data-a="no">Not now</button>
+      <a class="kb-btn dark" data-a="go" href="${PLAY}" target="_blank" rel="noopener">▶ Get the app</a>
+    </div></div>`;
+  wrap.addEventListener('click', (e) => {
+    const a = e.target.closest('[data-a]');
+    if ((a && a.dataset.a === 'no') || e.target === wrap) wrap.remove();
+    else if (a && a.dataset.a === 'go') setTimeout(() => wrap.remove(), 300);
+  });
+  document.body.appendChild(wrap);
 }
 
 /** Resolves true only if the user watched the ad to the end. */
@@ -210,23 +225,23 @@ function render() {
   if (!box) return;
   const b = current.biz;
   if (!b || !current.isOwner || b.status !== 'approved') { box.style.display = 'none'; box.innerHTML = ''; return; }
-  const premium = isPremium(b);
+  const app = inApp();
   const now = Date.now();
 
   // ── stats tile
-  const sUntil = premium ? Infinity : statsUntil(b.id);
+  const sUntil = app ? statsUntil(b.id) : 0;   // website: always locked
   const statsOpen = sUntil > now;
   const statsTile = statsOpen
     ? `<div class="kb-tile on" id="kb-stats">
-        <div class="kb-t">📊 Today ${premium ? '<span class="kb-pill">Premium</span>' : ''}</div>
+        <div class="kb-t">📊 Today</div>
         <div class="kb-nums" id="kb-nums"><div><b>…</b><span>Views</span></div><div><b>…</b><span>WhatsApp</span></div><div><b>…</b><span>Calls</span></div></div>
-        <div class="kb-s">${premium ? 'Updates every ~30 min' : 'Unlocked till ' + dayTimeText(sUntil)}</div>
+        <div class="kb-s">Unlocked till ${dayTimeText(sUntil)} · updates every ~30 min</div>
       </div>`
     : `<div class="kb-tile" id="kb-stats">
         <div class="kb-t">📊 Today's stats</div>
         <div class="kb-s">See today's profile views, WhatsApp and call clicks.</div>
-        ${inApp() ? `<button class="kb-btn dark" onclick="ksBoost.unlockStats()">🎬 Watch ad · unlock</button>`
-                  : `<a class="kb-btn dark" href="${PLAY}" target="_blank" rel="noopener">▶ Unlock in the app</a>`}
+        ${app ? `<button class="kb-btn dark" onclick="ksBoost.unlockStats()">🎬 Watch ad · unlock</button>`
+              : `<button class="kb-btn dark" onclick="ksBoost.appOnly('stats')">🔒 Unlock</button>`}
       </div>`;
 
   // ── bump tile
@@ -240,15 +255,12 @@ function render() {
   } else if (lastAt && nextAt > now) {
     bumpBody = `<div class="kb-s">Used for today. Next bump available at ${dayTimeText(nextAt)}.</div>
       <button class="kb-btn ghost" disabled>⏳ Come back later</button>`;
-  } else if (premium) {
-    bumpBody = `<div class="kb-s">Top of the <b>${esc(b.type || 'category')}</b> list for 1 hour. Once a day.</div>
-      <button class="kb-btn gold" onclick="ksBoost.bump()">⬆ Bump now</button>`;
-  } else if (inApp()) {
+  } else if (app) {
     bumpBody = `<div class="kb-s">Top of the <b>${esc(b.type || 'category')}</b> list for 1 hour. Once a day.</div>
       <button class="kb-btn gold" onclick="ksBoost.bump()">🎬 Watch ad · bump</button>`;
   } else {
     bumpBody = `<div class="kb-s">Top of the <b>${esc(b.type || 'category')}</b> list for 1 hour. Once a day.</div>
-      <a class="kb-btn gold" href="${PLAY}" target="_blank" rel="noopener">▶ Bump in the app</a>`;
+      <button class="kb-btn gold" onclick="ksBoost.appOnly('bump')">🔒 Bump</button>`;
   }
   const bumpTile = `<div class="kb-tile${onTopUntil > now ? ' on' : ''}" id="kb-bump"><div class="kb-t">⬆ Bump to top</div>${bumpBody}</div>`;
 
@@ -275,6 +287,7 @@ let busy = false;
 async function unlockStats() {
   const b = current.biz;
   if (busy || !b || !current.isOwner) return;
+  if (!inApp()) { appOnly("Today's stats"); return; }
   if (!(await confirmAd("Unlock today's stats", "see today's views, WhatsApp and call clicks for the next 24 hours"))) return;
   busy = true;
   try {
@@ -289,16 +302,16 @@ async function unlockStats() {
 async function bump() {
   const b = current.biz;
   if (busy || !b || !current.isOwner || b.status !== 'approved') return;
-  const premium = isPremium(b);
+  if (!inApp()) { appOnly('Bump to top'); return; }
   // Never make someone watch an ad for a bump the rules will refuse
   if (myBump.id === b.id && myBump.lastAt && myBump.lastAt + BUMP_GAP_MS > Date.now()) {
     toast(`You can bump again at ${dayTimeText(myBump.lastAt + BUMP_GAP_MS)}.`);
     return;
   }
-  if (!premium && !(await confirmAd('Bump to top', `show ${b.name} at the top of the ${esc(b.type || 'category')} list for 1 hour`))) return;
+  if (!(await confirmAd('Bump to top', `show ${b.name} at the top of the ${b.type || 'category'} list for 1 hour`))) return;
   busy = true;
   try {
-    if (!premium && !(await watchAd())) return;
+    if (!(await watchAd())) return;
     try {
       await writeBump(b.id);
     } catch (e) {
@@ -330,7 +343,7 @@ function init() {
   const st = document.createElement('style');
   st.textContent = css;
   document.head.appendChild(st);
-  window.ksBoost = { onBizOpened, unlockStats, bump, isBumped, sortBumped, reload: loadBumps };
+  window.ksBoost = { onBizOpened, unlockStats, bump, appOnly, isBumped, sortBumped, reload: loadBumps };
   if (window._ksPendingBiz) onBizOpened(window._ksPendingBiz.b, window._ksPendingBiz.isOwner);
   const start = () => (db() && fs()) ? loadBumps() : setTimeout(start, 300);
   start();
