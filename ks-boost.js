@@ -210,6 +210,24 @@ async function renderFreeOption(bizId, paidLive) {
   box.innerHTML = optCard(sub, btn);
 }
 
+/** After Firebase refuses the save: find out WHY and say it plainly. */
+async function whyRefused(bizId, u, err) {
+  const code = String((err && err.code) || '');
+  if (!code.includes('permission')) return 'Could not start your free hour (' + (code || 'network') + ') — your ads are saved, please try again.';
+  const { getDoc, doc } = fs();
+  // 1) New rules make spot_boosts readable by everyone. Old rules block it.
+  try { await getDoc(doc(db(), 'spot_boosts', bizId)); }
+  catch (e2) { return 'Firestore rules are not published yet (spot_boosts blocked). Your ads are saved — publish the new rules, then tap Start.'; }
+  // 2) Rules are live → check owner + status
+  try {
+    const s = await getDoc(doc(db(), 'businesses', bizId));
+    const d = s.exists() ? s.data() : {};
+    if (d.user_id !== u.uid) return 'This Google account is not the owner of this business.';
+    if (d.status !== 'approved') return 'This business is not approved yet.';
+  } catch (e3) {}
+  return 'Free hour already used in the last 20 hours. Your ads are saved for 30 minutes.';
+}
+
 async function freeSpot(bizId, paidLive) {
   const b = (current.biz && current.biz.id === bizId) ? current.biz : (window.allBizData || []).find((x) => x.id === bizId);
   const u = window._currentUser || (window._auth && window._auth.currentUser);
@@ -240,11 +258,7 @@ async function freeSpot(bizId, paidLive) {
       await setDoc(doc(db(), 'spot_boosts', bizId), { biz_id: bizId, user_id: u.uid, last_at: serverTimestamp() });
     } catch (e) {
       console.warn('[ksBoost] free spot:', e.message);
-      // lastAt was checked before the ads, so a refusal here is not the daily limit —
-      // usually the new Firestore rules aren't deployed yet. Ads stay saved (30 min).
-      toast(String(e.code || '').includes('permission')
-        ? 'Server not ready for free Spotlight yet — your ads are saved, try again in a few minutes.'
-        : 'Could not start your free hour — your ads are saved, please try again.');
+      toast(await whyRefused(bizId, u, e));
       renderFreeOption(bizId, paidLive);
       return;
     }
