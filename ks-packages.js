@@ -102,8 +102,8 @@ const css = `
 #detail-packages-section .pk-row::-webkit-scrollbar{display:none}
 .pk-card{flex:0 0 78%;max-width:300px;scroll-snap-align:start;background:#fff;border:1px solid var(--gray200,#E5E7EB);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.05)}
 .pk-card.single{flex-basis:100%;max-width:none}
-.pk-img{position:relative;aspect-ratio:16/10;background:var(--gray100,#F3F4F6);cursor:pointer}
-.pk-img img{width:100%;height:100%;object-fit:cover;display:block}
+.pk-img{position:relative;aspect-ratio:16/10;height:auto;overflow:hidden;background:var(--gray100,#F3F4F6);cursor:pointer}
+.pk-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block}
 .pk-badge{position:absolute;left:8px;top:8px;background:rgba(17,17,17,.78);color:#fff;font-size:.68rem;font-weight:700;padding:4px 9px;border-radius:999px;backdrop-filter:blur(6px)}
 .pk-body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:5px;cursor:pointer}
 .pk-title{font-weight:700;font-size:.92rem;color:var(--primary,#1F1F1F);line-height:1.3}
@@ -130,14 +130,14 @@ const css = `
 .pk-type{border:1px solid var(--gray200,#E5E7EB);border-radius:12px;padding:8px 2px;text-align:center;font-size:.64rem;cursor:pointer;background:#fff;line-height:1.2}
 .pk-type .i{font-size:1.2rem;display:block;margin-bottom:2px}
 .pk-type.on{border-color:#16A34A;background:#F0FDF4;color:#166534;font-weight:700}
-.pk-imgbox{border:2px dashed var(--gray200,#E5E7EB);border-radius:14px;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;cursor:pointer;overflow:hidden;position:relative;color:var(--gray500,#6B7280);font-size:.8rem}
+.pk-imgbox{border:2px dashed var(--gray200,#E5E7EB);border-radius:14px;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;cursor:pointer;overflow:hidden;position:relative;color:var(--gray500,#6B7280);font-size:.8rem}
 .pk-imgbox img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .pk-row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .pk-day{display:flex;gap:6px;align-items:flex-start;margin-bottom:6px}
 .pk-day b{font-size:.74rem;min-width:44px;padding-top:9px;color:var(--gray500,#6B7280)}
 .pk-day textarea{flex:1;min-height:44px}
 .pk-count{font-size:.7rem;color:var(--gray400,#9CA3AF);text-align:right;margin-top:2px}
-.pk-detail-img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:14px;display:block;margin-bottom:12px;background:var(--gray100,#F3F4F6)}
+.pk-detail-img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:center 35%;border-radius:14px;display:block;margin-bottom:12px;background:var(--gray100,#F3F4F6)}
 .pk-detail ol{padding-left:20px;margin:6px 0 0}.pk-detail li{margin:5px 0;font-size:.84rem;line-height:1.5}
 `;
 const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
@@ -443,7 +443,7 @@ function edit(id) {
     <div class="form-group"><label class="form-label">Package type *</label>
       <div class="pk-types" id="pk-types">${TYPES.map((t) => `<div class="pk-type${t.id === d.type ? ' on' : ''}" data-v="${t.id}"><span class="i">${t.icon}</span>${esc(t.label)}</div>`).join('')}</div></div>
     <div class="form-group"><label class="form-label">Cover image * <span class="text-muted">(max 5 MB)</span></label>
-      <div class="pk-imgbox" id="pk-imgbox">${d.image_url ? `<img src="${esc(d.image_url)}" alt=""/>` : '<span style="font-size:1.6rem">🖼️</span><span>Tap to add a photo</span>'}</div>
+      <div class="pk-imgbox" id="pk-imgbox">${d.image_url ? `<img src="${esc(d.image_url)}" alt=""/>` : '<span style="font-size:1.6rem">🖼️</span><span>Tap to add a photo</span><span style="font-size:.7rem">Any size — it is cropped to fit automatically</span>'}</div>
       <input type="file" id="pk-file" accept="image/jpeg,image/png,image/webp" hidden/></div>
     <div class="form-group"><label class="form-label">Package title *</label>
       <input class="form-input" id="pk-title" maxlength="70" placeholder="e.g. Kashmir Honeymoon Package" value="${esc(d.title)}"/></div>
@@ -540,16 +540,22 @@ async function pickImage(f) {
   } catch (e) { toast('⚠️ Could not read this photo'); }
 }
 
-/** Resize to max 1600px and convert to WebP (≈150–300 KB) — fast pages rank better. */
+/** Centre-crop to 16:10 (same shape as every card), max 1600×1000, WebP (≈150–300 KB).
+    Every package/room photo then looks the same, whatever size the owner uploads. */
 async function compress(file) {
   const bmp = await createImageBitmap(file);
-  const scale = Math.min(1, 1600 / Math.max(bmp.width, bmp.height));
-  const w = Math.round(bmp.width * scale), h = Math.round(bmp.height * scale);
+  const R = 16 / 10;
+  let sw = bmp.width, sh = bmp.height, sx = 0, sy = 0;
+  if (sw / sh > R) { sw = Math.round(sh * R); sx = Math.round((bmp.width - sw) / 2); }       // too wide → trim sides
+  else { sh = Math.round(sw / R); sy = Math.round((bmp.height - sh) / 2.6); }                  // too tall → trim top/bottom (keep a bit more of the top, faces)
+  const w = Math.min(1600, sw), h = Math.round(w / R);
   const c = document.createElement('canvas'); c.width = w; c.height = h;
-  c.getContext('2d').drawImage(bmp, 0, 0, w, h);
-  const blob = await new Promise((r) => c.toBlob(r, 'image/webp', 0.8));
+  const ctx = c.getContext('2d'); ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(bmp, sx, sy, sw, sh, 0, 0, w, h);
+  if (bmp.close) bmp.close();
+  const blob = await new Promise((r) => c.toBlob(r, 'image/webp', 0.82));
   if (blob && blob.type === 'image/webp') return blob;
-  return new Promise((r) => c.toBlob(r, 'image/jpeg', 0.82));
+  return new Promise((r) => c.toBlob(r, 'image/jpeg', 0.85));
 }
 
 function readForm() {
