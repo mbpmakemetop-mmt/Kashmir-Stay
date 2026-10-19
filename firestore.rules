@@ -104,23 +104,42 @@ service cloud.firestore {
     match /packages/{pkgId} {
       function bizData(id) { return get(/databases/$(database)/documents/businesses/$(id)).data; }
 
-      function validPackage() {
-        let d = request.resource.data;
+      // Tour package (travel agencies) — no "kind" field, as before
+      function validTourPackage(d) {
         return d.keys().hasOnly(['biz_id','biz_name','user_id','slot','type','title','description',
                                  'image_url','image_path','nights','days','price','price_unit',
                                  'places','includes','itinerary','status','created_at','updated_at','page_url'])
           && d.type in ['honeymoon','couple','family','group','snow','adventure','budget','luxury','pilgrimage','custom']
+          && d.nights is int && d.nights >= 0 && d.nights <= 30
+          && d.days is int && d.days >= 0 && d.days <= 31
+          && d.price_unit in ['per person','per couple','per group']
+          && d.places is list && d.places.size() <= 20
+          && d.includes is list && d.includes.size() <= 20
+          && d.itinerary is list && d.itinerary.size() <= 15;
+      }
+
+      // Room (hotels, houseboats, resorts, guest houses…) — kind == 'room', same slots
+      function validRoom(d) {
+        return d.keys().hasOnly(['kind','biz_id','biz_name','user_id','slot','type','title','description',
+                                 'image_url','image_path','price','price_unit','guests','beds','meals','amenities',
+                                 'status','created_at','updated_at'])
+          && d.kind == 'room'
+          && d.type in ['standard','deluxe','superdeluxe','suite','family','hbroom','cottage','dorm']
+          && d.price_unit in ['per night','per person per night']
+          && d.guests is int && d.guests >= 1 && d.guests <= 20
+          && d.beds in ['Double bed','King bed','Twin beds','Single bed','Bunk beds']
+          && d.meals in ['Room only','Breakfast included','Breakfast & dinner','All meals']
+          && d.amenities is list && d.amenities.size() <= 20;
+      }
+
+      function validPackage() {
+        let d = request.resource.data;
+        return (d.get('kind', 'package') == 'room' ? validRoom(d) : validTourPackage(d))
           && d.title is string && d.title.size() >= 5 && d.title.size() <= 80
           && d.description is string && d.description.size() >= 20 && d.description.size() <= 400
           && d.image_url is string && d.image_url.matches('https://firebasestorage[.]googleapis[.]com/.*')
           && d.image_path is string && d.image_path.matches('packages/' + d.biz_id + '/.*')
-          && d.nights is int && d.nights >= 0 && d.nights <= 30
-          && d.days is int && d.days >= 0 && d.days <= 31
           && (d.price == null || (d.price is int && d.price >= 0 && d.price <= 10000000))
-          && d.price_unit in ['per person','per couple','per group']
-          && d.places is list && d.places.size() <= 20
-          && d.includes is list && d.includes.size() <= 20
-          && d.itinerary is list && d.itinerary.size() <= 15
           && d.status in ['live','hidden']
           && shortText(d.biz_name, 120);
       }
@@ -144,7 +163,7 @@ service cloud.firestore {
         && resource.data.user_id == request.auth.uid
         && bizData(resource.data.biz_id).user_id == request.auth.uid
         && validPackage()
-        && !changed().hasAny(['biz_id','user_id','slot','created_at','page_url']));
+        && !changed().hasAny(['biz_id','user_id','slot','created_at','page_url','kind']));
 
       allow delete: if isAdmin() || (signedIn() && resource.data.user_id == request.auth.uid);
     }
