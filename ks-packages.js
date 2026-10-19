@@ -92,14 +92,20 @@ let fabIconPkg = '';
 // ════════════════ STYLES ════════════════
 const css = `
 .ks-fab-green{background:linear-gradient(135deg,#16A34A,#15803D)}
-#detail-packages-section .pk-row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}
+#detail-packages-section .pk-row{display:flex;align-items:flex-start;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:2px 2px 8px;-webkit-overflow-scrolling:touch;cursor:grab}
+#detail-packages-section .pk-row.dragging{cursor:grabbing;scroll-snap-type:none;scroll-behavior:auto;user-select:none}
+.pk-scroller{position:relative}
+.pk-nav{position:absolute;top:34%;transform:translateY(-50%);z-index:3;width:38px;height:38px;border-radius:50%;border:1px solid var(--gray200,#E5E7EB);background:rgba(255,255,255,.96);box-shadow:0 2px 10px rgba(0,0,0,.15);display:none;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:#1F1F1F;cursor:pointer}
+.pk-nav.prev{left:-6px}.pk-nav.next{right:-6px}
+.pk-scroller.can-prev .pk-nav.prev,.pk-scroller.can-next .pk-nav.next{display:flex}
+.pk-count-hint{font-size:.72rem;color:var(--gray500,#6B7280);margin:2px 2px 0}
 #detail-packages-section .pk-row::-webkit-scrollbar{display:none}
 .pk-card{flex:0 0 78%;max-width:300px;scroll-snap-align:start;background:#fff;border:1px solid var(--gray200,#E5E7EB);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.05)}
 .pk-card.single{flex-basis:100%;max-width:none}
 .pk-img{position:relative;aspect-ratio:16/10;background:var(--gray100,#F3F4F6);cursor:pointer}
 .pk-img img{width:100%;height:100%;object-fit:cover;display:block}
 .pk-badge{position:absolute;left:8px;top:8px;background:rgba(17,17,17,.78);color:#fff;font-size:.68rem;font-weight:700;padding:4px 9px;border-radius:999px;backdrop-filter:blur(6px)}
-.pk-body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:5px;flex:1;cursor:pointer}
+.pk-body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:5px;cursor:pointer}
 .pk-title{font-weight:700;font-size:.92rem;color:var(--primary,#1F1F1F);line-height:1.3}
 .pk-meta{font-size:.76rem;color:var(--gray500,#6B7280)}
 .pk-price{font-weight:800;color:#15803D}
@@ -205,6 +211,45 @@ async function renderPublic(biz) {
     </article>`;
   }).join('');
   sec.style.display = 'block';
+  wireScroller(row, list.length);
+}
+
+/** Arrows (computer), mouse-drag and the hint, so the cards can be scrolled without a touch screen. */
+function wireScroller(row, n) {
+  let wrap = row.parentElement;
+  if (!wrap.classList.contains('pk-scroller')) {
+    wrap = document.createElement('div'); wrap.className = 'pk-scroller';
+    row.parentElement.insertBefore(wrap, row); wrap.appendChild(row);
+    const mk = (cls, label, dir) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'pk-nav ' + cls; b.setAttribute('aria-label', label);
+      b.textContent = dir < 0 ? '‹' : '›';
+      b.onclick = (e) => { e.stopPropagation(); const card = row.querySelector('.pk-card'); row.scrollBy({ left: dir * ((card ? card.offsetWidth : 260) + 12), behavior: 'smooth' }); };
+      wrap.appendChild(b);
+    };
+    mk('prev', 'Previous', -1); mk('next', 'Next', 1);
+    const hint = document.createElement('p'); hint.className = 'pk-count-hint'; wrap.appendChild(hint);
+    const upd = () => {
+      const max = row.scrollWidth - row.clientWidth;
+      wrap.classList.toggle('can-prev', row.scrollLeft > 4);
+      wrap.classList.toggle('can-next', row.scrollLeft < max - 4);
+    };
+    row.addEventListener('scroll', upd, { passive: true });
+    window.addEventListener('resize', upd);
+    // mouse drag (touch already swipes natively)
+    let down = false, sx = 0, sl = 0, moved = false;
+    row.addEventListener('mousedown', (e) => { down = true; moved = false; sx = e.pageX; sl = row.scrollLeft; });
+    window.addEventListener('mousemove', (e) => {
+      if (!down) return; const dx = e.pageX - sx;
+      if (Math.abs(dx) > 5) { moved = true; row.classList.add('dragging'); row.scrollLeft = sl - dx; }
+    });
+    window.addEventListener('mouseup', () => { if (!down) return; down = false; setTimeout(() => row.classList.remove('dragging'), 0); });
+    row.addEventListener('click', (e) => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);   // a drag isn't a tap
+    wrap._upd = upd;
+  }
+  const hint = wrap.querySelector('.pk-count-hint');
+  if (hint) hint.textContent = n > 1 ? `${n} ${n === 1 ? '' : 'options'} · swipe or use the arrows →` : '';
+  row.scrollLeft = 0;
+  requestAnimationFrame(() => wrap._upd && wrap._upd());
 }
 
 function roomCard(p, i, biz, wa, tel, n) {
