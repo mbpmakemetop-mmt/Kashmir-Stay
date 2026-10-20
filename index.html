@@ -219,13 +219,9 @@
 <!-- QR code lib -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
 
-<!-- Main CSS preload -->
-<link rel="preload" href="shared.css?v=4.2" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript>
-  <link rel="stylesheet" href="shared.css?v=4.2">
 <style>
 /* ══ Spotlight: "Featured in Kashmir" premium carousel ══ */
-.ksf{background:linear-gradient(180deg,#14110A 0%,#1F1A0E 100%);padding:16px 0 14px;margin:6px 0 10px;position:relative}
+.spotlight-section.ksf{background:linear-gradient(180deg,#14110A 0%,#1F1A0E 100%);padding:16px 0 14px;margin:6px 0 10px;position:relative}
 .ksf-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 16px 12px}
 .ksf-title{margin:0;color:#fff;font-family:var(--font-display,inherit);font-size:1.02rem;font-weight:800;display:flex;align-items:center;gap:9px;letter-spacing:-.01em}
 .ksf-crown{width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,#FCD34D,#F59E0B);display:inline-flex;align-items:center;justify-content:center;font-size:.9rem;box-shadow:0 2px 10px rgba(245,158,11,.35)}
@@ -261,6 +257,11 @@
 .ksf-nav.prev{left:6px}.ksf-nav.next{right:6px}
 @media (hover:hover) and (pointer:fine){.ksf.multi .ksf-nav{display:flex}}
 </style>
+<!-- Main CSS preload -->
+<link rel="preload" href="shared.css?v=4.2" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="shared.css?v=4.2">
+
 </noscript>
 
 <!-- ═══ CAPACITOR APK FIX — safe-area for status bar overlap ═══
