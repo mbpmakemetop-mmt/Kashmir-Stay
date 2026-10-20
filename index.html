@@ -223,6 +223,44 @@
 <link rel="preload" href="shared.css?v=4.2" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript>
   <link rel="stylesheet" href="shared.css?v=4.2">
+<style>
+/* ══ Spotlight: "Featured in Kashmir" premium carousel ══ */
+.ksf{background:linear-gradient(180deg,#14110A 0%,#1F1A0E 100%);padding:16px 0 14px;margin:6px 0 10px;position:relative}
+.ksf-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 16px 12px}
+.ksf-title{margin:0;color:#fff;font-family:var(--font-display,inherit);font-size:1.02rem;font-weight:800;display:flex;align-items:center;gap:9px;letter-spacing:-.01em}
+.ksf-crown{width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,#FCD34D,#F59E0B);display:inline-flex;align-items:center;justify-content:center;font-size:.9rem;box-shadow:0 2px 10px rgba(245,158,11,.35)}
+.ksf-tag{color:#D6B66B;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.ksf-wrap{position:relative}
+.ksf-rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 16px;padding:2px 16px 6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.ksf-rail::-webkit-scrollbar{display:none}
+.ksf-card{flex:0 0 86%;max-width:420px;height:330px;border-radius:20px;position:relative;overflow:hidden;scroll-snap-align:start;cursor:pointer;
+  border:1.5px solid rgba(252,211,77,.6);box-shadow:0 10px 28px rgba(0,0,0,.45);background:#2A2416;color:#fff;isolation:isolate}
+.ksf-rail.single .ksf-card{flex-basis:100%;max-width:none}
+.ksf-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;z-index:-2;transition:transform .6s ease}
+.ksf-card:hover .ksf-photo{transform:scale(1.04)}
+.ksf-noimg{position:absolute;inset:0;z-index:-2;background:radial-gradient(120% 90% at 20% 10%,#5B4A1E 0%,#2A2416 55%,#14110A 100%)}
+.ksf-shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.28) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,.25) 50%,rgba(0,0,0,.88) 82%)}
+.ksf-rib{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,#FDE68A,#F59E0B);color:#3B2A05;font-weight:800;font-size:.64rem;letter-spacing:.09em;padding:5px 10px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.ksf-ver{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.94);color:#15803D;font-size:.64rem;font-weight:800;padding:5px 9px;border-radius:999px}
+.ksf-ver.govt{color:#1D4ED8}
+.ksf-body{position:absolute;left:0;right:0;bottom:0;padding:14px}
+.ksf-row{display:flex;gap:10px;align-items:center;min-width:0}
+.ksf-logo{width:46px;height:46px;border-radius:12px;background:#fff;border:2px solid #FCD34D;flex-shrink:0;object-fit:cover;display:flex;align-items:center;justify-content:center;font-weight:800;color:#B45309;font-size:1.1rem}
+.ksf-name{display:block;font-size:1.08rem;font-weight:800;line-height:1.22;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 4px rgba(0,0,0,.35)}
+.ksf-type{display:block;font-size:.76rem;opacity:.88;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ksf-meta{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:.76rem;margin:9px 0 11px;opacity:.95}
+.ksf-meta .g{color:#FCD34D;font-weight:800}
+.ksf-btns{display:flex;gap:8px}
+.ksf-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:42px;border-radius:12px;font-size:.84rem;font-weight:700;text-decoration:none;border:0;cursor:pointer;font-family:inherit}
+.ksf-btn.wa{background:#25D366;color:#073B1C}
+.ksf-btn.vw{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.32);backdrop-filter:blur(6px)}
+.ksf-dots{display:flex;justify-content:center;gap:6px;margin-top:10px;min-height:7px}
+.ksf-dots button{width:7px;height:7px;padding:0;border:0;border-radius:99px;background:rgba(255,255,255,.3);cursor:pointer;transition:width .25s,background .25s}
+.ksf-dots button.on{width:20px;background:#FCD34D}
+.ksf-nav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:1px solid rgba(252,211,77,.5);background:rgba(20,17,10,.75);color:#FCD34D;font-size:1.3rem;font-weight:700;display:none;align-items:center;justify-content:center;cursor:pointer;z-index:2}
+.ksf-nav.prev{left:6px}.ksf-nav.next{right:6px}
+@media (hover:hover) and (pointer:fine){.ksf.multi .ksf-nav{display:flex}}
+</style>
 </noscript>
 
 <!-- ═══ CAPACITOR APK FIX — safe-area for status bar overlap ═══
@@ -506,13 +544,18 @@
     </div>
 
   <!-- ══ SPOTLIGHT SECTION ══ -->
-    <div class="spotlight-section" id="spotlight-section" style="display:none">
-      <div class="section-header" style="padding:0 0 8px">
-        <h2 class="section-title">⭐ Spotlight</h2>
-        <span style="font-size:.72rem;color:var(--gray400);font-weight:500">Featured listings</span>
+    <section class="spotlight-section ksf" id="spotlight-section" style="display:none" aria-label="Featured businesses">
+      <div class="ksf-head">
+        <h2 class="ksf-title"><span class="ksf-crown" aria-hidden="true">👑</span>Featured in Kashmir</h2>
+        <span class="ksf-tag" id="ksf-count">Spotlight</span>
       </div>
-      <div id="spotlight-list"></div>
-    </div>
+      <div class="ksf-wrap">
+        <div class="ksf-rail" id="spotlight-list"></div>
+        <button type="button" class="ksf-nav prev" aria-label="Previous" onclick="ksfGo(-1)">‹</button>
+        <button type="button" class="ksf-nav next" aria-label="Next" onclick="ksfGo(1)">›</button>
+      </div>
+      <div class="ksf-dots" id="ksf-dots"></div>
+    </section>
 
     <div class="section">
       <div class="section-header">
@@ -4373,41 +4416,89 @@ if ('serviceWorker' in navigator) {
 //  SPOTLIGHT RENDER
 // ══════════════════════════════════════════════
 function renderSpotlightList(spots) {
-  const c = document.getElementById('spotlight-list');
-  if (!c) return;
-  c.innerHTML = spots.map(b => {
+  const rail = document.getElementById('spotlight-list');
+  const sec  = document.getElementById('spotlight-section');
+  if (!rail || !sec) return;
+  const n = spots.length;
+  rail.classList.toggle('single', n === 1);
+  sec.classList.toggle('multi', n > 1);
+  const cnt = document.getElementById('ksf-count');
+  if (cnt) cnt.textContent = n > 1 ? `Spotlight · ${n}` : 'Spotlight';
+
+  rail.innerHTML = spots.map((b, i) => {
     const until  = new Date(b.spotlight_until);
-    const diffMs = until - Date.now();
+    const diffMs = Math.max(0, until - Date.now());
     const hrs    = Math.floor(diffMs / 3600000);
     const mins   = Math.floor((diffMs % 3600000) / 60000);
-    const timeStr = hrs > 24
-      ? Math.floor(hrs/24) + 'd ' + (hrs%24) + 'h left'
-      : hrs + 'h ' + mins + 'm left';
-    const vpBadge = b.verified_plus ? '<span class="verified-plus-badge">✓ Verified+</span>' : '';
-    const topSvcs = (b.services||[]).slice(0,3);
-    const rHtml   = b.review_count > 0
-      ? renderStars(b.rating||0) + `<span class="biz-review-count">${(b.rating||0).toFixed(1)} (${b.review_count})</span>`
-      : '';
+    const timeStr = hrs >= 24 ? Math.floor(hrs / 24) + 'd ' + (hrs % 24) + 'h left' : hrs + 'h ' + mins + 'm left';
+    const photo = b.cover_url || (b.gallery_urls || []).find(Boolean) || '';
+    const name  = escapeHtml(b.name || '');
+    const type  = escapeHtml([b.type, (b.address || '').split(',')[0]].filter(Boolean).join(' · '));
+    const logo  = b.logo_url
+      ? `<img class="ksf-logo" src="${escapeHtml(b.logo_url)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"/>`
+      : `<span class="ksf-logo">${name.charAt(0) || '★'}</span>`;
+    const verified = b.is_govt_verified ? '<span class="ksf-ver govt">🏛️ Govt Verified</span>'
+                   : (b.is_verified || b.status === 'approved') ? '<span class="ksf-ver">✔ Verified</span>' : '';
+    const rating = b.review_count > 0
+      ? `<span class="g">★ ${(b.rating || 0).toFixed(1)}</span><span>(${b.review_count} review${b.review_count !== 1 ? 's' : ''})</span>` : '<span class="g">★ New</span>';
+    let wa = String(b.whatsapp || b.phone || '').replace(/\D/g, '').replace(/^0+/, '');
+    if (wa.length === 10) wa = '91' + wa;
+    const msg = encodeURIComponent(`Hi ${b.name}, I found you on Kashmir Stay and would like to enquire.`);
     return `
-    <div class="card spotlight-card" onclick="openBizDetail('${b.id}')">
-      <div class="spotlight-badge">⭐ Spotlight</div>
-      <div class="biz-card" style="padding-top:22px">
-        <img class="biz-logo" src="${b.logo_url||''}" alt="${escapeHtml(b.name)}" loading="lazy" onerror="this.style.background='var(--gray200)'"/>
-        <div class="biz-info">
-          <div class="biz-name-row"><div class="biz-name">${escapeHtml(b.name)}${vpBadge}</div>${getVerifyBadgeHtml(b)}</div>
-          <span class="biz-type">${escapeHtml(b.type||'')}</span>
-          ${b.description?`<div class="biz-desc">${escapeHtml(b.description)}</div>`:''}
-          <div class="biz-meta">${rHtml}</div>
-          ${b.address?`<div style="display:flex;align-items:center;gap:4px;margin-top:4px"><span style="font-size:.75rem">📍</span><span class="biz-addr">${escapeHtml(b.address)}</span></div>`:''}
-          <div class="spotlight-timer">⏱ ${timeStr}</div>
+    <article class="ksf-card" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${n}: ${name}" onclick="openBizDetail('${b.id}')">
+      ${photo ? `<img class="ksf-photo" src="${escapeHtml(photo)}" alt="${name}" loading="${i === 0 ? 'eager' : 'lazy'}"/>` : '<span class="ksf-noimg"></span>'}
+      <span class="ksf-shade"></span>
+      <span class="ksf-rib">★ SPOTLIGHT</span>${verified}
+      <div class="ksf-body">
+        <div class="ksf-row">${logo}<div style="min-width:0"><span class="ksf-name">${name}</span><span class="ksf-type">${type}</span></div></div>
+        <div class="ksf-meta">${rating}<span>· ⏱ ${timeStr}</span></div>
+        <div class="ksf-btns">
+          ${wa.length >= 11 ? `<a class="ksf-btn wa" href="https://wa.me/${wa}?text=${msg}" target="_blank" rel="noopener" onclick="event.stopPropagation();trackEvent('${b.id}','whatsapp')">💬 WhatsApp</a>` : ''}
+          <button type="button" class="ksf-btn vw" onclick="event.stopPropagation();openBizDetail('${b.id}')">View profile →</button>
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:0 14px 14px">
-        ${topSvcs.length ? `<div class="biz-card-footer" style="flex:1;padding:0;border:none">${topSvcs.map(s=>`<span class="biz-tag">${escapeHtml(s)}</span>`).join('')}</div>` : '<div style="flex:1"></div>'}
-        <span style="font-size:.74rem;font-weight:700;color:#fff;background:var(--card-navy);padding:7px 16px;border-radius:20px;white-space:nowrap;margin-left:auto;flex-shrink:0;display:inline-flex;align-items:center;gap:5px">View More <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </div>`;
+    </article>`;
   }).join('');
+
+  const dots = document.getElementById('ksf-dots');
+  if (dots) dots.innerHTML = n > 1 ? spots.map((_, i) => `<button type="button" aria-label="Show ${i + 1}" onclick="ksfGo(0, ${i})"${i === 0 ? ' class="on"' : ''}></button>`).join('') : '';
+  rail.scrollLeft = 0;
+  ksfStart(n);
+}
+
+// carousel: dots follow the swipe, auto-advance every 4.5 s, pause while the user touches it
+let _ksfTimer = null, _ksfPauseUntil = 0;
+function ksfIndex() {
+  const rail = document.getElementById('spotlight-list'); const card = rail && rail.querySelector('.ksf-card');
+  if (!card) return 0;
+  return Math.round(rail.scrollLeft / (card.offsetWidth + 12));
+}
+function ksfGo(step, to) {
+  const rail = document.getElementById('spotlight-list'); if (!rail) return;
+  const cards = rail.querySelectorAll('.ksf-card'); if (!cards.length) return;
+  let i = typeof to === 'number' ? to : ksfIndex() + step;
+  if (i >= cards.length) i = 0; if (i < 0) i = cards.length - 1;
+  rail.scrollTo({ left: cards[i].offsetLeft - 16, behavior: 'smooth' });
+  if (typeof to === 'number' || step) _ksfPauseUntil = Date.now() + 8000;
+}
+function ksfDots() {
+  const i = ksfIndex();
+  document.querySelectorAll('#ksf-dots button').forEach((d, k) => d.classList.toggle('on', k === i));
+}
+function ksfStart(n) {
+  const rail = document.getElementById('spotlight-list'); if (!rail) return;
+  if (!rail._ksfWired) {
+    rail._ksfWired = true;
+    rail.addEventListener('scroll', () => { clearTimeout(rail._t); rail._t = setTimeout(ksfDots, 60); }, { passive: true });
+    ['touchstart', 'mouseenter', 'pointerdown'].forEach(ev => rail.addEventListener(ev, () => { _ksfPauseUntil = Date.now() + 8000; }, { passive: true }));
+  }
+  clearInterval(_ksfTimer);
+  if (n > 1) _ksfTimer = setInterval(() => {
+    const sec = document.getElementById('spotlight-section');
+    if (Date.now() < _ksfPauseUntil || document.hidden || !sec || sec.offsetParent === null) return;
+    ksfGo(1);
+    _ksfPauseUntil = 0;
+  }, 4500);
 }
 
 // ══════════════════════════════════════════════
